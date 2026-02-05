@@ -413,7 +413,8 @@
                 <a href="#about"><span class="text-accent">01.</span> About</a>
                 <a href="#experience"><span class="text-accent">02.</span> Experience</a>
                 <a href="#projects"><span class="text-accent">03.</span> Work</a>
-                <a href="#contact"><span class="text-accent">04.</span> Contact</a>
+                <a href="#writing"><span class="text-accent">04.</span> Writing</a>
+                <a href="#contact"><span class="text-accent">05.</span> Contact</a>
             </div>
         </nav>
 
@@ -454,6 +455,8 @@
                     <h3 class="mono" style="font-size: 1rem; margin-bottom: 1rem;">Here are a few technologies I've been
                         working with recently:</h3>
                     <div class="skills-list">
+                        <span class="skill-tag">Systems Programming</span>
+                        <span class="skill-tag">Rust</span>
                         <span class="skill-tag">JavaScript (ES6+)</span>
                         <span class="skill-tag">TypeScript</span>
                         <span class="skill-tag">React.js / Next.js</span>
@@ -495,7 +498,112 @@
             <h2 class="section-title"><span>03.</span> Some Things I've Built</h2>
             <div class="project-grid">
 
-                <!-- Project 1 -->
+                <!-- Project 1: Local Lens -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://uttamgupta2712.github.io/Local-Lens/" target="_blank" title="Live Site"><i
+                                    class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Local Lens</h3>
+                    <p class="project-desc">
+                        A privacy-first, offline AI tool for organizing photos. Features smart search using ResNet50
+                        object detection and OCR for text extraction.
+                    </p>
+                    <div class="project-tech">
+                        <span>Electron</span>
+                        <span>React</span>
+                        <span>TensorFlow.js</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: Load Balancer -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" title="GitHub"><i
+                                    class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Load Balancer (Rust)</h3>
+                    <p class="project-desc">
+                        High-performance modular load balancer built with Rust. Supports multiple algorithms like Round
+                        Robin, Weighted Round Robin, and IP Hash.
+                    </p>
+                    <div class="project-tech">
+                        <span>Rust</span>
+                        <span>Tokio</span>
+                        <span>Hyper</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Axon -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://uttamgupta2712.github.io/axon/" target="_blank" title="Live Site"><i
+                                    class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Axon</h3>
+                    <p class="project-desc">
+                        AI-powered Chrome extension acting as a vision layer for the web. Enables visual Q&A,
+                        content summarization, and contextual autofill.
+                    </p>
+                    <div class="project-tech">
+                        <span>GPT-4o Vision</span>
+                        <span>Chrome API</span>
+                        <span>React</span>
+                    </div>
+                </div>
+
+                <!-- Project 4: Redis Lite -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" title="GitHub"><i
+                                    class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Redis Lite</h3>
+                    <p class="project-desc">
+                        A lightweight, multi-threaded implementation of the Redis protocol in Rust. Handles concurrent
+                        TCP connections and core KV commands.
+                    </p>
+                    <div class="project-tech">
+                        <span>Rust</span>
+                        <span>Concurrency</span>
+                        <span>TCP/IP</span>
+                    </div>
+                </div>
+
+                <!-- Project 5: Ask AI Web -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://ask-ai-web.vercel.app/" target="_blank" title="Live Site"><i
+                                    class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Ask AI Web</h3>
+                    <p class="project-desc">
+                        A seamless chat interface for LLMs and Custom GPTs. Features a modern dark UI, chat history,
+                        and optimized streaming responses.
+                    </p>
+                    <div class="project-tech">
+                        <span>Next.js</span>
+                        <span>Vercel AI SDK</span>
+                        <span>Tailwind</span>
+                    </div>
+                </div>
+
+                <!-- Project 6: GoGlimp (Keeping one major previous work) -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fa-regular fa-folder folder-icon"></i>
@@ -506,101 +614,45 @@
                     </div>
                     <h3 class="project-title">GoGlimp</h3>
                     <p class="project-desc">
-                        Stealth AI copilot for interviews. Core engineer responsible for the website and software
-                        architecture.
+                        Stealth AI copilot for interviews. Core software architecture and WebSocket implementation.
                     </p>
                     <div class="project-tech">
-                        <span>AI</span>
                         <span>WebSockets</span>
                         <span>React</span>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://www.cogitaas.com" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Cogitaas</h3>
-                    <p class="project-desc">
-                        Framer-based UI implementation. Primary developer for the website, ensuring pixel-perfect design
-                        translation.
-                    </p>
-                    <div class="project-tech">
-                        <span>Framer</span>
-                        <span>React</span>
-                        <span>UI/UX</span>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://mock-server-free.vercel.app/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Mock Server</h3>
-                    <p class="project-desc">
-                        Developed a Mock Server extension/tool to facilitate frontend testing and decouple development
-                        dependencies.
-                    </p>
-                    <div class="project-tech">
-                        <span>Tooling</span>
                         <span>Node.js</span>
-                        <span>Testing</span>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <!-- No link provided in CV for extension, keeping empty or placeholder -->
-                            <!-- <a href="#" target="_blank"><i class="fa-solid fa-external-link-alt"></i></a> -->
-                        </div>
-                    </div>
-                    <h3 class="project-title">Chrome Extension AI</h3>
-                    <p class="project-desc">
-                        Developed and published an AI assistant Chrome extension. Features context-aware prompting.
-                        (Under Review).
-                    </p>
-                    <div class="project-tech">
-                        <span>Chrome API</span>
-                        <span>AI</span>
-                        <span>JavaScript</span>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                    </div>
-                    <h3 class="project-title">Infrastructure Optimization</h3>
-                    <p class="project-desc">
-                        Built custom local containerized server infrastructure to eliminate high cloud testing costs.
-                    </p>
-                    <div class="project-tech">
-                        <span>Docker</span>
-                        <span>DevOps</span>
-                        <span>Cost-Optimization</span>
                     </div>
                 </div>
 
             </div>
         </section>
 
+        <!-- Writing / Blog -->
+        <section id="writing">
+            <h2 class="section-title"><span>04.</span> Writing</h2>
+            <div class="project-grid">
+                <a href="https://medium.com/@uttamgupta2712" target="_blank"
+                    style="text-decoration: none; display: block;" class="project-card">
+                    <div class="project-header">
+                        <i class="fa-brands fa-medium folder-icon"></i>
+                        <div class="project-links">
+                            <i class="fa-solid fa-external-link-alt" style="color: var(--text-secondary);"></i>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Medium Blog</h3>
+                    <p class="project-desc">
+                        I write about Cybersecurity, Systems Engineering, and Growth. Recent topics include bypassing
+                        WAFs, exploiting open ports, and RabbitMQ vs Kafka.
+                    </p>
+                    <div class="project-tech" style="margin-top: 1rem;">
+                        <span>Read Articles →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
         <!-- Contact -->
         <section id="contact">
-            <h2 class="section-title" style="justify-content: center; text-align: center;"><span>04.</span> Get In Touch
+            <h2 class="section-title" style="justify-content: center; text-align: center;"><span>05.</span> Get In Touch
             </h2>
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 1.1rem;">
