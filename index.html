@@ -430,7 +430,7 @@
             </p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn btn-primary">Check out my work</a>
-                <a href="/cv" target="_blank" class="btn btn-secondary">View CV</a>
+                <a href="https://uttamgupta2712.github.io/cv/" target="_blank" class="btn btn-secondary">View CV</a>
             </div>
         </section>
 
@@ -464,6 +464,7 @@
                         <span class="skill-tag">Docker / Kubernetes</span>
                         <span class="skill-tag">RabbitMQ</span>
                         <span class="skill-tag">PostgreSQL / MongoDB</span>
+                        <span class="skill-tag">GitLab CI/CD</span>
                     </div>
                 </div>
                 <!-- Optional: Add Profile Image here if available later -->
@@ -629,24 +630,29 @@
         <!-- Writing / Blog -->
         <section id="writing">
             <h2 class="section-title"><span>04.</span> Writing</h2>
-            <div class="project-grid">
-                <a href="https://medium.com/@uttamgupta2712" target="_blank"
-                    style="text-decoration: none; display: block;" class="project-card">
-                    <div class="project-header">
-                        <i class="fa-brands fa-medium folder-icon"></i>
-                        <div class="project-links">
-                            <i class="fa-solid fa-external-link-alt" style="color: var(--text-secondary);"></i>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Medium Blog</h3>
-                    <p class="project-desc">
-                        I write about Cybersecurity, Systems Engineering, and Growth. Recent topics include bypassing
-                        WAFs, exploiting open ports, and RabbitMQ vs Kafka.
+            <div id="blog-container" class="project-grid">
+                <!-- Blog posts will be loaded here dynamically -->
+                <div class="project-card" style="text-align: center; color: var(--text-secondary);">
+                    <p><i class="fa-solid fa-spinner fa-spin"></i> Loading articles...</p>
+                </div>
+            </div>
+            <!-- Prominent Footer Card -->
+            <div style="margin-top: 2rem;">
+                <div class="project-card"
+                    style="text-align: center; padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <i class="fa-brands fa-medium"
+                        style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1.5rem;"></i>
+                    <h3 class="project-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Explore My Tech Blog</h3>
+                    <p class="project-desc" style="max-width: 500px; margin-bottom: 2rem; font-size: 1rem;">
+                        I write in-depth articles about Systems Engineering, Distributed Systems (Kafka vs RabbitMQ),
+                        and
+                        Cybersecurity.
                     </p>
-                    <div class="project-tech" style="margin-top: 1rem;">
-                        <span>Read Articles →</span>
-                    </div>
-                </a>
+                    <a href="https://medium.com/@uttamgupta2712" target="_blank" class="btn btn-primary"
+                        style="font-size: 1rem; padding: 1rem 2rem;">
+                        Read Articles on Medium <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -724,6 +730,76 @@
         document.querySelectorAll('.project-card, .experience-card').forEach(card => {
             cardObserver.observe(card);
         });
+
+        // Dynamic Blog Fetching
+        async function fetchMediumPosts() {
+            const container = document.getElementById('blog-container');
+            const RSS_URL = 'https://medium.com/feed/@uttamgupta2712';
+            const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                if (data.status === 'ok') {
+                    // Ensure grid display is active if data loads
+                    container.style.display = 'grid';
+                    container.innerHTML = ''; // Clear loading state
+
+                    // Take top 3 items
+                    const items = data.items.slice(0, 3);
+
+                    items.forEach(item => {
+                        // Create card
+                        const card = document.createElement('a');
+                        card.href = item.link;
+                        card.target = '_blank';
+                        card.className = 'project-card';
+                        card.style.textDecoration = 'none';
+                        card.style.display = 'flex';
+                        card.style.flexDirection = 'column';
+
+                        // Extract date
+                        const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+
+                        // Extract main categories (first 3)
+                        const categories = item.categories.slice(0, 3).map(cat => `<span>${cat}</span>`).join('');
+
+                        card.innerHTML = `
+                            <div class="project-header" style="margin-bottom: 0.5rem;">
+                                <i class="fa-brands fa-medium folder-icon"></i>
+                                <div class="project-links">
+                                    <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-secondary);">${date}</span>
+                                </div>
+                            </div>
+                            <h3 class="project-title" style="font-size: 1.1rem; margin-bottom: 0.5rem;">${item.title}</h3>
+                            <div class="project-tech" style="margin-top: auto;">
+                                ${categories}
+                            </div>
+                        `;
+
+                        container.appendChild(card);
+
+                        // Observe the new card for animation
+                        cardObserver.observe(card);
+                    });
+                } else {
+                    throw new Error('Failed to fetch feed');
+                }
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+
+                // Hide the container to collapse space, letting the prominent footer card be the sole focus
+                container.style.display = 'none';
+            }
+        }
+
+        // Call the function
+        fetchMediumPosts();
     </script>
 </body>
 
