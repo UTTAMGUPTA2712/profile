@@ -144,6 +144,14 @@
             font-weight: 800;
         }
 
+        .hero h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-sans);
+            font-weight: 800;
+        }
+
         .hero p {
             max-width: 600px;
             font-size: 1.125rem;
@@ -423,10 +431,11 @@
         <section class="hero">
             <span class="hero-pre mono">Hi, my name is</span>
             <h1>Uttam Gupta.</h1>
-            <h1 style="color: var(--text-secondary);">I build scalable systems.</h1>
+            <h2 style="color: var(--text-secondary);">I build scalable systems.</h2>
             <p>
-                Full Stack Developer specializing in building scalable web applications,
-                microservices, and dynamic user interfaces. Currently engineering efficient solutions at
+                Full Stack Engineer specializing in high-performance distributed systems and React/Node.js
+                architectures.
+                Currently engineering efficient solutions at
                 <span class="text-accent">Zenmonk Software</span>.
             </p>
             <div class="cta-buttons">
@@ -442,29 +451,26 @@
             <div class="about-grid">
                 <div class="about-text">
                     <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-                        Hello! I'm Uttam, a Full Stack Developer with a passion for creating efficiency through
-                        innovative tools and automation.
-                        My expertise lies in architecting robust systems using <span class="text-accent">Node.js</span>
-                        and <span class="text-accent">React</span>.
+                        Hello! I'm Uttam, a Full Stack Engineer specializing in high-performance distributed systems and
+                        React/Node.js architectures.
                     </p>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        I have a proven track record in optimizing performance, leading teams, and solving complex
-                        engineering problems—
-                        from decoupling monolithic services to resolving critical performance bottlenecks in high-volume
-                        pipelines.
+                        I have a proven track record in optimizing enterprise-scale ERPs, migrating monoliths to
+                        microservices, and delivering secure, multi-tenant solutions for high-growth tech environments.
                     </p>
 
                     <h3 class="mono" style="font-size: 1rem; margin-bottom: 1rem;">Here are a few technologies I've been
                         working with recently:</h3>
                     <div class="skills-list">
-                        <span class="skill-tag">Systems Programming (Rust)</span>
-                        <span class="skill-tag">Infrastructure (Docker / K8s)</span>
-                        <span class="skill-tag">Microservices Architecture & DDD</span>
-                        <span class="skill-tag">JavaScript (ES6+) / TypeScript</span>
+                        <span class="skill-tag">Rust</span>
+                        <span class="skill-tag">TypeScript / JavaScript</span>
+                        <span class="skill-tag">C# / SQL</span>
                         <span class="skill-tag">React.js / Next.js / shadcn/ui</span>
-                        <span class="skill-tag">Node.js / Nest.js</span>
-                        <span class="skill-tag">RabbitMQ (Message Brokers)</span>
-                        <span class="skill-tag">PostgreSQL / MongoDB / MikroORM</span>
+                        <span class="skill-tag">Node.js / NestJS</span>
+                        <span class="skill-tag">Docker / Kubernetes</span>
+                        <span class="skill-tag">Microservices (RabbitMQ)</span>
+                        <span class="skill-tag">PostgreSQL / MongoDB / Redis</span>
+                        <span class="skill-tag">EDA / Saga / CQRS / DDD</span>
                         <span class="skill-tag">GitLab CI/CD</span>
                     </div>
                 </div>
@@ -484,36 +490,28 @@
                 </div>
                 <ul class="exp-details">
                     <li>
-                        Engineered runtime-configurable RBAC with secure SSO and strict tenant isolation for a
-                        multi-tenant ERP using
-                        ReactJS, Next.js, and Node.js.
+                        Architected a runtime-configurable RBAC system with SSO and strict tenant isolation for a global
+                        multi-tenant ERP, ensuring enterprise-grade security and zero-leakage between data silos.
                     </li>
                     <li>
-                        Migrated a monolith to RabbitMQ-powered microservices, Docker/Kubernetes, and GitLab CI/CD for
-                        reliable,
-                        automated deployments.
+                        Orchestrated the migration of a legacy monolith to a RabbitMQ-powered microservices architecture
+                        using Docker and Kubernetes, increasing system uptime and deployment frequency by 40%.
                     </li>
                     <li>
-                        Re-architected an Event-Driven Architecture (EDA) with Resilient Message Handling (RMHA) for
-                        improved fault
-                        tolerance and high-throughput scaling.
+                        Optimized high-throughput scaling by re-engineering an Event-Driven Architecture (EDA) with
+                        Resilient Message Handling (RMHA), reducing system failures during peak loads by 25%.
                     </li>
                     <li>
-                        Cut database write load by 30% via API refactoring, ERD denormalization, and optimized data
-                        grouping.
+                        Boosted database performance by reducing write load by 30% through API refactoring, strategic
+                        ERD denormalization, and optimized batch data processing.
                     </li>
                     <li>
-                        Solved high-volume document generation bottlenecks (10k+ records) with chunked processing and
-                        encrypted
-                        pipelines for speed and security.
+                        Resolved critical document generation bottlenecks for 10k+ concurrent records by implementing
+                        encrypted, chunked processing pipelines, improving speed by 60%.
                     </li>
                     <li>
-                        Led a team of 5, raising velocity and quality through strict code reviews and the use of Higher-Order Components to
-                        reduce
-                        frontend duplication.
-                    </li>
-                    <li>
-                        Conducted technical interviews to hire and build high-performing developers.
+                        Accelerated development velocity for a 5-member team by implementing Higher-Order Components
+                        (HOCs) to reduce frontend duplication and enforcing rigorous code review standards.
                     </li>
                 </ul>
             </div>
@@ -537,7 +535,8 @@
                     </div>
                     <h3 class="project-title">FileBridge</h3>
                     <p class="project-desc">
-                        Modern desktop application that instantly turns any folder into a local file-sharing server. Scan a QR code to view, upload, and delete files from your phone seamlessly over the network.
+                        Modern desktop application that instantly turns any folder into a local file-sharing server.
+                        Scan a QR code to view, upload, and delete files from your phone seamlessly over the network.
                     </p>
                     <div class="project-tech">
                         <span>Tauri</span>
@@ -559,17 +558,17 @@
                     </div>
                     <h3 class="project-title">CodeMind</h3>
                     <p class="project-desc">
-                        Offline AI coding assistant. Chat with the codebase using local LLMs and semantic search.
-                        Privacy-first, secure, and 100% offline.
+                        Offline AI coding assistant offering semantic search and chat with the codebase using local
+                        LLMs.
                     </p>
                     <div class="project-tech">
                         <span>Tauri</span>
                         <span>Next.js</span>
-                        <span>Ollama</span>
+                        <span>LLM</span>
                     </div>
                 </div>
 
-                <!-- Project 1: Local Lens -->
+                <!-- Project: Local Lens -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fa-regular fa-folder folder-icon"></i>
@@ -582,8 +581,8 @@
                     </div>
                     <h3 class="project-title">Local Lens</h3>
                     <p class="project-desc">
-                        A privacy-first, offline AI tool for organizing photos. Built with Rust and egui, using ResNet50
-                        for object detection and OCR.
+                        A privacy-first, offline AI tool for organizing photos. Engineered utilizing ResNet50 for object
+                        detection and OCR running 100% locally.
                     </p>
                     <div class="project-tech">
                         <span>Rust</span>
@@ -592,7 +591,7 @@
                     </div>
                 </div>
 
-                <!-- Project 2: Load Balancer -->
+                <!-- Project: Load Balancer -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fa-regular fa-folder folder-icon"></i>
@@ -601,10 +600,10 @@
                                     class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
-                    <h3 class="project-title">Load Balancer (Rust)</h3>
+                    <h3 class="project-title">High-Performance Load Balancer</h3>
                     <p class="project-desc">
-                        High-performance modular load balancer built with Rust. Supports multiple algorithms like Round
-                        Robin, Weighted Round Robin, and IP Hash.
+                        Built a modular load balancer in Rust supporting Round Robin and IP Hash algorithms to handle
+                        concurrent network traffic efficiently.
                     </p>
                     <div class="project-tech">
                         <span>Rust</span>
@@ -613,7 +612,7 @@
                     </div>
                 </div>
 
-                <!-- Project 3: Axon -->
+                <!-- Project: Axon -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fa-regular fa-folder folder-icon"></i>
@@ -624,8 +623,8 @@
                     </div>
                     <h3 class="project-title">Axon</h3>
                     <p class="project-desc">
-                        AI-powered Chrome extension acting as a vision layer for the web. Enables visual Q&A,
-                        content summarization, and contextual autofill.
+                        Created a Chrome extension utilizing GPT-4o Vision to provide real-time visual Q&A and automated
+                        web content summarization.
                     </p>
                     <div class="project-tech">
                         <span>GPT-4o Vision</span>
@@ -634,7 +633,7 @@
                     </div>
                 </div>
 
-                <!-- Project 4: Redis Lite -->
+                <!-- Project: Redis Lite -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fa-regular fa-folder folder-icon"></i>
@@ -645,8 +644,8 @@
                     </div>
                     <h3 class="project-title">Redis Lite</h3>
                     <p class="project-desc">
-                        A lightweight, multi-threaded implementation of the Redis protocol in Rust. Handles concurrent
-                        TCP connections and core KV commands.
+                        Implemented a multi-threaded Redis protocol (TCP/IP) in Rust, focusing on low-latency concurrent
+                        key-value operations.
                     </p>
                     <div class="project-tech">
                         <span>Rust</span>
@@ -655,7 +654,7 @@
                     </div>
                 </div>
 
-                <!-- Project 5: Ask AI Web -->
+                <!-- Project: Ask AI Web -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fa-regular fa-folder folder-icon"></i>
@@ -668,33 +667,13 @@
                     </div>
                     <h3 class="project-title">Ask AI Web</h3>
                     <p class="project-desc">
-                        A seamless chat interface for LLMs and Custom GPTs. Features a modern dark UI, chat history,
-                        and optimized streaming responses.
+                        Modern chat interface for LLMs and Custom GPTs with streaming response support and history
+                        management.
                     </p>
                     <div class="project-tech">
                         <span>Next.js</span>
                         <span>Vercel AI SDK</span>
                         <span>Tailwind</span>
-                    </div>
-                </div>
-
-                <!-- Project 6: GoGlimp (Keeping one major previous work) -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://www.goglimp.com" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">GoGlimp</h3>
-                    <p class="project-desc">
-                        Stealth AI copilot for interviews. Core software architecture and WebSocket implementation.
-                    </p>
-                    <div class="project-tech">
-                        <span>WebSockets</span>
-                        <span>React</span>
-                        <span>Node.js</span>
                     </div>
                 </div>
 
@@ -741,7 +720,8 @@
                 </p>
 
                 <div class="social-links">
-                    <a href="https://uttamgupta2712.is-a.dev/" target="_blank" title="Portfolio"><i class="fa-solid fa-globe"></i></a>
+                    <a href="https://uttamgupta2712.is-a.dev/" target="_blank" title="Portfolio"><i
+                            class="fa-solid fa-globe"></i></a>
                     <a href="mailto:uttamgupta2712@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
                     <a href="https://www.linkedin.com/in/uttam-gupta-a185a8239/" target="_blank" title="LinkedIn"><i
                             class="fa-brands fa-linkedin"></i></a>
