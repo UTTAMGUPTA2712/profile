@@ -407,6 +407,154 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Deep Dives Section */
+        .deep-dive-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deep-dive-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .deep-dive-card::before {
+            content: "DEEP DIVE";
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-color);
+            opacity: 0.5;
+            letter-spacing: 2px;
+        }
+
+        .deep-dive-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .deep-dive-tag {
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .deep-dive-title {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .deep-dive-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .problem-box,
+        .solution-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .problem-box h4,
+        .solution-box h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .problem-box h4 {
+            color: #ff5f56;
+        }
+
+        .solution-box h4 {
+            color: var(--accent-color);
+        }
+
+        .deep-dive-result {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .result-badge {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .deep-dive-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Education */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .edu-card {
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .edu-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-school {
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .edu-stats {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Career Velocity Badge */
+        .velocity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(90deg, rgba(0, 255, 157, 0.1), transparent);
+            border-left: 3px solid var(--accent-color);
+            padding: 0.75rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .velocity-badge i {
+            color: var(--accent-color);
+        }
     </style>
 </head>
 
@@ -421,9 +569,10 @@
             <div class="nav-links">
                 <a href="#about"><span class="text-accent">01.</span> About</a>
                 <a href="#experience"><span class="text-accent">02.</span> Experience</a>
-                <a href="#projects"><span class="text-accent">03.</span> Work</a>
-                <a href="#writing"><span class="text-accent">04.</span> Writing</a>
-                <a href="#contact"><span class="text-accent">05.</span> Contact</a>
+                <a href="#deep-dives"><span class="text-accent">03.</span> Saves</a>
+                <a href="#projects"><span class="text-accent">04.</span> Work</a>
+                <a href="#writing"><span class="text-accent">05.</span> Writing</a>
+                <a href="#contact"><span class="text-accent">06.</span> Contact</a>
             </div>
         </nav>
 
@@ -431,12 +580,14 @@
         <section class="hero">
             <span class="hero-pre mono">Hi, my name is</span>
             <h1>Uttam Gupta.</h1>
-            <h2 style="color: var(--text-secondary);">I build scalable systems.</h2>
+            <h2 style="color: var(--text-secondary);">I build High-Performance Systems.</h2>
             <p>
-                Full Stack Engineer specializing in high-performance distributed systems and React/Node.js
-                architectures.
+                Full Stack & Systems Engineer with a focus on High-Performance Distributed Architectures.
                 Currently engineering efficient solutions at
                 <span class="text-accent">Zenmonk Software</span>.
+                <br>
+                <span class="mono" style="font-size: 0.9rem; color: var(--text-secondary);"><i
+                        class="fa-solid fa-location-dot" style="margin-right: 0.5rem;"></i>Delhi, India</span>
             </p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn btn-primary">Check out my work</a>
@@ -451,30 +602,52 @@
             <div class="about-grid">
                 <div class="about-text">
                     <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-                        Hello! I'm Uttam, a Full Stack Engineer specializing in high-performance distributed systems and
-                        React/Node.js architectures.
+                        Hello! I'm Uttam, a Full Stack & Systems Engineer with a deep interest in High-Performance
+                        Distributed Architectures.
+                        My journey is driven by a passion for building systems that are not just functional, but
+                        exceptionally efficient and scalable.
                     </p>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        I have a proven track record in optimizing enterprise-scale ERPs, migrating monoliths to
-                        microservices, and delivering secure, multi-tenant solutions for high-growth tech environments.
+                        Beyond code, I focus on <strong>Mentorship</strong>, accelerating development for a 5-member
+                        team, and <strong>Discovery</strong>,
+                        translating complex business requirements into technical deliverables via Event Modeling.
                     </p>
 
-                    <h3 class="mono" style="font-size: 1rem; margin-bottom: 1rem;">Here are a few technologies I've been
-                        working with recently:</h3>
-                    <div class="skills-list">
-                        <span class="skill-tag">Rust</span>
-                        <span class="skill-tag">TypeScript / JavaScript</span>
-                        <span class="skill-tag">C# / SQL</span>
-                        <span class="skill-tag">React.js / Next.js / shadcn/ui</span>
-                        <span class="skill-tag">Node.js / NestJS</span>
-                        <span class="skill-tag">Docker / Kubernetes</span>
-                        <span class="skill-tag">Microservices (RabbitMQ)</span>
-                        <span class="skill-tag">PostgreSQL / MongoDB / Redis</span>
-                        <span class="skill-tag">EDA / Saga / CQRS / DDD</span>
-                        <span class="skill-tag">GitLab CI/CD</span>
+                    <h3 class="mono" style="font-size: 1rem; margin-bottom: 1rem;">Deep Technical Stack:</h3>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 class="mono" style="font-size: 0.8rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+                            Systems & Web</h4>
+                        <div class="skills-list">
+                            <span class="skill-tag">Rust (Tokio, Tauri, ONNX)</span>
+                            <span class="skill-tag">TypeScript / JavaScript (ES6+)</span>
+                            <span class="skill-tag">C# / Node.js (Event Loop)</span>
+                            <span class="skill-tag">React.js / Next.js / NestJS</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 class="mono" style="font-size: 0.8rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+                            Infrastructure & DevOps</h4>
+                        <div class="skills-list">
+                            <span class="skill-tag">GCP (GKE, Pub/Sub)</span>
+                            <span class="skill-tag">Docker / Kubernetes</span>
+                            <span class="skill-tag">GitLab CI/CD / SonarQube</span>
+                            <span class="skill-tag">FFmpeg / Redis / PostgreSQL</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 class="mono" style="font-size: 0.8rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+                            Architecture Patterns</h4>
+                        <div class="skills-list">
+                            <span class="skill-tag">Event Storming / modeling</span>
+                            <span class="skill-tag">DDD / Saga / CQRS</span>
+                            <span class="skill-tag">Microservices / EDA</span>
+                            <span class="skill-tag">RBAC / SSO / Multi-tenancy</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Optional: Add Profile Image here if available later -->
             </div>
         </section>
 
@@ -483,10 +656,17 @@
         <section id="experience">
             <h2 class="section-title"><span>02.</span> Experience</h2>
 
+            <div class="velocity-badge">
+                <i class="fa-solid fa-bolt"></i>
+                <span class="mono" style="font-size: 0.9rem; color: var(--text-primary);">
+                    <strong>Career Velocity:</strong> Achieved 3 promotions in < 3 years, moving from Associate to
+                        Senior levels. </span>
+            </div>
+
             <div class="experience-card">
                 <div class="exp-header">
-                    <h3>Full Stack Developer</h3>
-                    <span class="exp-role">Zenmonk Software And Services (FUNIBER) | June 2023 - Present</span>
+                    <h3>Senior Full Stack Engineer</h3>
+                    <span class="exp-role">Zenmonk Software (FUNIBER) | June 2023 - Present</span>
                 </div>
                 <ul class="exp-details">
                     <li>
@@ -510,16 +690,110 @@
                         encrypted, chunked processing pipelines, improving speed by 60%.
                     </li>
                     <li>
-                        Accelerated development velocity for a 5-member team by implementing Higher-Order Components
-                        (HOCs) to reduce frontend duplication and enforcing rigorous code review standards.
+                        Orchestrated cross-functional workflows between UI/UX, QA, and Product teams to deliver a
+                        multi-tenant ERP; reduced feedback loops by 30% through early-stage technical feasibility
+                        assessments of design prototypes.
                     </li>
                 </ul>
             </div>
         </section>
 
+        <!-- Deep Dives -->
+        <section id="deep-dives">
+            <h2 class="section-title"><span>03.</span> Engineering "Saves"</h2>
+
+            <!-- Case Study 1 -->
+            <div class="deep-dive-card">
+                <div class="deep-dive-header">
+                    <span class="deep-dive-tag">System Optimization</span>
+                    <h3 class="deep-dive-title">The 95% Latency Kill (The "5-Minute Problem")</h3>
+                </div>
+                <div class="deep-dive-content">
+                    <div class="problem-box">
+                        <h4>The Problem</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            A synchronous route was processing 5MB+ payloads and 10k+ records, blocking the Node.js
+                            event loop for 5 minutes (300 seconds).
+                        </p>
+                    </div>
+                    <div class="solution-box">
+                        <h4>The Solution</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Refactored to an asynchronous chunked processing pipeline with parallelized batches and
+                            integrated field-level encryption.
+                        </p>
+                    </div>
+                </div>
+                <div class="deep-dive-result">
+                    <span class="result-badge">95% REDUCTION</span>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Latency dropped from 300 seconds to
+                        <strong>15 seconds</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case Study 2 -->
+            <div class="deep-dive-card">
+                <div class="deep-dive-header">
+                    <span class="deep-dive-tag">Frontend Scalability</span>
+                    <h3 class="deep-dive-title">The "1500-Cell Problem"</h3>
+                </div>
+                <div class="deep-dive-content">
+                    <div class="problem-box">
+                        <h4>The Problem</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Large data tables were causing DOM lag and memory crashes during interactive popup triggers
+                            for complex datasets.
+                        </p>
+                    </div>
+                    <div class="solution-box">
+                        <h4>The Solution</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Implemented Table Virtualization, rendering only visible rows while managing state for 1500+
+                            dynamic cells efficiently.
+                        </p>
+                    </div>
+                </div>
+                <div class="deep-dive-result">
+                    <span class="result-badge">PERFORMANCE STABLE</span>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Massive reduction in DOM nodes and
+                        stable "Time to Interactive" (TTI).</p>
+                </div>
+            </div>
+
+            <!-- Case Study 3 -->
+            <div class="deep-dive-card" style="margin-bottom: 0;">
+                <div class="deep-dive-header">
+                    <span class="deep-dive-tag">Architecture</span>
+                    <h3 class="deep-dive-title">Multi-Tenant RBAC & BMS Architecture</h3>
+                </div>
+                <div class="deep-dive-content">
+                    <div class="problem-box">
+                        <h4>The Methodology</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Used Event Storming and Event Modeling to map complex Business Management System (BMS)
+                            domains.
+                        </p>
+                    </div>
+                    <div class="solution-box">
+                        <h4>The Solution</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Architected a Runtime-Configurable RBAC system with strict tenant isolation for global ERP
+                            environments.
+                        </p>
+                    </div>
+                </div>
+                <div class="deep-dive-result">
+                    <span class="result-badge">ZERO LEAKAGE</span>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Ensured strict data isolation in a
+                        global, multi-tenant ecosystem.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects -->
         <section id="projects">
-            <h2 class="section-title"><span>03.</span> Some Things I've Built</h2>
+            <h2 class="section-title"><span>04.</span> Project Ecosystem</h2>
             <div class="project-grid">
 
                 <!-- Project: FileBridge -->
@@ -535,43 +809,78 @@
                     </div>
                     <h3 class="project-title">FileBridge</h3>
                     <p class="project-desc">
-                        Modern desktop application that instantly turns any folder into a local file-sharing server.
-                        Scan a QR code to view, upload, and delete files from your phone seamlessly over the network.
+                        Turns folders into servers with QR-code pairing for cross-device I/O.
                     </p>
                     <div class="project-tech">
-                        <span>Tauri</span>
-                        <span>Rust</span>
-                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Networking</span>
+                        <span>QR Pairing</span>
                     </div>
                 </div>
 
-                <!-- Project: CodeMind -->
+                <!-- Project: Rust Load Balancer -->
                 <div class="project-card">
                     <div class="project-header">
-                        <i class="fa-solid fa-brain folder-icon"></i>
+                        <i class="fa-solid fa-server folder-icon"></i>
                         <div class="project-links">
-                            <a href="https://codemind-web.vercel.app/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="https://github.com/UTTAMGUPTA2712/codemind" target="_blank" title="GitHub"><i
+                            <a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" title="GitHub"><i
                                     class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
-                    <h3 class="project-title">CodeMind</h3>
+                    <h3 class="project-title">Rust Load Balancer</h3>
                     <p class="project-desc">
-                        Offline AI coding assistant offering semantic search and chat with the codebase using local
-                        LLMs.
+                        Layer-4 balancing with Round Robin and IP Hash algorithms for high-concurrency traffic.
                     </p>
                     <div class="project-tech">
-                        <span>Tauri</span>
-                        <span>Next.js</span>
-                        <span>LLM</span>
+                        <span>Rust</span>
+                        <span>TCP/IP</span>
+                        <span>Tokio</span>
+                    </div>
+                </div>
+
+                <!-- Project: Axon -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-eye folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://uttamgupta2712.github.io/axon/" target="_blank" title="Live Site"><i
+                                    class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Axon</h3>
+                    <p class="project-desc">
+                        Vision-to-Action layer for automated form-filling and web scraping using GPT-4o.
+                    </p>
+                    <div class="project-tech">
+                        <span>GPT-4o Vision</span>
+                        <span>Chrome API</span>
+                    </div>
+                </div>
+
+                <!-- Project: Redis Lite -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-database folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" title="GitHub"><i
+                                    class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Redis Lite</h3>
+                    <p class="project-desc">
+                        Multi-threaded RESP protocol implementation for low-latency K/V operations.
+                    </p>
+                    <div class="project-tech">
+                        <span>Rust</span>
+                        <span>Multithreading</span>
+                        <span>RESP</span>
                     </div>
                 </div>
 
                 <!-- Project: Local Lens -->
                 <div class="project-card">
                     <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <i class="fa-solid fa-camera folder-icon"></i>
                         <div class="project-links">
                             <a href="https://uttamgupta2712.github.io/Local-Lens/" target="_blank" title="Live Site"><i
                                     class="fa-solid fa-external-link-alt"></i></a>
@@ -581,76 +890,34 @@
                     </div>
                     <h3 class="project-title">Local Lens</h3>
                     <p class="project-desc">
-                        A privacy-first, offline AI tool for organizing photos. Engineered utilizing ResNet50 for object
-                        detection and OCR running 100% locally.
+                        Privacy-first local OCR and object detection (100% offline).
                     </p>
                     <div class="project-tech">
                         <span>Rust</span>
-                        <span>egui</span>
-                        <span>ONNX Runtime</span>
+                        <span>ONNX</span>
+                        <span>ResNet50</span>
                     </div>
                 </div>
 
-                <!-- Project: Load Balancer -->
+                <!-- Project: CodeMind -->
                 <div class="project-card">
                     <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
+                        <i class="fa-solid fa-code folder-icon"></i>
                         <div class="project-links">
-                            <a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">High-Performance Load Balancer</h3>
-                    <p class="project-desc">
-                        Built a modular load balancer in Rust supporting Round Robin and IP Hash algorithms to handle
-                        concurrent network traffic efficiently.
-                    </p>
-                    <div class="project-tech">
-                        <span>Rust</span>
-                        <span>Tokio</span>
-                        <span>Hyper</span>
-                    </div>
-                </div>
-
-                <!-- Project: Axon -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://uttamgupta2712.github.io/axon/" target="_blank" title="Live Site"><i
+                            <a href="https://codemind-web.vercel.app/" target="_blank" title="Live Site"><i
                                     class="fa-solid fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Axon</h3>
-                    <p class="project-desc">
-                        Created a Chrome extension utilizing GPT-4o Vision to provide real-time visual Q&A and automated
-                        web content summarization.
-                    </p>
-                    <div class="project-tech">
-                        <span>GPT-4o Vision</span>
-                        <span>Chrome API</span>
-                        <span>React</span>
-                    </div>
-                </div>
-
-                <!-- Project: Redis Lite -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" title="GitHub"><i
+                            <a href="https://github.com/UTTAMGUPTA2712/codemind" target="_blank" title="GitHub"><i
                                     class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
-                    <h3 class="project-title">Redis Lite</h3>
+                    <h3 class="project-title">CodeMind</h3>
                     <p class="project-desc">
-                        Implemented a multi-threaded Redis protocol (TCP/IP) in Rust, focusing on low-latency concurrent
-                        key-value operations.
+                        Offline semantic search and AI chat for local codebases.
                     </p>
                     <div class="project-tech">
-                        <span>Rust</span>
-                        <span>Concurrency</span>
-                        <span>TCP/IP</span>
+                        <span>Tauri</span>
+                        <span>Next.js</span>
+                        <span>LLMs</span>
                     </div>
                 </div>
 
@@ -680,9 +947,31 @@
             </div>
         </section>
 
+        <!-- Education -->
+        <section id="education">
+            <h2 class="section-title"><span>05.</span> Education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <span class="edu-school">Lovely Professional University</span>
+                    <h3>B.Tech in Computer Science</h3>
+                    <p class="edu-stats">7.86 CGPA</p>
+                </div>
+                <div class="edu-card">
+                    <span class="edu-school">Holy Angels Sr. Sec. School</span>
+                    <h3>Class XII</h3>
+                    <p class="edu-stats">92% Aggregate</p>
+                </div>
+                <div class="edu-card">
+                    <span class="edu-school">Certifications</span>
+                    <h3>Google Cloud Skills Boost</h3>
+                    <p class="edu-stats">Completed Game 7053 (March 2026)</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Writing / Blog -->
         <section id="writing">
-            <h2 class="section-title"><span>04.</span> Writing</h2>
+            <h2 class="section-title"><span>06.</span> Writing</h2>
             <div id="blog-container" class="project-grid">
                 <!-- Blog posts will be loaded here dynamically -->
                 <div class="project-card" style="text-align: center; color: var(--text-secondary);">
@@ -711,12 +1000,12 @@
 
         <!-- Contact -->
         <section id="contact">
-            <h2 class="section-title" style="justify-content: center; text-align: center;"><span>05.</span> Get In Touch
+            <h2 class="section-title" style="justify-content: center; text-align: center;"><span>07.</span> Get In Touch
             </h2>
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 1.1rem;">
-                    I’m currently looking for new opportunities. Whether you have a question or just want to say hi,
-                    my inbox is always open!
+                    Currently targeting SDE-1 and Senior roles in India, Germany, USA, and Japan.
+                    Whether you have a question or just want to say hi, my inbox is always open!
                 </p>
 
                 <div class="social-links">
@@ -782,7 +1071,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.project-card, .experience-card').forEach(card => {
+        document.querySelectorAll('.project-card, .experience-card, .deep-dive-card, .edu-card').forEach(card => {
             cardObserver.observe(card);
         });
 
