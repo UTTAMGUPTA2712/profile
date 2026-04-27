@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
@@ -555,6 +557,116 @@
         .velocity-badge i {
             color: var(--accent-color);
         }
+
+        /* Secret Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
     </style>
 </head>
 
@@ -621,7 +733,7 @@
                         <div class="skills-list">
                             <span class="skill-tag">Rust (Tokio, Tauri, ONNX)</span>
                             <span class="skill-tag">TypeScript / JavaScript (ES6+)</span>
-                            <span class="skill-tag">C# / Node.js (Event Loop)</span>
+                            <span class="skill-tag">Node.js (Event Loop)</span>
                             <span class="skill-tag">React.js / Next.js / NestJS</span>
                         </div>
                     </div>
@@ -1027,6 +1139,32 @@
 
     </div>
 
+    <!-- Secret Cover Letter Modal -->
+    <div id="coverLetterModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="modal-header">
+                <h2>Secret Protocol: Cover Letter</h2>
+                <p>Enter deployment details to generate your localized cover letter.</p>
+            </div>
+            <div class="form-group">
+                <label for="jobRole">TARGET ROLE</label>
+                <input type="text" id="jobRole" placeholder="e.g., Senior Software Engineer">
+            </div>
+            <div class="form-group">
+                <label for="companyName">TARGET COMPANY</label>
+                <input type="text" id="companyName" placeholder="e.g., Google">
+            </div>
+            <div class="form-group">
+                <label for="extraDetails">ADDITIONAL MISSION INTEL (OPTIONAL)</label>
+                <textarea id="extraDetails" rows="3" placeholder="e.g., specific team or project info..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="downloadCL" class="btn btn-primary">GENERATE & DOWNLOAD</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1144,6 +1282,113 @@
 
         // Call the function
         fetchMediumPosts();
+
+        // Secret Cover Letter Functionality
+        const nameHeading = document.querySelector('.hero h1');
+        const modal = document.getElementById('coverLetterModal');
+        const closeModal = document.getElementById('closeModal');
+        const downloadBtn = document.getElementById('downloadCL');
+
+        nameHeading.style.cursor = 'pointer'; // Hint for secret interaction
+
+        nameHeading.addEventListener('dblclick', () => {
+            modal.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const role = document.getElementById('jobRole').value || '[Target Role]';
+            const company = document.getElementById('companyName').value || '[Target Company]';
+            const extra = document.getElementById('extraDetails').value;
+
+            generateCoverLetter(role, company, extra);
+        });
+
+        function generateCoverLetter(role, company, extra) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const date = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Colors
+            const primaryColor = '#000000';
+            const accentColor = '#0066cc'; // Using a professional blue for the PDF instead of neon green
+
+            // Header
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(22);
+            doc.text('UTTAM GUPTA', 20, 20);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text('Delhi, India | +91 9773706266 | uttamgupta2712@gmail.com', 20, 27);
+            doc.text('LinkedIn: linkedin.com/in/uttam-gupta-a185a8239/ | Portfolio: uttamgupta2712.is-a.dev', 20, 32);
+
+            // Divider
+            doc.setDrawColor(200);
+            doc.line(20, 37, 190, 37);
+
+            // Date
+            doc.setTextColor(0);
+            doc.setFontSize(11);
+            doc.text(date, 20, 47);
+
+            // Subject
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Subject: Application for ${role} position at ${company}`, 20, 57);
+
+            // Salutation
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Dear Hiring Team at ${company},`, 20, 70);
+
+            // Body
+            const bodyLines = [
+                `I am writing to express my strong interest in the ${role} position at ${company}. As a Full Stack & Systems Engineer with a deep focus on High-Performance Distributed Architectures and a track record of driving significant technical improvements, I am confident that my background aligns perfectly with the innovative work being done at ${company}.`,
+                '',
+                `Currently, as a Senior Full Stack Engineer at Zenmonk Software, I have specialized in building scalable, multi-tenant ERP systems and orchestrating transitions from monolithic to microservices-based architectures. My technical expertise includes Rust, TypeScript, and Node.js, alongside infrastructure proficiency in GCP, Kubernetes, and Docker.`,
+                '',
+                `Some of my key achievements include reducing system latency by 95% (from 300s to 15s) through asynchronous chunked processing and architecting runtime-configurable RBAC systems with zero data leakage. I thrive on solving complex engineering "saves"—like resolving document generation bottlenecks or implementing table virtualization for massive datasets.`,
+                '',
+                extra ? `Regarding this specific opportunity, ${extra}\n` : '',
+                `I am particularly drawn to ${company} because of its commitment to engineering excellence. I am eager to bring my expertise in Event-Driven Architecture, Domain-Driven Design (DDD), and high-throughput scaling to your team.`,
+                '',
+                'Thank you for your time and consideration. I look forward to the possibility of discussing how my experience can contribute to the continued success of your engineering team.',
+                '',
+                'Sincerely,',
+                '',
+                'Uttam Gupta'
+            ];
+
+            let y = 80;
+            bodyLines.forEach(line => {
+                if (line === '') {
+                    y += 5;
+                } else {
+                    const splitText = doc.splitTextToSize(line, 170);
+                    doc.text(splitText, 20, y);
+                    y += (splitText.length * 6);
+                }
+            });
+
+            // Save PDF
+            doc.save(`Uttam_Gupta_Cover_Letter_${company.replace(/\s+/g, '_')}.pdf`);
+            
+            // Close modal after download
+            modal.classList.remove('active');
+        }
     </script>
 </body>
 
