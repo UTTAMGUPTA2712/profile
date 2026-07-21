@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Studio — Private</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="resume-data.js"></script>
+    <style>
+        :root {
+            --bg: #09090b;
+            --panel: #18181b;
+            --border: #27272a;
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --accent: #00ff9d;
+            --accent-hover: #00e58c;
+            --accent-glow: rgba(0, 255, 157, 0.15);
+            --danger: #ef4444;
+            --success: #10b981;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ---------- Custom Scrollbar ---------- */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--muted);
+        }
+
+        /* ---------- Control panel (screen only) ---------- */
+        .controls {
+            width: 360px;
+            flex-shrink: 0;
+            background: var(--panel);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent), #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls h1 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .controls .sub {
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .field { margin-bottom: 1.25rem; }
+
+        .field label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.45rem;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            background: #09090b;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.65rem 0.8rem;
+            color: var(--text);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: #050505;
+            box-shadow: 0 0 16px rgba(0, 255, 157, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.secondary {
+            border-color: var(--border);
+            color: var(--text);
+        }
+        .btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            box-shadow: none;
+        }
+
+        .btn.accent-btn {
+            background: var(--accent-glow);
+        }
+
+        .hint {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 0.4rem;
+            line-height: 1.5;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1.75rem 0;
+        }
+
+        /* ---------- AI Copilot Header ---------- */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-btn:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ---------- Preview stage ---------- */
+        .stage {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 30%, #1c1917 0%, #09090b 100%);
+            position: relative;
+        }
+
+        /* ---------- Tabs container ---------- */
+        .tabs-container {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0.5rem;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tab-btn:hover {
+            color: var(--text);
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: #09090b;
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
+        }
+
+        /* ---------- The resume/letter sheet (print target) ---------- */
+        .sheet {
+            display: none;
+            background: #fff;
+            color: #1a1a1a;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 16mm 18mm;
+            font-family: 'Calibri', 'Arial', sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.4;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+            margin-bottom: 3rem;
+            border-radius: 4px;
+            animation: sheetFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sheet.active {
+            display: block;
+        }
+
+        @keyframes sheetFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #cv h2.name {
+            font-size: 20pt;
+            letter-spacing: 0.5px;
+            margin-bottom: 2pt;
+            color: #111;
+        }
+
+        #cv .title-line {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin-bottom: 4pt;
+        }
+
+        #cv .contact {
+            font-size: 9pt;
+            color: #333;
+            margin-bottom: 10pt;
+        }
+
+        #cv h3.section {
+            font-size: 10.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #111;
+            border-bottom: 1.2pt solid #333;
+            padding-bottom: 2pt;
+            margin: 12pt 0 6pt;
+        }
+
+        #cv .summary { margin-bottom: 2pt; }
+
+        #cv .exp-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 4pt;
+        }
+
+        #cv .exp-role { font-weight: 700; }
+        #cv .exp-company { font-weight: 600; }
+        #cv .exp-note { font-style: italic; color: #444; font-size: 9pt; }
+        #cv .exp-dates { font-size: 9pt; color: #444; white-space: nowrap; }
+
+        #cv ul { margin: 4pt 0 4pt 16pt; }
+        #cv li { margin-bottom: 3pt; }
+        #cv li b { color: #111; }
+
+        #cv .skill-row { margin-bottom: 2pt; }
+        #cv .skill-row b { display: inline-block; min-width: 105px; }
+
+        #cv .proj { margin-bottom: 3pt; }
+        #cv .edu { margin-bottom: 2pt; }
+
+        /* ---------- Settings Modal ---------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 480px;
+            padding: 1.75rem;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8);
+            transform: scale(0.95);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+        }
+        .modal-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .close-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .modal-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.45;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input {
+            padding-right: 2.5rem;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toggle-password:hover {
+            color: var(--text);
+        }
+
+        /* ---------- Print Settings ---------- */
+        @media print {
+            body { display: block; background: #fff; overflow: visible; }
+            .controls, .tabs-container { display: none !important; }
+            .stage { padding: 0; display: block; overflow: visible; background: none; }
+            
+            .sheet {
+                display: none !important;
+                box-shadow: none !important;
+                width: auto !important;
+                min-height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                animation: none !important;
+            }
+            .sheet.active {
+                display: block !important;
+            }
+
+            #cv {
+                font-size: 9.6pt;   /* slightly smaller so it fits one page */
+                line-height: 1.32;
+            }
+            @page { size: A4; margin: 10mm 13mm; }  /* tighter page margins */
+
+            /* Compact the vertical rhythm */
+            #cv h2.name { font-size: 17pt; }
+            #cv .contact { margin-bottom: 7pt; }
+            #cv h3.section { margin: 8pt 0 4pt; }
+            #cv ul { margin: 3pt 0 3pt 15pt; }
+            #cv li { margin-bottom: 2pt; }
+            #cv .exp-head { margin-top: 3pt; }
+            #cv .skill-row, #cv .proj, #cv .edu { margin-bottom: 1.5pt; }
+
+            /* Never split a heading from its content, or a bullet across pages */
+            #cv h3.section { break-after: avoid; page-break-after: avoid; }
+            #cv li, #cv .proj, #cv .exp-head { break-inside: avoid; page-break-inside: avoid; }
+
+            /* Cover letter specific print rhythm */
+            #cl {
+                font-size: 10pt;
+                line-height: 1.4;
+            }
+            #cl h2.name { font-size: 17pt; }
+            #cl .contact { margin-bottom: 7pt; }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="controls">
+        <div class="logo-area">
+            <span class="logo-icon">✨</span>
+            <h1>Resume Studio</h1>
+        </div>
+        <p class="sub">Private tool. Tailored, ATS-friendly CVs + cover letters. Edit source content in <code>resume-data.js</code>.</p>
+
+        <div class="field">
+            <label for="preset">Target Position Preset</label>
+            <select id="preset"></select>
+            <p class="hint" id="presetHint"></p>
+        </div>
+
+        <button class="btn" onclick="window.print()">🖨️ Print / Save Active PDF</button>
+        <p class="hint" style="margin-bottom: 1rem;">Uses browser print context. Set active preview tab first.</p>
+
+        <div class="divider"></div>
+
+        <!-- AI Copilot Section -->
+        <div class="section-header">
+            <h2 class="section-title">✨ AI Copilot</h2>
+            <button class="icon-btn" onclick="openSettingsModal()" title="AI API Key Configuration">⚙️</button>
+        </div>
+        <p class="sub" style="margin-bottom: 1rem;">Dynamically tailor details locally using LLMs.</p>
+
+        <div class="field">
+            <label for="jd-input">Job Description</label>
+            <textarea id="jd-input" rows="4" placeholder="Paste target role details or description..."></textarea>
+        </div>
+        <div class="field">
+            <label for="ai-task">AI Copilot Action</label>
+            <select id="ai-task">
+                <option value="hook">Generate Cover Letter Hook (1-2 lines)</option>
+                <option value="summary">Tailor Profile Summary (updates CV)</option>
+            </select>
+        </div>
+        <button class="btn accent-btn" id="runAiBtn" onclick="runAiGeneration()">✨ Generate with AI</button>
+        <div id="ai-status" class="hint" style="display: none; margin-top: 0.75rem; padding: 0.6rem; border-radius: 6px; font-size: 0.75rem; line-height: 1.45;"></div>
+
+        <div class="divider"></div>
+
+        <h2 class="section-title" style="margin-bottom: 0.5rem;">Cover Letter Context</h2>
+        <p class="sub" style="margin-bottom: 1rem;">Tailor these details. Keeps text structure matching the preset role.</p>
+
+        <div class="field">
+            <label for="role">Target role</label>
+            <input id="role" placeholder="e.g., Software Developer">
+        </div>
+        <div class="field">
+            <label for="company">Target company</label>
+            <input id="company" placeholder="e.g., Atlassian">
+        </div>
+        <div class="field">
+            <label for="hook">Why this company (1–2 lines)</label>
+            <textarea id="hook" rows="3" placeholder="Reference something specific: a product, a team, a problem they solve..."></textarea>
+        </div>
+        <button class="btn" id="copyCL" onclick="copyCoverLetter()">📋 Copy Cover Letter (Text)</button>
+        <button class="btn secondary" onclick="downloadCoverLetter()">⬇️ Download Cover Letter PDF</button>
+    </aside>
+
+    <main class="stage">
+        <!-- Document preview tabs -->
+        <div class="tabs-container">
+            <button class="tab-btn active" id="tab-cv" onclick="switchTab('cv')">📄 Resume / CV</button>
+            <button class="tab-btn" id="tab-cl" onclick="switchTab('cl')">✉️ Cover Letter</button>
+        </div>
+
+        <div id="cv" class="sheet active"></div>
+        <div id="cl" class="sheet"></div>
+    </main>
+
+    <!-- API Settings Modal -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>AI API Credentials</h3>
+                <button class="close-btn" onclick="closeSettingsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">Provide your API keys to enable inline tailor features. Keys are kept strictly private inside your local browser context and never routed via external proxies.</p>
+                
+                <div class="field">
+                    <label for="api-provider">API Provider</label>
+                    <select id="api-provider" onchange="toggleProviderHint()">
+                        <option value="gemini">Gemini (Google AI Studio)</option>
+                        <option value="openai">OpenAI (ChatGPT)</option>
+                    </select>
+                </div>
+                
+                <div class="field">
+                    <label for="api-key">API Key</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="api-key" placeholder="Paste your API key here">
+                        <button class="toggle-password" onclick="togglePasswordVisibility('api-key')">👁️</button>
+                    </div>
+                    <p class="hint" id="provider-hint" style="margin-top: 0.5rem;"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeSettingsModal()" style="width: auto; margin-top: 0;">Cancel</button>
+                <button class="btn" onclick="saveSettings()" style="width: auto; min-width: 100px; margin-top: 0;">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Preserve original summaries for resetting ----
+        const originalSummaries = {};
+        Object.entries(RESUME.presets).forEach(([key, p]) => {
+            originalSummaries[key] = p.summary;
+        });
+
+        // ---- Populate preset dropdown ----
+        const presetSelect = document.getElementById('preset');
+        Object.entries(RESUME.presets).forEach(([key, p]) => {
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.textContent = p.label;
+            presetSelect.appendChild(opt);
+        });
+
+        function currentPreset() { return presetSelect.value; }
+
+        // ---- Render the CV for the active preset ----
+        function renderCV() {
+            const key = currentPreset();
+            const preset = RESUME.presets[key];
+            const b = RESUME.basics;
+            document.getElementById('presetHint').textContent = preset.label;
+
+            const contact = [
+                b.location, b.phone, b.email, b.portfolio, b.github, b.linkedin
+            ].join('  •  ');
+
+            // Experience (bullets filtered by tag, ordered by preset.bulletOrder)
+            const expHtml = RESUME.experience.map(job => {
+                const byId = Object.fromEntries(job.bullets.map(x => [x.id, x]));
+                const ordered = preset.bulletOrder
+                    .map(id => byId[id])
+                    .filter(x => x && (x.tag === 'both' || x.tag === key));
+                const lis = ordered.map(x => `<li><b>${x.lead}:</b> ${x.text}</li>`).join('');
+                return `
+                    <div class="exp-head">
+                        <span><span class="exp-role">${preset.title === 'Senior Full Stack Engineer' ? 'Senior Full Stack Engineer' : job.role}</span>
+                        — <span class="exp-company">${job.company}</span>
+                        <span class="exp-note">(${job.note})</span></span>
+                        <span class="exp-dates">${job.dates}</span>
+                    </div>
+                    <ul>${lis}</ul>`;
+            }).join('');
+
+            // Skills (ordered per preset)
+            const order = RESUME.skillsOrder[key] || Object.keys(RESUME.skills);
+            const skillsHtml = order
+                .filter(g => RESUME.skills[g])
+                .map(g => `<div class="skill-row"><b>${g}:</b> ${RESUME.skills[g]}</div>`).join('');
+
+            // Projects
+            const projHtml = RESUME.projects.filter(p => p.show)
+                .map(p => `<div class="proj"><b>${p.name}:</b> ${p.text}</div>`).join('');
+
+            // Education
+            const eduHtml = RESUME.education
+                .map(e => `<div class="edu"><b>${e.degree}</b> — ${e.school} <span style="color:#444;">(${e.detail})</span></div>`).join('');
+
+            document.getElementById('cv').innerHTML = `
+                <h2 class="name">${b.name.toUpperCase()}</h2>
+                <div class="title-line">${preset.title}</div>
+                <div class="contact">${contact}</div>
+
+                <h3 class="section">Professional Summary</h3>
+                <div class="summary">${preset.summary}</div>
+
+                <h3 class="section">Experience</h3>
+                ${expHtml}
+
+                <h3 class="section">Technical Skills</h3>
+                ${skillsHtml}
+
+                <h3 class="section">Selected Projects</h3>
+                ${projHtml}
+
+                <h3 class="section">Education</h3>
+                ${eduHtml}
+            `;
+
+            // Prefill cover-letter role from preset title if empty
+            const roleInput = document.getElementById('role');
+            if (!roleInput.value) roleInput.value = preset.title;
+        }
+
+        // ---- Render the Cover Letter ----
+        function renderCL() {
+            const { b, date, subject, paras } = coverLetterParts();
+            const contact = [
+                b.location, b.phone, b.email, b.portfolio, b.github, b.linkedin
+            ].join('  •  ');
+            
+            const preset = RESUME.presets[currentPreset()];
+            const bodyHtml = paras.map(p => `<p style="margin-bottom: 12pt;">${p}</p>`).join('');
+
+            document.getElementById('cl').innerHTML = `
+                <h2 class="name">${b.name.toUpperCase()}</h2>
+                <div class="title-line">${preset.title}</div>
+                <div class="contact" style="border-bottom: 1.2pt solid #333; padding-bottom: 8pt; margin-bottom: 15pt;">${contact}</div>
+
+                <div style="margin-top: 15pt; font-size: 10.5pt; font-family: 'Calibri', 'Arial', sans-serif;">
+                    <div style="margin-bottom: 12pt;">${date}</div>
+                    <div style="font-weight: bold; margin-bottom: 15pt;">${subject}</div>
+                    <div style="margin-bottom: 12pt;">Dear Hiring Team,</div>
+                    <div style="line-height: 1.5; color: #222;">
+                        ${bodyHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ---- Tabs switching ----
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.sheet').forEach(sheet => sheet.classList.remove('active'));
+            
+            if (tab === 'cv') {
+                document.getElementById('tab-cv').classList.add('active');
+                document.getElementById('cv').classList.add('active');
+            } else if (tab === 'cl') {
+                document.getElementById('tab-cl').classList.add('active');
+                document.getElementById('cl').classList.add('active');
+            }
+        }
+
+        // Add input event listeners to cover letter fields to update preview in real-time
+        document.getElementById('role').addEventListener('input', renderCL);
+        document.getElementById('company').addEventListener('input', renderCL);
+        document.getElementById('hook').addEventListener('input', renderCL);
+
+        presetSelect.addEventListener('change', () => {
+            document.getElementById('role').value = ''; // let it re-prefill from new preset
+            renderCV();
+            renderCL();
+        });
+
+        // Initial render
+        renderCV();
+        renderCL();
+
+        // ---- Cover letter: shared content (single source for PDF + copy) ----
+        function coverLetterParts() {
+            const b = RESUME.basics;
+            const preset = RESUME.presets[currentPreset()];
+            const role = document.getElementById('role').value.trim() || preset.title;
+            const company = document.getElementById('company').value.trim() || '[Company]';
+            const hook = document.getElementById('hook').value.trim();
+            const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const subject = `Re: Application for ${role} at ${company}`;
+            const paras = [
+                `I'm applying for the ${role} role at ${company}. I'm a full-stack engineer with 3+ years shipping production web platforms, and I'd bring end-to-end delivery across TypeScript/React, Node.js/NestJS, plus hands-on DevOps and applied AI.`,
+                `At Zenmonk Software I cut document-processing time from 5 minutes to 15 seconds for 10k+ concurrent records, designed a runtime-configurable multi-tenant RBAC system, and supported a monolith-to-microservices migration on GCP. I was promoted three times for consistent delivery impact.`,
+                hook ? `${hook}` : `[Add one specific reason you want to work at ${company} here — a product, team, or problem. Do not send this letter without it.]`,
+                `I'd welcome the chance to discuss how I can contribute to your team. Thank you for your time.`,
+                `Sincerely,`,
+                b.name,
+            ];
+            return { b, role, company, date, subject, paras };
+        }
+
+        // Plain-text version (for clipboard / pasting into email or a form)
+        function coverLetterText() {
+            const { b, date, subject, paras } = coverLetterParts();
+            const header = [
+                b.name,
+                `${b.location} | ${b.phone} | ${b.email}`,
+                `${b.portfolio} | ${b.linkedin}`,
+            ].join('\n');
+            const body = [date, '', subject, '', 'Dear Hiring Team,', '', ...paras.flatMap(p => [p, ''])];
+            return `${header}\n\n${'-'.repeat(48)}\n\n${body.join('\n').trimEnd()}\n`;
+        }
+
+        // ---- Download as PDF (jsPDF) ----
+        function downloadCoverLetter() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const { b, company, date, subject, paras } = coverLetterParts();
+
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
+            doc.text(b.name.toUpperCase(), 20, 20);
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(90);
+            doc.text(`${b.location}  |  ${b.phone}  |  ${b.email}`, 20, 27);
+            doc.text(`${b.portfolio}  |  ${b.linkedin}`, 20, 32);
+            doc.setDrawColor(200); doc.line(20, 37, 190, 37);
+
+            doc.setTextColor(0); doc.setFontSize(11);
+            doc.text(date, 20, 47);
+            doc.setFont('helvetica', 'bold');
+            doc.text(subject, 20, 57);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Dear Hiring Team,`, 20, 68);
+
+            let y = 80;
+            paras.forEach(p => {
+                const lines = doc.splitTextToSize(p, 170);
+                doc.text(lines, 20, y);
+                y += lines.length * 6 + 4;
+            });
+
+            doc.save(`Uttam_Gupta_Cover_Letter_${company.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        // ---- Copy plain text to clipboard ----
+        async function copyCoverLetter() {
+            const btn = document.getElementById('copyCL');
+            const original = btn.textContent;
+            try {
+                await navigator.clipboard.writeText(coverLetterText());
+                btn.textContent = '✓ Copied to clipboard';
+            } catch (err) {
+                // Fallback for older browsers / non-secure contexts
+                const ta = document.createElement('textarea');
+                ta.value = coverLetterText();
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                btn.textContent = ok ? '✓ Copied to clipboard' : '⚠ Copy failed — select manually';
+            }
+            setTimeout(() => { btn.textContent = original; }, 2000);
+        }
+
+        // ---- Settings Modal Handlers ----
+        function openSettingsModal() {
+            const overlay = document.getElementById('settingsModal');
+            
+            // Prefill stored config
+            document.getElementById('api-provider').value = localStorage.getItem('RESUME_STUDIO_API_PROVIDER') || 'gemini';
+            document.getElementById('api-key').value = localStorage.getItem('RESUME_STUDIO_API_KEY') || '';
+            
+            toggleProviderHint();
+            overlay.classList.add('active');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        function toggleProviderHint() {
+            const provider = document.getElementById('api-provider').value;
+            const hintEl = document.getElementById('provider-hint');
+            if (provider === 'gemini') {
+                hintEl.innerHTML = 'Get a free Gemini API key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">Google AI Studio</a>.';
+            } else {
+                hintEl.innerHTML = 'Get an OpenAI API key from the <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">OpenAI Developer Platform</a>.';
+            }
+        }
+
+        function saveSettings() {
+            const provider = document.getElementById('api-provider').value;
+            const apiKey = document.getElementById('api-key').value.trim();
+            
+            localStorage.setItem('RESUME_STUDIO_API_PROVIDER', provider);
+            localStorage.setItem('RESUME_STUDIO_API_KEY', apiKey);
+            
+            closeSettingsModal();
+            
+            if (apiKey) {
+                showAiStatus("API credentials configured successfully.", "success");
+            } else {
+                showAiStatus("API key cleared. AI features will require setup.", "info");
+            }
+        }
+
+        function togglePasswordVisibility(id) {
+            const el = document.getElementById(id);
+            el.type = el.type === 'password' ? 'text' : 'password';
+        }
+
+        // ---- AI Copilot Status Banner Handler ----
+        function showAiStatus(message, type = 'info') {
+            const statusEl = document.getElementById('ai-status');
+            statusEl.style.display = 'block';
+            statusEl.innerHTML = message;
+            
+            if (type === 'error') {
+                statusEl.style.backgroundColor = 'rgba(239, 68, 68, 0.15)';
+                statusEl.style.color = '#f87171';
+                statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+            } else if (type === 'success') {
+                statusEl.style.backgroundColor = 'rgba(16, 185, 129, 0.15)';
+                statusEl.style.color = '#34d399';
+                statusEl.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+            } else if (type === 'loading') {
+                statusEl.style.backgroundColor = 'rgba(0, 255, 157, 0.1)';
+                statusEl.style.color = 'var(--accent)';
+                statusEl.style.border = '1px solid rgba(0, 255, 157, 0.2)';
+            } else {
+                statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                statusEl.style.color = 'var(--muted)';
+                statusEl.style.border = '1px solid var(--border)';
+            }
+        }
+
+        function resetSummary() {
+            const key = currentPreset();
+            RESUME.presets[key].summary = originalSummaries[key];
+            renderCV();
+            showAiStatus("Profile summary restored to default.", "info");
+        }
+
+        // ---- AI Copilot API Handler ----
+        async function runAiGeneration() {
+            const apiKey = localStorage.getItem('RESUME_STUDIO_API_KEY');
+            const provider = localStorage.getItem('RESUME_STUDIO_API_PROVIDER') || 'gemini';
+            const jd = document.getElementById('jd-input').value.trim();
+            const task = document.getElementById('ai-task').value;
+            const btn = document.getElementById('runAiBtn');
+
+            if (!apiKey) {
+                showAiStatus('<strong>API Key Missing</strong><br>Please click the gear icon to set your API credentials.', 'error');
+                openSettingsModal();
+                return;
+            }
+
+            if (!jd) {
+                showAiStatus('<strong>Job Description Empty</strong><br>Please paste a target Job Description first.', 'error');
+                document.getElementById('jd-input').focus();
+                return;
+            }
+
+            // Set loading state
+            btn.disabled = true;
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = '⚡ Generating response...';
+            showAiStatus('Connecting to AI API and processing...', 'loading');
+
+            const preset = RESUME.presets[currentPreset()];
+            const role = document.getElementById('role').value.trim() || preset.title;
+            const company = document.getElementById('company').value.trim() || '[Company]';
+            const basics = RESUME.basics;
+            
+            let prompt = '';
+            if (task === 'hook') {
+                prompt = `You are a professional CV optimizer. Create a custom, highly tailored 1-2 sentence hook for a cover letter explaining why the candidate is a perfect fit for the "${role}" role at "${company}".
+Candidate Name: ${basics.name}
+Role: ${role}
+Company: ${company}
+
+Candidate background highlights:
+- Profile summary: ${preset.summary}
+- Technical skill catalog: ${Object.entries(RESUME.skills).map(([k, v]) => `${k}: ${v}`).join(', ')}
+
+Job description:
+"""
+${jd}
+"""
+
+Instructions:
+- Write exactly 1 or 2 sentences.
+- Focus on how the candidate's skills directly solve a challenge or add value to ${company} based on their job description.
+- Keep the tone professional, confident, and eager.
+- Return ONLY the hook paragraph. Do not include quotes, greetings, explanations, or any formatting.`;
+            } else if (task === 'summary') {
+                prompt = `You are a professional CV optimizer. Rewrite the candidate's professional summary to align perfectly with the target job description.
+Target Position: ${role}
+Target Company: ${company}
+
+Original summary:
+"${preset.summary}"
+
+Candidate key skills:
+${Object.entries(RESUME.skills).map(([k, v]) => `${k}: ${v}`).join(', ')}
+
+Job description:
+"""
+${jd}
+"""
+
+Instructions:
+- Rewrite the professional summary. Keep it to 3-4 sentences (about 60-80 words).
+- Match keywords and core requirements from the Job Description naturally.
+- Do not fabricate experiences. Emphasize their full-stack engineering, performance optimizations, and backend/frontend capabilities.
+- Return ONLY the raw rewritten paragraph. Do not include quotes, markdown bolding, introductions, or comments.`;
+            }
+
+            try {
+                const resultText = await callAiApi(provider, apiKey, prompt);
+                
+                if (task === 'hook') {
+                    document.getElementById('hook').value = resultText;
+                    renderCL();
+                    switchTab('cl');
+                    showAiStatus('<strong>Success!</strong> Cover letter hook tailored successfully and loaded into preview.', 'success');
+                } else if (task === 'summary') {
+                    RESUME.presets[currentPreset()].summary = resultText;
+                    renderCV();
+                    switchTab('cv');
+                    showAiStatus(`<strong>Success!</strong> Summary tailored and applied to CV. <a href="javascript:void(0)" onclick="resetSummary()" style="color: var(--accent); text-decoration: underline; font-weight: 600; margin-left: 5px;">Reset to Original</a>`, 'success');
+                }
+            } catch (err) {
+                console.error(err);
+                showAiStatus(`<strong>Generation Failed</strong><br>${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+            }
+        }
+
+        async function callAiApi(provider, apiKey, prompt) {
+            if (provider === 'gemini') {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        generationConfig: {
+                            temperature: 0.6,
+                            maxOutputTokens: 250
+                        }
+                    })
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error?.message || `HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text.trim().replace(/^["']|["']$/g, '');
+            } else {
+                const url = 'https://api.openai.com/v1/chat/completions';
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4o-mini',
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: 0.6,
+                        max_tokens: 250
+                    })
+                });
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error?.message || `HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data.choices[0].message.content.trim().replace(/^["']|["']$/g, '');
+            }
+        }
+
+        // Initialize status banner with welcome hint if key not configured
+        if (!localStorage.getItem('RESUME_STUDIO_API_KEY')) {
+            showAiStatus('Configure your AI API key by clicking the gear icon ⚙️ above to unlock automatic CV and cover letter tailoring.', 'info');
+        }
+    </script>
+</body>
+
+</html>
