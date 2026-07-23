@@ -134,26 +134,30 @@ const RESUME = {
     Frontend: "React.js, Next.js, Redux Toolkit, Tailwind CSS, shadcn/ui",
     Backend: "Node.js, NestJS, RabbitMQ, Redis, PostgreSQL, MongoDB",
     "DevOps & Cloud": "GCP (GKE), Docker, Kubernetes, CI/CD, System Design",
-    "AI / ML": "GPT-4o Vision, ONNX Runtime, semantic search, LLM app integration",
-    Architecture: "Event Storming / Modeling, EDA, Saga & CQRS, DDD, RBAC / SSO, TDD",
+    Architecture: "Event Storming / Modeling, EDA, Saga & CQRS, DDD, RBAC / SSO, TDD, GPT-4o Vision, ONNX Runtime, semantic search",
   },
   // Which skill groups lead, per preset.
   skillsOrder: {
-    mid: ["Languages", "Frontend", "Backend", "DevOps & Cloud", "AI / ML", "Architecture"],
-    senior: ["Architecture", "Backend", "Languages", "DevOps & Cloud", "AI / ML", "Frontend"],
+    mid: ["Languages", "Frontend", "Backend", "DevOps & Cloud", "Architecture"],
+    senior: ["Architecture", "Backend", "Languages", "DevOps & Cloud", "Frontend"],
   },
 
-  /* ---- Selected projects (shown on both; tweak `show` to hide any) ---- */
+  /* ---- Selected projects (shown on both; tweak `show` to hide any) ----
+   * Kept to 4 visible projects to match the one-page print layout tuned in
+   * builder.html (uttam-gupta-cv.pdf is the reference). CodeMind and Local
+   * Lens are still here — flip `show` to true to bring one back if you trim
+   * something else to make room.
+   */
   projects: [
     { name: "High-Performance Load Balancer (Rust)", show: true,
       text: "Modular Layer-4 load balancer in Rust (Tokio) with Round Robin and IP Hash for concurrent traffic." },
     { name: "Redis Lite (Rust)", show: true,
       text: "Multi-threaded Redis RESP protocol implementation focused on low-latency key-value operations." },
-    { name: "CodeMind", show: true,
+    { name: "CodeMind", show: false,
       text: "Offline semantic search + AI chat over local codebases (Tauri, Next.js, local LLMs)." },
     { name: "Axon", show: true,
       text: "Chrome extension using GPT-4o Vision to automate web workflows — form-filling and content scraping." },
-    { name: "Local Lens", show: true,
+    { name: "Local Lens", show: false,
       text: "Privacy-first, 100% offline OCR and object detection (Rust, ONNX, ResNet50)." },
     { name: "FileBridge", show: true,
       text: "Turns local folders into file-sharing servers with QR-code pairing for cross-device I/O." },

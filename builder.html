@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="resume-data.js"></script>
     <style>
         :root {
@@ -25,6 +26,15 @@
             --success: #10b981;
             --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
             --font-heading: 'Outfit', sans-serif;
+
+            /* CV & Cover Letter Design Tokens (Matching cv/styles.css) */
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --light-text: #666;
+            --border-color: #eee;
+            --font-main: "Inter", sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -270,21 +280,22 @@
             box-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
         }
 
-        /* ---------- The resume/letter sheet (print target) ---------- */
+        /* ---------- CV & Cover Letter Sheet Styling (Matching cv/styles.css) ---------- */
         .sheet {
             display: none;
             background: #fff;
-            color: #1a1a1a;
+            color: var(--text-color);
             width: 210mm;
             min-height: 297mm;
-            padding: 16mm 18mm;
-            font-family: 'Calibri', 'Arial', sans-serif;
-            font-size: 10.5pt;
-            line-height: 1.4;
+            padding: 17px 22px;
+            font-family: var(--font-main);
+            line-height: 1.45;
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
             margin-bottom: 3rem;
             border-radius: 4px;
             animation: sheetFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         .sheet.active {
@@ -296,59 +307,169 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        #cv h2.name {
-            font-size: 20pt;
-            letter-spacing: 0.5px;
-            margin-bottom: 2pt;
-            color: #111;
+        /* Header */
+        .cv-header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-bottom: 9px;
         }
 
-        #cv .title-line {
-            font-size: 11pt;
-            font-weight: 600;
-            color: #2a2a2a;
-            margin-bottom: 4pt;
-        }
-
-        #cv .contact {
-            font-size: 9pt;
-            color: #333;
-            margin-bottom: 10pt;
-        }
-
-        #cv h3.section {
-            font-size: 10.5pt;
+        .cv-header h1 {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #111;
-            border-bottom: 1.2pt solid #333;
-            padding-bottom: 2pt;
-            margin: 12pt 0 6pt;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
 
-        #cv .summary { margin-bottom: 2pt; }
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            line-height: 18px;
+            font-size: 13px;
+            color: var(--secondary-color);
+            align-items: center;
+        }
 
-        #cv .exp-head {
+        .contact-info a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .contact-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Section Common */
+        .cv-section {
+            margin-bottom: 9px;
+        }
+
+        .cv-section h2 {
+            font-size: 17px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3px;
+            padding-top: 3px;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .cv-section p {
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            gap: 4px;
+        }
+
+        .skill-category {
+            font-size: 13.5px;
+            line-height: 1.4;
+        }
+
+        .skill-category strong {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 9px;
+        }
+
+        .exp-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-top: 4pt;
+            flex-wrap: wrap;
+            margin-bottom: 3px;
         }
 
-        #cv .exp-role { font-weight: 700; }
-        #cv .exp-company { font-weight: 600; }
-        #cv .exp-note { font-style: italic; color: #444; font-size: 9pt; }
-        #cv .exp-dates { font-size: 9pt; color: #444; white-space: nowrap; }
+        .exp-header h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
 
-        #cv ul { margin: 4pt 0 4pt 16pt; }
-        #cv li { margin-bottom: 3pt; }
-        #cv li b { color: #111; }
+        .company {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 13.5px;
+        }
 
-        #cv .skill-row { margin-bottom: 2pt; }
-        #cv .skill-row b { display: inline-block; min-width: 105px; }
+        .date {
+            font-size: 13px;
+            color: var(--light-text);
+            font-weight: 500;
+        }
 
-        #cv .proj { margin-bottom: 3pt; }
-        #cv .edu { margin-bottom: 2pt; }
+        .exp-details {
+            list-style-position: outside;
+            margin-left: 18px;
+            font-size: 13.5px;
+        }
+
+        .exp-details li {
+            margin-bottom: 2px;
+            text-align: justify;
+            line-height: 1.42;
+        }
+
+        /* Projects */
+        .projects-list {
+            list-style-position: outside;
+            margin-left: 18px;
+            font-size: 13.5px;
+        }
+
+        .projects-list li {
+            margin-bottom: 3px;
+            line-height: 1.42;
+        }
+
+        .project-links {
+            margin-left: 6px;
+            display: inline-flex;
+            gap: 8px;
+        }
+
+        .project-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .project-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 3px;
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13.5px;
+        }
+
+        .edu-header h3 {
+            font-weight: 600;
+        }
 
         /* ---------- Settings Modal ---------- */
         .modal-overlay {
@@ -458,6 +579,11 @@
         }
 
         /* ---------- Print Settings ---------- */
+        @page {
+            size: A4;
+            margin: 10mm 12mm;
+        }
+
         @media print {
             body { display: block; background: #fff; overflow: visible; }
             .controls, .tabs-container { display: none !important; }
@@ -466,43 +592,28 @@
             .sheet {
                 display: none !important;
                 box-shadow: none !important;
-                width: auto !important;
+                width: 100% !important;
+                max-width: 210mm !important;
                 min-height: auto !important;
                 padding: 0 !important;
-                margin: 0 !important;
+                margin: 0 auto !important;
                 border-radius: 0 !important;
                 animation: none !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
             }
             .sheet.active {
                 display: block !important;
             }
 
-            #cv {
-                font-size: 9.6pt;   /* slightly smaller so it fits one page */
-                line-height: 1.32;
+            .cv-header h1 { color: #2c3e50 !important; }
+            .cv-section h2 { border-color: #eee !important; color: #2c3e50 !important; }
+            a { text-decoration: none; color: #34495e !important; }
+
+            .experience-item, .cv-section, .skill-category, .projects-list li, .education-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
             }
-            @page { size: A4; margin: 10mm 13mm; }  /* tighter page margins */
-
-            /* Compact the vertical rhythm */
-            #cv h2.name { font-size: 17pt; }
-            #cv .contact { margin-bottom: 7pt; }
-            #cv h3.section { margin: 8pt 0 4pt; }
-            #cv ul { margin: 3pt 0 3pt 15pt; }
-            #cv li { margin-bottom: 2pt; }
-            #cv .exp-head { margin-top: 3pt; }
-            #cv .skill-row, #cv .proj, #cv .edu { margin-bottom: 1.5pt; }
-
-            /* Never split a heading from its content, or a bullet across pages */
-            #cv h3.section { break-after: avoid; page-break-after: avoid; }
-            #cv li, #cv .proj, #cv .exp-head { break-inside: avoid; page-break-inside: avoid; }
-
-            /* Cover letter specific print rhythm */
-            #cl {
-                font-size: 10pt;
-                line-height: 1.4;
-            }
-            #cl h2.name { font-size: 17pt; }
-            #cl .contact { margin-bottom: 7pt; }
         }
     </style>
 </head>
@@ -522,7 +633,8 @@
         </div>
 
         <button class="btn" onclick="window.print()">🖨️ Print / Save Active PDF</button>
-        <p class="hint" style="margin-bottom: 1rem;">Uses browser print context. Set active preview tab first.</p>
+        <button class="btn secondary" onclick="downloadCvPdf()">⬇️ Download Resume / CV PDF</button>
+        <p class="hint" style="margin-bottom: 1rem;">Uses browser print or high-res PDF generation.</p>
 
         <div class="divider"></div>
 
@@ -531,20 +643,13 @@
             <h2 class="section-title">✨ AI Copilot</h2>
             <button class="icon-btn" onclick="openSettingsModal()" title="AI API Key Configuration">⚙️</button>
         </div>
-        <p class="sub" style="margin-bottom: 1rem;">Dynamically tailor details locally using LLMs.</p>
+        <p class="sub" style="margin-bottom: 1rem;">Paste a JD. One click tailors your summary, writes the cover letter hook, and picks up the role/company/recruiter email — nothing else to fill in by hand.</p>
 
         <div class="field">
             <label for="jd-input">Job Description</label>
             <textarea id="jd-input" rows="4" placeholder="Paste target role details or description..."></textarea>
         </div>
-        <div class="field">
-            <label for="ai-task">AI Copilot Action</label>
-            <select id="ai-task">
-                <option value="hook">Generate Cover Letter Hook (1-2 lines)</option>
-                <option value="summary">Tailor Profile Summary (updates CV)</option>
-            </select>
-        </div>
-        <button class="btn accent-btn" id="runAiBtn" onclick="runAiGeneration()">✨ Generate with AI</button>
+        <button class="btn accent-btn" id="runAiBtn" onclick="runAiGeneration()">✨ Generate Full Application</button>
         <div id="ai-status" class="hint" style="display: none; margin-top: 0.75rem; padding: 0.6rem; border-radius: 6px; font-size: 0.75rem; line-height: 1.45;"></div>
 
         <div class="divider"></div>
@@ -564,8 +669,13 @@
             <label for="hook">Why this company (1–2 lines)</label>
             <textarea id="hook" rows="3" placeholder="Reference something specific: a product, a team, a problem they solve..."></textarea>
         </div>
+        <div class="field">
+            <label for="recipient-email">Recipient email (optional)</label>
+            <input id="recipient-email" placeholder="e.g., recruiter@company.com">
+        </div>
         <button class="btn" id="copyCL" onclick="copyCoverLetter()">📋 Copy Cover Letter (Text)</button>
-        <button class="btn secondary" onclick="downloadCoverLetter()">⬇️ Download Cover Letter PDF</button>
+        <button class="btn secondary" onclick="downloadCoverLetterPdf()">⬇️ Download Cover Letter PDF</button>
+        <button class="btn secondary" onclick="sendViaGmail()">✉️ Send via Gmail</button>
     </aside>
 
     <main class="stage">
@@ -596,7 +706,13 @@
                         <option value="openai">OpenAI (ChatGPT)</option>
                     </select>
                 </div>
-                
+
+                <div class="field">
+                    <label for="api-model">Model</label>
+                    <select id="api-model"></select>
+                    <p class="hint" style="margin-top: 0.5rem;">Providers periodically retire old model names. If generation ever fails with a "model not found" error, pick another valid model here.</p>
+                </div>
+
                 <div class="field">
                     <label for="api-key">API Key</label>
                     <div class="password-wrapper">
@@ -638,9 +754,14 @@
             const b = RESUME.basics;
             document.getElementById('presetHint').textContent = preset.label;
 
-            const contact = [
-                b.location, b.phone, b.email, b.portfolio, b.github, b.linkedin
-            ].join('  •  ');
+            const contact = `
+                <span><i class="fa-solid fa-location-dot"></i> ${b.location}</span> |
+                <span><i class="fa-solid fa-phone"></i> ${b.phone}</span> |
+                <a href="mailto:${b.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${b.email}</a> |
+                <a href="https://${b.portfolio}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> Portfolio: ${b.portfolio}</a> |
+                <a href="https://${b.github}" target="_blank"><i class="fa-brands fa-github"></i> GitHub: ${b.github}</a> |
+                <a href="https://${b.linkedin}" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn: ${b.linkedin}</a>
+            `;
 
             // Experience (bullets filtered by tag, ordered by preset.bulletOrder)
             const expHtml = RESUME.experience.map(job => {
@@ -648,50 +769,87 @@
                 const ordered = preset.bulletOrder
                     .map(id => byId[id])
                     .filter(x => x && (x.tag === 'both' || x.tag === key));
-                const lis = ordered.map(x => `<li><b>${x.lead}:</b> ${x.text}</li>`).join('');
+                const lis = ordered.map(x => `<li><strong>${x.lead}:</strong> ${x.text}</li>`).join('');
                 return `
-                    <div class="exp-head">
-                        <span><span class="exp-role">${preset.title === 'Senior Full Stack Engineer' ? 'Senior Full Stack Engineer' : job.role}</span>
-                        — <span class="exp-company">${job.company}</span>
-                        <span class="exp-note">(${job.note})</span></span>
-                        <span class="exp-dates">${job.dates}</span>
-                    </div>
-                    <ul>${lis}</ul>`;
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <h3>${key === 'senior' ? preset.title : job.role} <span style="font-weight: 400; font-size: 0.85em; color: #666;">(${job.note})</span></h3>
+                            <span class="company">${job.company}</span>
+                            <span class="date">${job.dates}</span>
+                        </div>
+                        <ul class="exp-details">${lis}</ul>
+                    </div>`;
             }).join('');
 
             // Skills (ordered per preset)
             const order = RESUME.skillsOrder[key] || Object.keys(RESUME.skills);
             const skillsHtml = order
                 .filter(g => RESUME.skills[g])
-                .map(g => `<div class="skill-row"><b>${g}:</b> ${RESUME.skills[g]}</div>`).join('');
+                .map(g => `<div class="skill-category"><strong>${g}:</strong> ${RESUME.skills[g]}</div>`)
+                .join('');
 
             // Projects
             const projHtml = RESUME.projects.filter(p => p.show)
-                .map(p => `<div class="proj"><b>${p.name}:</b> ${p.text}</div>`).join('');
+                .map(p => {
+                    let links = '';
+                    if (p.live || p.github) {
+                        links = `<span class="project-links">
+                            ${p.live ? `<a href="${p.live}" target="_blank" title="Live Site"><i class="fa-solid fa-external-link-alt"></i></a>` : ''}
+                            ${p.github ? `<a href="${p.github}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>` : ''}
+                        </span>`;
+                    } else {
+                        const linksMap = {
+                            "FileBridge": `<span class="project-links"><a href="https://uttamgupta2712.github.io/FileBridge/" target="_blank" title="Live Site"><i class="fa-solid fa-external-link-alt"></i></a><a href="https://github.com/uttamgupta2712/FileBridge" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></span>`,
+                            "High-Performance Load Balancer (Rust)": `<span class="project-links"><a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></span>`,
+                            "Axon": `<span class="project-links"><a href="https://uttamgupta2712.github.io/axon/" target="_blank" title="Live Site"><i class="fa-solid fa-external-link-alt"></i></a></span>`,
+                            "Redis Lite (Rust)": `<span class="project-links"><a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></span>`
+                        };
+                        links = linksMap[p.name] || '';
+                    }
+                    return `<li><strong>${p.name}:</strong> ${p.text}${links}</li>`;
+                }).join('');
 
             // Education
             const eduHtml = RESUME.education
-                .map(e => `<div class="edu"><b>${e.degree}</b> — ${e.school} <span style="color:#444;">(${e.detail})</span></div>`).join('');
+                .map(e => `
+                    <div class="education-item">
+                        <div class="edu-header">
+                            <h3>${e.degree}</h3>
+                            <span>${e.school}</span>
+                            <span>${e.detail}</span>
+                        </div>
+                    </div>`).join('');
 
             document.getElementById('cv').innerHTML = `
-                <h2 class="name">${b.name.toUpperCase()}</h2>
-                <div class="title-line">${preset.title}</div>
-                <div class="contact">${contact}</div>
+                <header class="cv-header">
+                    <h1>${b.name}</h1>
+                    <div class="contact-info">${contact}</div>
+                </header>
 
-                <h3 class="section">Professional Summary</h3>
-                <div class="summary">${preset.summary}</div>
+                <section class="cv-section">
+                    <h2>Professional Summary</h2>
+                    <p>${preset.summary}</p>
+                </section>
 
-                <h3 class="section">Experience</h3>
-                ${expHtml}
+                <section class="cv-section">
+                    <h2>Technical Skills</h2>
+                    <div class="skills-grid">${skillsHtml}</div>
+                </section>
 
-                <h3 class="section">Technical Skills</h3>
-                ${skillsHtml}
+                <section class="cv-section">
+                    <h2>Professional Experience</h2>
+                    ${expHtml}
+                </section>
 
-                <h3 class="section">Selected Projects</h3>
-                ${projHtml}
+                <section class="cv-section">
+                    <h2>Selected Technical Projects</h2>
+                    <ul class="projects-list">${projHtml}</ul>
+                </section>
 
-                <h3 class="section">Education</h3>
-                ${eduHtml}
+                <section class="cv-section">
+                    <h2>Education</h2>
+                    ${eduHtml}
+                </section>
             `;
 
             // Prefill cover-letter role from preset title if empty
@@ -702,23 +860,29 @@
         // ---- Render the Cover Letter ----
         function renderCL() {
             const { b, date, subject, paras } = coverLetterParts();
-            const contact = [
-                b.location, b.phone, b.email, b.portfolio, b.github, b.linkedin
-            ].join('  •  ');
+            const contact = `
+                <span><i class="fa-solid fa-location-dot"></i> ${b.location}</span> |
+                <span><i class="fa-solid fa-phone"></i> ${b.phone}</span> |
+                <a href="mailto:${b.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${b.email}</a> |
+                <a href="https://${b.portfolio}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> ${b.portfolio}</a> |
+                <a href="https://${b.github}" target="_blank"><i class="fa-brands fa-github"></i> ${b.github}</a> |
+                <a href="https://${b.linkedin}" target="_blank"><i class="fa-brands fa-linkedin"></i> ${b.linkedin}</a>
+            `;
             
             const preset = RESUME.presets[currentPreset()];
-            const bodyHtml = paras.map(p => `<p style="margin-bottom: 12pt;">${p}</p>`).join('');
+            const bodyHtml = paras.map(p => `<p style="margin-bottom: 12px; line-height: 1.6;">${p}</p>`).join('');
 
             document.getElementById('cl').innerHTML = `
-                <h2 class="name">${b.name.toUpperCase()}</h2>
-                <div class="title-line">${preset.title}</div>
-                <div class="contact" style="border-bottom: 1.2pt solid #333; padding-bottom: 8pt; margin-bottom: 15pt;">${contact}</div>
+                <header class="cv-header">
+                    <h1>${b.name}</h1>
+                    <div class="contact-info">${contact}</div>
+                </header>
 
-                <div style="margin-top: 15pt; font-size: 10.5pt; font-family: 'Calibri', 'Arial', sans-serif;">
-                    <div style="margin-bottom: 12pt;">${date}</div>
-                    <div style="font-weight: bold; margin-bottom: 15pt;">${subject}</div>
-                    <div style="margin-bottom: 12pt;">Dear Hiring Team,</div>
-                    <div style="line-height: 1.5; color: #222;">
+                <div class="cl-body" style="margin-top: 20px; font-size: 14px; font-family: var(--font-main);">
+                    <div style="margin-bottom: 14px; font-weight: 500; color: var(--secondary-color);">${date}</div>
+                    <div style="font-size: 16px; font-weight: 700; color: var(--primary-color); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">${subject}</div>
+                    <div style="margin-bottom: 14px; font-weight: 600;">Dear Hiring Team,</div>
+                    <div style="line-height: 1.6; color: var(--text-color);">
                         ${bodyHtml}
                     </div>
                 </div>
@@ -763,7 +927,7 @@
             const hook = document.getElementById('hook').value.trim();
             const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-            const subject = `Re: Application for ${role} at ${company}`;
+            const subject = `Application for ${role} at ${company}`;
             const paras = [
                 `I'm applying for the ${role} role at ${company}. I'm a full-stack engineer with 3+ years shipping production web platforms, and I'd bring end-to-end delivery across TypeScript/React, Node.js/NestJS, plus hands-on DevOps and applied AI.`,
                 `At Zenmonk Software I cut document-processing time from 5 minutes to 15 seconds for 10k+ concurrent records, designed a runtime-configurable multi-tenant RBAC system, and supported a monolith-to-microservices migration on GCP. I was promoted three times for consistent delivery impact.`,
@@ -787,34 +951,32 @@
             return `${header}\n\n${'-'.repeat(48)}\n\n${body.join('\n').trimEnd()}\n`;
         }
 
-        // ---- Download as PDF (jsPDF) ----
-        function downloadCoverLetter() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const { b, company, date, subject, paras } = coverLetterParts();
+        // ---- Download CV as PDF (html2pdf) ----
+        function downloadCvPdf() {
+            const element = document.getElementById('cv');
+            const opt = {
+                margin:       [6, 10, 6, 10],
+                filename:     `Uttam_Gupta_CV_${currentPreset()}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
 
-            doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
-            doc.text(b.name.toUpperCase(), 20, 20);
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(90);
-            doc.text(`${b.location}  |  ${b.phone}  |  ${b.email}`, 20, 27);
-            doc.text(`${b.portfolio}  |  ${b.linkedin}`, 20, 32);
-            doc.setDrawColor(200); doc.line(20, 37, 190, 37);
-
-            doc.setTextColor(0); doc.setFontSize(11);
-            doc.text(date, 20, 47);
-            doc.setFont('helvetica', 'bold');
-            doc.text(subject, 20, 57);
-            doc.setFont('helvetica', 'normal');
-            doc.text(`Dear Hiring Team,`, 20, 68);
-
-            let y = 80;
-            paras.forEach(p => {
-                const lines = doc.splitTextToSize(p, 170);
-                doc.text(lines, 20, y);
-                y += lines.length * 6 + 4;
-            });
-
-            doc.save(`Uttam_Gupta_Cover_Letter_${company.replace(/\s+/g, '_')}.pdf`);
+        // ---- Download Cover Letter as PDF (html2pdf) ----
+        function downloadCoverLetterPdf() {
+            const { company } = coverLetterParts();
+            const element = document.getElementById('cl');
+            const safeCompany = (company || 'Application').replace(/\s+/g, '_');
+            const opt = {
+                margin:       [10, 15, 10, 15],
+                filename:     `Uttam_Gupta_Cover_Letter_${safeCompany}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
         }
 
         // ---- Copy plain text to clipboard ----
@@ -825,7 +987,6 @@
                 await navigator.clipboard.writeText(coverLetterText());
                 btn.textContent = '✓ Copied to clipboard';
             } catch (err) {
-                // Fallback for older browsers / non-secure contexts
                 const ta = document.createElement('textarea');
                 ta.value = coverLetterText();
                 ta.style.position = 'fixed';
@@ -839,14 +1000,61 @@
             setTimeout(() => { btn.textContent = original; }, 2000);
         }
 
+        // ---- Open Gmail web compose ----
+        const GMAIL_SEND_ACCOUNT = 'uttamgupta2712@gmail.com';
+
+        function sendViaGmail() {
+            const { subject } = coverLetterParts();
+            const to = document.getElementById('recipient-email').value.trim();
+            const params = new URLSearchParams({
+                view: 'cm',
+                fs: '1',
+                su: subject,
+                body: coverLetterText(),
+                authuser: GMAIL_SEND_ACCOUNT,
+            });
+            if (to) params.set('to', to);
+            window.open(`https://mail.google.com/mail/?${params.toString()}`, '_blank');
+        }
+
+        // ---- Known-good models per provider ----
+        const MODEL_CATALOG = {
+            gemini: [
+                { value: 'gemini-2.0-flash', label: 'Gemini 2.0 Flash — fast, powerful (recommended)' },
+                { value: 'gemini-2.0-flash-lite', label: 'Gemini 2.0 Flash-Lite — fastest, lowest cost' },
+                { value: 'gemini-1.5-flash', label: 'Gemini 1.5 Flash — stable flash' },
+                { value: 'gemini-1.5-pro', label: 'Gemini 1.5 Pro — highest quality reasoning' },
+            ],
+            openai: [
+                { value: 'gpt-4o-mini', label: 'GPT-4o mini — fast, cheap (recommended)' },
+                { value: 'gpt-4o', label: 'GPT-4o — higher quality' },
+                { value: 'gpt-4-turbo', label: 'GPT-4 Turbo' },
+            ],
+        };
+
+        function populateModelOptions(selectedModel) {
+            const provider = document.getElementById('api-provider').value;
+            const modelSelect = document.getElementById('api-model');
+            modelSelect.innerHTML = '';
+            MODEL_CATALOG[provider].forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.value;
+                opt.textContent = m.label;
+                modelSelect.appendChild(opt);
+            });
+            if (selectedModel && MODEL_CATALOG[provider].some(m => m.value === selectedModel)) {
+                modelSelect.value = selectedModel;
+            }
+        }
+
         // ---- Settings Modal Handlers ----
         function openSettingsModal() {
             const overlay = document.getElementById('settingsModal');
-            
-            // Prefill stored config
+
             document.getElementById('api-provider').value = localStorage.getItem('RESUME_STUDIO_API_PROVIDER') || 'gemini';
             document.getElementById('api-key').value = localStorage.getItem('RESUME_STUDIO_API_KEY') || '';
-            
+            populateModelOptions(localStorage.getItem('RESUME_STUDIO_API_MODEL'));
+
             toggleProviderHint();
             overlay.classList.add('active');
         }
@@ -858,6 +1066,7 @@
         function toggleProviderHint() {
             const provider = document.getElementById('api-provider').value;
             const hintEl = document.getElementById('provider-hint');
+            populateModelOptions();
             if (provider === 'gemini') {
                 hintEl.innerHTML = 'Get a free Gemini API key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">Google AI Studio</a>.';
             } else {
@@ -867,13 +1076,15 @@
 
         function saveSettings() {
             const provider = document.getElementById('api-provider').value;
+            const model = document.getElementById('api-model').value;
             const apiKey = document.getElementById('api-key').value.trim();
-            
+
             localStorage.setItem('RESUME_STUDIO_API_PROVIDER', provider);
+            localStorage.setItem('RESUME_STUDIO_API_MODEL', model);
             localStorage.setItem('RESUME_STUDIO_API_KEY', apiKey);
-            
+
             closeSettingsModal();
-            
+
             if (apiKey) {
                 showAiStatus("API credentials configured successfully.", "success");
             } else {
@@ -922,8 +1133,8 @@
         async function runAiGeneration() {
             const apiKey = localStorage.getItem('RESUME_STUDIO_API_KEY');
             const provider = localStorage.getItem('RESUME_STUDIO_API_PROVIDER') || 'gemini';
+            const model = localStorage.getItem('RESUME_STUDIO_API_MODEL') || MODEL_CATALOG[provider][0].value;
             const jd = document.getElementById('jd-input').value.trim();
-            const task = document.getElementById('ai-task').value;
             const btn = document.getElementById('runAiBtn');
 
             if (!apiKey) {
@@ -941,72 +1152,50 @@
             // Set loading state
             btn.disabled = true;
             const originalBtnText = btn.innerHTML;
-            btn.innerHTML = '⚡ Generating response...';
+            btn.innerHTML = '⚡ Generating application...';
             showAiStatus('Connecting to AI API and processing...', 'loading');
 
             const preset = RESUME.presets[currentPreset()];
-            const role = document.getElementById('role').value.trim() || preset.title;
-            const company = document.getElementById('company').value.trim() || '[Company]';
             const basics = RESUME.basics;
-            
-            let prompt = '';
-            if (task === 'hook') {
-                prompt = `You are a professional CV optimizer. Create a custom, highly tailored 1-2 sentence hook for a cover letter explaining why the candidate is a perfect fit for the "${role}" role at "${company}".
+
+            const prompt = `You are a professional CV optimizer helping a candidate apply to a job. Read the job description below and produce a tailored application package.
+
 Candidate Name: ${basics.name}
-Role: ${role}
-Company: ${company}
-
-Candidate background highlights:
-- Profile summary: ${preset.summary}
-- Technical skill catalog: ${Object.entries(RESUME.skills).map(([k, v]) => `${k}: ${v}`).join(', ')}
+Candidate current profile summary: "${preset.summary}"
+Candidate technical skill catalog: ${Object.entries(RESUME.skills).map(([k, v]) => `${k}: ${v}`).join(', ')}
 
 Job description:
 """
 ${jd}
 """
 
-Instructions:
-- Write exactly 1 or 2 sentences.
-- Focus on how the candidate's skills directly solve a challenge or add value to ${company} based on their job description.
-- Keep the tone professional, confident, and eager.
-- Return ONLY the hook paragraph. Do not include quotes, greetings, explanations, or any formatting.`;
-            } else if (task === 'summary') {
-                prompt = `You are a professional CV optimizer. Rewrite the candidate's professional summary to align perfectly with the target job description.
-Target Position: ${role}
-Target Company: ${company}
-
-Original summary:
-"${preset.summary}"
-
-Candidate key skills:
-${Object.entries(RESUME.skills).map(([k, v]) => `${k}: ${v}`).join(', ')}
-
-Job description:
-"""
-${jd}
-"""
-
-Instructions:
-- Rewrite the professional summary. Keep it to 3-4 sentences (about 60-80 words).
-- Match keywords and core requirements from the Job Description naturally.
-- Do not fabricate experiences. Emphasize their full-stack engineering, performance optimizations, and backend/frontend capabilities.
-- Return ONLY the raw rewritten paragraph. Do not include quotes, markdown bolding, introductions, or comments.`;
-            }
+Return ONLY a single JSON object (no markdown code fences, no commentary) with exactly these keys:
+{
+  "role": "the job title from the JD, in Title Case. Empty string if you cannot identify one.",
+  "company": "the hiring company's name from the JD. Empty string if you cannot identify one.",
+  "contactEmail": "a recruiter/HR/hiring contact email address if one appears anywhere in the JD text. Empty string if none appears — do NOT invent one.",
+  "summary": "a rewritten 3-4 sentence (about 60-80 words) professional summary tailored to this JD, matching its keywords and core requirements naturally. Do not fabricate experience.",
+  "hook": "exactly 1-2 sentences for a cover letter opening, explaining how the candidate's skills directly solve a challenge or add value for this company based on the JD. Professional, confident, eager tone."
+}`;
 
             try {
-                const resultText = await callAiApi(provider, apiKey, prompt);
-                
-                if (task === 'hook') {
-                    document.getElementById('hook').value = resultText;
-                    renderCL();
-                    switchTab('cl');
-                    showAiStatus('<strong>Success!</strong> Cover letter hook tailored successfully and loaded into preview.', 'success');
-                } else if (task === 'summary') {
-                    RESUME.presets[currentPreset()].summary = resultText;
-                    renderCV();
-                    switchTab('cv');
-                    showAiStatus(`<strong>Success!</strong> Summary tailored and applied to CV. <a href="javascript:void(0)" onclick="resetSummary()" style="color: var(--accent); text-decoration: underline; font-weight: 600; margin-left: 5px;">Reset to Original</a>`, 'success');
+                const result = await callAiApi(provider, model, apiKey, prompt, { jsonMode: true });
+                const jsonMatch = result.match(/\{[\s\S]*\}/);
+                if (!jsonMatch) {
+                    throw new Error('AI response did not contain a valid JSON object.');
                 }
+                const parsed = JSON.parse(jsonMatch[0]);
+
+                if (parsed.role) document.getElementById('role').value = parsed.role;
+                if (parsed.company) document.getElementById('company').value = parsed.company;
+                if (parsed.contactEmail) document.getElementById('recipient-email').value = parsed.contactEmail;
+                if (parsed.hook) document.getElementById('hook').value = parsed.hook;
+                if (parsed.summary) RESUME.presets[currentPreset()].summary = parsed.summary;
+
+                renderCV();
+                renderCL();
+                switchTab('cl');
+                showAiStatus(`<strong>Success!</strong> Summary, cover letter, and role/company${parsed.contactEmail ? '/recruiter email' : ''} filled in from the JD. Review the Cover Letter tab, then use "Send via Gmail" whenever you're ready. <a href="javascript:void(0)" onclick="resetSummary()" style="color: var(--accent); text-decoration: underline; font-weight: 600; margin-left: 5px;">Reset Summary to Original</a>`, 'success');
             } catch (err) {
                 console.error(err);
                 showAiStatus(`<strong>Generation Failed</strong><br>${err.message}`, 'error');
@@ -1016,18 +1205,17 @@ Instructions:
             }
         }
 
-        async function callAiApi(provider, apiKey, prompt) {
+        async function callAiApi(provider, model, apiKey, prompt, { jsonMode = false } = {}) {
             if (provider === 'gemini') {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                const generationConfig = { temperature: 0.6, maxOutputTokens: 2048 };
+                if (jsonMode) generationConfig.responseMimeType = 'application/json';
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         contents: [{ parts: [{ text: prompt }] }],
-                        generationConfig: {
-                            temperature: 0.6,
-                            maxOutputTokens: 250
-                        }
+                        generationConfig
                     })
                 });
                 if (!response.ok) {
@@ -1038,18 +1226,20 @@ Instructions:
                 return data.candidates[0].content.parts[0].text.trim().replace(/^["']|["']$/g, '');
             } else {
                 const url = 'https://api.openai.com/v1/chat/completions';
+                const body = {
+                    model: model,
+                    messages: [{ role: 'user', content: prompt }],
+                    temperature: 0.6,
+                    max_tokens: 2048
+                };
+                if (jsonMode) body.response_format = { type: 'json_object' };
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${apiKey}`
                     },
-                    body: JSON.stringify({
-                        model: 'gpt-4o-mini',
-                        messages: [{ role: 'user', content: prompt }],
-                        temperature: 0.6,
-                        max_tokens: 250
-                    })
+                    body: JSON.stringify(body)
                 });
                 if (!response.ok) {
                     const errData = await response.json();
