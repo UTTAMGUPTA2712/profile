@@ -708,18 +708,21 @@
                 </div>
 
                 <div class="field">
-                    <label for="api-model">Model</label>
-                    <select id="api-model"></select>
-                    <p class="hint" style="margin-top: 0.5rem;">Providers periodically retire old model names. If generation ever fails with a "model not found" error, pick another valid model here.</p>
-                </div>
-
-                <div class="field">
                     <label for="api-key">API Key</label>
                     <div class="password-wrapper">
                         <input type="password" id="api-key" placeholder="Paste your API key here">
                         <button class="toggle-password" onclick="togglePasswordVisibility('api-key')">👁️</button>
                     </div>
                     <p class="hint" id="provider-hint" style="margin-top: 0.5rem;"></p>
+                </div>
+
+                <div class="field">
+                    <label for="api-model">Model</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: stretch;">
+                        <select id="api-model" style="flex: 1;"></select>
+                        <button type="button" class="btn secondary" id="fetchModelsBtn" onclick="fetchModels()" style="width: auto; margin-top: 0; white-space: nowrap;" title="List the models available to your API key">🔄 Fetch</button>
+                    </div>
+                    <p class="hint" id="model-hint" style="margin-top: 0.5rem;">Enter your API key above, then click "Fetch" to list the models actually available to your account.</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1066,11 +1069,93 @@
         function toggleProviderHint() {
             const provider = document.getElementById('api-provider').value;
             const hintEl = document.getElementById('provider-hint');
+            const modelHintEl = document.getElementById('model-hint');
             populateModelOptions();
+            modelHintEl.style.color = '';
+            modelHintEl.textContent = 'Enter your API key above, then click "Fetch" to list the models actually available to your account.';
             if (provider === 'gemini') {
                 hintEl.innerHTML = 'Get a free Gemini API key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">Google AI Studio</a>.';
             } else {
                 hintEl.innerHTML = 'Get an OpenAI API key from the <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">OpenAI Developer Platform</a>.';
+            }
+        }
+
+        // ---- Fetch the live list of models available to the given API key ----
+        async function fetchModelsForProvider(provider, apiKey) {
+            if (provider === 'gemini') {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.error?.message || `HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                return (data.models || [])
+                    .filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+                    .map(m => {
+                        const value = m.name.replace(/^models\//, '');
+                        return { value, label: m.displayName || value };
+                    })
+                    .sort((a, b) => a.label.localeCompare(b.label));
+            } else {
+                const response = await fetch('https://api.openai.com/v1/models', {
+                    headers: { 'Authorization': `Bearer ${apiKey}` }
+                });
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.error?.message || `HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                return (data.data || [])
+                    .map(m => m.id)
+                    .filter(id => /^(gpt|o[134]|chatgpt)/i.test(id) && !/(embedding|audio|tts|whisper|image|moderation|realtime|transcribe|search)/i.test(id))
+                    .sort()
+                    .map(id => ({ value: id, label: id }));
+            }
+        }
+
+        async function fetchModels() {
+            const provider = document.getElementById('api-provider').value;
+            const apiKey = document.getElementById('api-key').value.trim();
+            const btn = document.getElementById('fetchModelsBtn');
+            const hintEl = document.getElementById('model-hint');
+
+            if (!apiKey) {
+                hintEl.style.color = '#f87171';
+                hintEl.textContent = 'Enter your API key first, then click "Fetch".';
+                return;
+            }
+
+            const originalBtnText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '⏳ Fetching...';
+            hintEl.style.color = '';
+            hintEl.textContent = 'Fetching available models from provider...';
+
+            try {
+                const models = await fetchModelsForProvider(provider, apiKey);
+                if (!models.length) throw new Error('No compatible models returned for this key.');
+
+                const modelSelect = document.getElementById('api-model');
+                const previousValue = modelSelect.value;
+                modelSelect.innerHTML = '';
+                models.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m.value;
+                    opt.textContent = m.label;
+                    modelSelect.appendChild(opt);
+                });
+                if (models.some(m => m.value === previousValue)) modelSelect.value = previousValue;
+
+                hintEl.style.color = '#34d399';
+                hintEl.textContent = `Loaded ${models.length} model(s) available to your API key.`;
+            } catch (err) {
+                console.error(err);
+                hintEl.style.color = '#f87171';
+                hintEl.textContent = `Could not fetch models (${err.message}). Showing default list instead.`;
+                populateModelOptions();
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalBtnText;
             }
         }
 
