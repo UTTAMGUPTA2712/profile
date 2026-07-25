@@ -735,6 +735,9 @@
                             <span class="skill-tag">TypeScript / JavaScript (ES6+)</span>
                             <span class="skill-tag">Node.js (Event Loop)</span>
                             <span class="skill-tag">React.js / Next.js / NestJS</span>
+                            <span class="skill-tag">Vite</span>
+                            <span class="skill-tag">Material UI / shadcn/ui</span>
+                            <span class="skill-tag">Socket.IO</span>
                         </div>
                     </div>
 
@@ -746,6 +749,8 @@
                             <span class="skill-tag">Docker / Kubernetes</span>
                             <span class="skill-tag">GitLab CI/CD / SonarQube</span>
                             <span class="skill-tag">FFmpeg / Redis / PostgreSQL</span>
+                            <span class="skill-tag">WebRTC / HLS</span>
+                            <span class="skill-tag">Stripe</span>
                         </div>
                     </div>
 
@@ -757,6 +762,8 @@
                             <span class="skill-tag">DDD / Saga / CQRS</span>
                             <span class="skill-tag">Microservices / EDA</span>
                             <span class="skill-tag">RBAC / SSO / Multi-tenancy</span>
+                            <span class="skill-tag">TDD / Jest / Testing Library</span>
+                            <span class="skill-tag">API Design (REST/GraphQL/OpenAPI)</span>
                         </div>
                     </div>
                 </div>
@@ -786,25 +793,33 @@
                         multi-tenant ERP, ensuring enterprise-grade security and zero-leakage between data silos.
                     </li>
                     <li>
-                        Orchestrated the migration of a legacy monolith to a RabbitMQ-powered microservices architecture
-                        using Docker and Kubernetes, increasing system uptime and deployment frequency by 40%.
+                        Orchestrated the migration of a legacy Node.js/NestJS monolith to a RabbitMQ-powered
+                        microservices architecture using Docker, Kubernetes, and automated CI/CD pipelines, increasing
+                        system uptime and deployment frequency by 40%.
                     </li>
                     <li>
                         Optimized high-throughput scaling by re-engineering an Event-Driven Architecture (EDA) with
-                        Resilient Message Handling (RMHA), reducing system failures during peak loads by 25%.
+                        Saga & CQRS patterns and Resilient Message Handling (RMHA), reducing system failures during
+                        peak loads by 25%.
                     </li>
                     <li>
                         Boosted database performance by reducing write load by 30% through API refactoring, strategic
-                        ERD denormalization, and optimized batch data processing.
+                        ERD denormalization, optimized batch data processing, and Redis caching for frequently
+                        accessed data.
                     </li>
                     <li>
                         Resolved critical document generation bottlenecks for 10k+ concurrent records by implementing
                         encrypted, chunked processing pipelines, improving speed by 60%.
                     </li>
                     <li>
+                        Adopted TDD with Jest across core services, catching regressions early and keeping the
+                        event-driven rewrite shippable at speed.
+                    </li>
+                    <li>
                         Orchestrated cross-functional workflows between UI/UX, QA, and Product teams to deliver a
                         multi-tenant ERP; reduced feedback loops by 30% through early-stage technical feasibility
-                        assessments of design prototypes.
+                        assessments of design prototypes, while owning technical design/RFCs and mentoring engineers
+                        through code reviews and pairing.
                     </li>
                 </ul>
             </div>
@@ -861,8 +876,8 @@
                     <div class="solution-box">
                         <h4>The Solution</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Implemented Table Virtualization, rendering only visible rows while managing state for 1500+
-                            dynamic cells efficiently.
+                            Implemented Table Virtualization in React.js/Next.js, rendering only visible rows while
+                            managing state for 1500+ dynamic cells efficiently.
                         </p>
                     </div>
                 </div>
@@ -907,6 +922,48 @@
         <section id="projects">
             <h2 class="section-title"><span>04.</span> Project Ecosystem</h2>
             <div class="project-grid">
+
+                <!-- Project: Buck -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-tower-broadcast folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://buckstreaming.com" target="_blank" title="Live Site"><i
+                                    class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Buck</h3>
+                    <p class="project-desc">
+                        Creator-subscription live-streaming platform; built auth, payments, and real-time
+                        interaction with full platform ownership.
+                    </p>
+                    <div class="project-tech">
+                        <span>Next.js</span>
+                        <span>Socket.IO</span>
+                        <span>Stripe</span>
+                    </div>
+                </div>
+
+                <!-- Project: Maity -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-robot folder-icon"></i>
+                        <div class="project-links">
+                            <a href="https://maity.pro" target="_blank" title="Live Site"><i
+                                    class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Maity</h3>
+                    <p class="project-desc">
+                        AI-powered video personalization platform for sales outreach at scale, with CRM
+                        integrations and an engagement analytics dashboard.
+                    </p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>AI Video</span>
+                        <span>CRM Integrations</span>
+                    </div>
+                </div>
 
                 <!-- Project: FileBridge -->
                 <div class="project-card">
