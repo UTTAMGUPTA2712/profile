@@ -600,6 +600,7 @@
                 margin: 0 auto !important;
                 border-radius: 0 !important;
                 animation: none !important;
+                transform: none !important;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
@@ -614,6 +615,83 @@
             .experience-item, .skill-category, .projects-list li, .education-item {
                 page-break-inside: avoid;
                 break-inside: avoid;
+            }
+        }
+
+        /* ---------- Mobile layout ----------
+         * The sheet is a fixed 210mm/297mm (~794x1123px) document by design (it's a literal
+         * print page, and PDF export/print both depend on that fixed size). On narrow screens
+         * we scale it down visually with `transform` so it fits without horizontal clipping.
+         * Centering relies on `.stage`'s `align-items: center` alone — do NOT add
+         * `margin: auto` on `.sheet` here, since auto margins resolve to 0 (not negative) once
+         * the sheet is wider than its container, which silently breaks the centering and left-
+         * aligns an oversized box instead. `transform` doesn't shrink the element's own layout
+         * box, so the negative margin-bottom below pulls the leftover blank space back up
+         * (approximate — a little extra scroll room is a cosmetic non-issue). Downloading/
+         * printing always uses the untransformed sheet: print forces `transform: none !important`
+         * above, and download*Pdf() clears the inline transform before capture (see
+         * withFullSizeSheet / downloadCvPdf / downloadCoverLetterPdf).
+         */
+        @media (max-width: 880px) {
+            body {
+                flex-direction: column;
+                overflow: visible;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .controls {
+                width: 100%;
+                height: auto;
+                position: static;
+                box-shadow: none;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1.25rem 1rem;
+            }
+
+            .stage {
+                height: auto;
+                min-height: 60vh;
+                padding: 1.25rem 0.5rem 2rem;
+                overflow-x: hidden;
+            }
+
+            .tabs-container {
+                width: 100%;
+                justify-content: center;
+                position: sticky;
+                top: 0.5rem;
+            }
+
+            .sheet {
+                transform: scale(0.62);
+                transform-origin: top center;
+                margin-bottom: -395px;
+            }
+
+            .modal {
+                width: 92%;
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sheet {
+                transform: scale(0.48);
+                margin-bottom: -552px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sheet {
+                transform: scale(0.4);
+                margin-bottom: -642px;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.78rem;
             }
         }
     </style>
@@ -955,6 +1033,17 @@
             return `${header}\n\n${'-'.repeat(48)}\n\n${body.join('\n').trimEnd()}\n`;
         }
 
+        // The mobile media queries above shrink the sheet on-screen via inline-overridable
+        // `transform`. An inline style always beats a stylesheet rule, so clearing it here
+        // guarantees PDF export always captures the sheet at full resolution, on any device.
+        function withFullSizeSheet(element, run) {
+            const prevTransform = element.style.transform;
+            element.style.transform = 'none';
+            return Promise.resolve(run()).finally(() => {
+                element.style.transform = prevTransform;
+            });
+        }
+
         // ---- Download CV as PDF (html2pdf) ----
         function downloadCvPdf() {
             const element = document.getElementById('cv');
@@ -965,7 +1054,7 @@
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-            html2pdf().set(opt).from(element).save();
+            withFullSizeSheet(element, () => html2pdf().set(opt).from(element).save());
         }
 
         // ---- Download Cover Letter as PDF (html2pdf) ----
@@ -980,7 +1069,7 @@
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-            html2pdf().set(opt).from(element).save();
+            withFullSizeSheet(element, () => html2pdf().set(opt).from(element).save());
         }
 
         // ---- Copy plain text to clipboard ----
