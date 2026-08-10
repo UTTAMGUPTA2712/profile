@@ -1,0 +1,284 @@
+<title>Uttam Gupta — Senior Full Stack Engineer — CV</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --text-color: #333;
+    --light-text: #666;
+    --border-color: #eee;
+    --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #525659;
+    font-family: var(--font-main);
+  }
+
+  /* ---------- Screen-only print button ---------- */
+  .print-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    padding: 14px;
+    background: #3a3d40;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+  }
+  .print-btn:hover { background: #2d82c4; }
+  .print-hint {
+    color: #cfd2d4;
+    font-size: 12.5px;
+    margin-left: 14px;
+    align-self: center;
+  }
+
+  /* ---------- The sheet (A4 page) ---------- */
+  .sheet {
+    background: #fff;
+    color: var(--text-color);
+    width: 210mm;
+    min-height: 297mm;
+    padding: 17px 22px;
+    line-height: 1.45;
+    text-align: justify;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+    margin: 24px auto 40px;
+    border-radius: 4px;
+  }
+
+  .cv-header {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 8px;
+    margin-bottom: 9px;
+  }
+
+  .cv-header h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .cv-header .role-title {
+    font-size: 14px;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    line-height: 18px;
+    font-size: 12.5px;
+    color: var(--secondary-color);
+    align-items: center;
+  }
+
+  .contact-info a {
+    color: var(--secondary-color);
+    text-decoration: none;
+  }
+
+  .cv-section { margin-bottom: 9px; }
+
+  .cv-section h2 {
+    font-size: 16px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 3px;
+    padding-top: 3px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .cv-section p { font-size: 13.5px; line-height: 1.45; }
+
+  .skills-grid { display: grid; gap: 4px; }
+  .skill-category { font-size: 13px; line-height: 1.4; }
+  .skill-category strong { color: var(--secondary-color); font-weight: 600; }
+
+  .experience-item { margin-bottom: 8px; }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+  }
+
+  .exp-header h3 { font-size: 15px; font-weight: 700; color: var(--text-color); }
+  .company { font-weight: 600; color: var(--secondary-color); font-size: 13px; }
+  .date { font-size: 12.5px; color: var(--light-text); font-weight: 500; }
+  .note { font-size: 12px; color: var(--light-text); font-style: italic; margin-bottom: 4px; }
+
+  .exp-details { list-style-position: outside; margin-left: 18px; font-size: 13px; }
+  .exp-details li { margin-bottom: 2px; text-align: justify; line-height: 1.42; }
+  .exp-details li strong { color: var(--secondary-color); }
+
+  .projects-list { list-style-position: outside; margin-left: 18px; font-size: 13px; }
+  .projects-list li { margin-bottom: 3px; line-height: 1.42; }
+  .projects-list li strong { color: var(--secondary-color); }
+
+  .project-links { margin-left: 6px; display: inline-flex; gap: 8px; }
+  .project-links a { color: var(--accent-color); text-decoration: none; font-size: 11.5px; }
+
+  .education-item { margin-bottom: 3px; }
+  .edu-header { display: flex; justify-content: space-between; font-size: 13px; }
+  .edu-header h3 { font-weight: 600; }
+  .edu-detail { font-size: 12.5px; color: var(--light-text); }
+
+  /* ---------- Print ---------- */
+  @page { size: A4; margin: 10mm 12mm; }
+
+  @media print {
+    html, body { background: #fff; }
+    .print-bar { display: none !important; }
+    .sheet {
+      box-shadow: none !important;
+      width: 100% !important;
+      max-width: 210mm !important;
+      min-height: auto !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      border-radius: 0 !important;
+    }
+    a { text-decoration: none; color: var(--secondary-color) !important; }
+    .experience-item, .skill-category, .projects-list li, .education-item {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+  }
+</style>
+
+<div class="print-bar">
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  <span class="print-hint">In the print dialog, choose "Save as PDF" as the destination.</span>
+</div>
+
+<div class="sheet">
+  <div class="cv-header">
+    <h1>Uttam Gupta</h1>
+    <div class="role-title">Senior Full Stack Engineer</div>
+    <div class="contact-info">
+      <span>📍 Delhi, India</span>
+      <span>📞 +91 9773706266</span>
+      <a href="mailto:uttamgupta2712@gmail.com">✉️ uttamgupta2712@gmail.com</a>
+      <a href="https://uttamgupta2712.is-a.dev" target="_blank">🌐 uttamgupta2712.is-a.dev</a>
+      <a href="https://github.com/UTTAMGUPTA2712" target="_blank">💻 github.com/UTTAMGUPTA2712</a>
+      <a href="https://linkedin.com/in/uttam-gupta-a185a8239" target="_blank">🔗 linkedin.com/in/uttam-gupta-a185a8239</a>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h2>Summary</h2>
+    <p>
+      Senior Full Stack Engineer specializing in event-driven, multi-tenant platforms. Promoted three times
+      in three years — Intern → Full Stack Developer → Team Lead — while owning architecture end-to-end for
+      a 5–6 engineer team. Full-stack depth (TypeScript, React/Next.js, Node.js/NestJS), hands-on DevOps
+      (Kubernetes, Docker, GCP), and applied AI experience across client and personal projects.
+    </p>
+  </div>
+
+  <div class="cv-section">
+    <h2>Experience</h2>
+    <div class="experience-item">
+      <div class="exp-header">
+        <h3>Full Stack Developer → Team Lead</h3>
+        <span class="date">June 2023 – Present</span>
+      </div>
+      <div class="exp-header">
+        <span class="company">Zenmonk Software And Services (FUNIBER)</span>
+      </div>
+      <div class="note">Promoted 3x: Intern → Full Stack Developer → Team Coordinator → Team Lead</div>
+      <ul class="exp-details">
+        <li><strong>Enterprise Architecture:</strong> Led re-engineering of a complex business-management and
+          project-management platform, breaking business flows into modular, <strong>event-driven services</strong>
+          using <strong>event modeling</strong>, <strong>event storming</strong>, and <strong>Saga & CQRS
+          patterns</strong> for distributed transaction consistency.</li>
+        <li><strong>Performance:</strong> Cut document-processing time from 5 minutes to 15 seconds for 10k+
+          concurrent records by converting synchronous routes into <strong>asynchronous, parallelized
+          chunk-processing pipelines</strong>.</li>
+        <li><strong>Access Control:</strong> Designed a runtime-configurable <strong>RBAC system</strong> with
+          <strong>SSO</strong> and strict <strong>tenant isolation</strong> for a multi-tenant ERP.</li>
+        <li><strong>Cloud &amp; DevOps:</strong> Migrated a legacy <strong>Node.js/NestJS</strong> monolith to
+          <strong>RabbitMQ-powered microservices</strong> on <strong>GCP (GKE)</strong>, using
+          <strong>Docker</strong> and <strong>CI/CD</strong> to boost deployment frequency.</li>
+        <li><strong>Frontend:</strong> Improved <strong>React.js/Next.js</strong> performance on data-heavy
+          screens with <strong>table virtualization</strong> for 1,500+ dynamic cells, reducing DOM overhead
+          and interaction latency.</li>
+        <li><strong>Security:</strong> Implemented <strong>MongoDB field-level encryption</strong> for sensitive
+          PII and resilient <strong>message-handling (inbox/outbox) patterns</strong> — later adopted as the
+          org-wide messaging standard — to reduce failures during peak throughput.</li>
+        <li><strong>Engineering Leadership:</strong> Owned <strong>technical design and RFCs</strong>,
+          <strong>mentored a 5–6 engineer team</strong>, and partnered cross-functionally with UI/UX and QA to
+          speed up delivery feedback loops.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-category"><strong>Architecture:</strong> Event Storming / Modeling, EDA, Saga & CQRS, DDD, RBAC / SSO, TDD, Jest, Testing Library, API Design (REST/GraphQL/OpenAPI), GPT-4o Vision, ONNX Runtime, semantic search</div>
+      <div class="skill-category"><strong>Backend:</strong> Node.js, NestJS, Socket.IO, RabbitMQ, Redis, PostgreSQL, MongoDB, Stripe</div>
+      <div class="skill-category"><strong>Languages:</strong> TypeScript, JavaScript (ES6+), SQL</div>
+      <div class="skill-category"><strong>DevOps & Cloud:</strong> GCP (GKE), Docker, Kubernetes, CI/CD, System Design, WebRTC, HLS</div>
+      <div class="skill-category"><strong>Frontend:</strong> React.js, Next.js, Vite, Redux Toolkit, Tailwind CSS, shadcn/ui, Material UI</div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h2>Selected Projects</h2>
+    <ul class="projects-list">
+      <li><strong>Buck</strong> <span class="project-links"><a href="https://buckstreaming.com" target="_blank">buckstreaming.com</a></span> —
+        <strong>Creator-subscription live-streaming platform</strong> (Next.js) where creators stream live and
+        viewers <strong>subscribe</strong> or watch free with <strong>ads</strong>. Built and scaled end-to-end
+        — <strong>authentication</strong>, <strong>subscription access</strong>, <strong>payments</strong>, and
+        <strong>Socket.IO real-time interaction</strong> — with full platform ownership.</li>
+      <li><strong>Maity</strong> <span class="project-links"><a href="https://maity.pro" target="_blank">maity.pro</a></span> —
+        <strong>AI-powered video-personalization</strong> platform for sales outreach; built
+        <strong>campaign management</strong>, <strong>CRM integrations</strong>, video delivery backend, and
+        <strong>analytics dashboard</strong>.</li>
+      <li><strong>Axon</strong> — Chrome extension using <strong>GPT-4o Vision</strong> to automate web
+        workflows — <strong>form-filling</strong> and <strong>content scraping</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="cv-section">
+    <h2>Education</h2>
+    <div class="education-item">
+      <div class="edu-header">
+        <h3>B.Tech, Computer Science & Engineering — Lovely Professional University</h3>
+      </div>
+      <div class="edu-detail">2020 – 2024 · 7.86 CGPA</div>
+    </div>
+  </div>
+</div>

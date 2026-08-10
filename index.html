@@ -695,8 +695,8 @@
             <h2 style="color: var(--text-secondary);">I build High-Performance Systems.</h2>
             <p>
                 Full Stack & Systems Engineer with a focus on High-Performance Distributed Architectures.
-                Currently engineering efficient solutions at
-                <span class="text-accent">Zenmonk Software</span>.
+                Currently Team Lead at
+                <span class="text-accent">Zenmonk Software</span>, FUNIBER's Edtech engineering subsidiary.
                 <br>
                 <span class="mono" style="font-size: 0.9rem; color: var(--text-secondary);"><i
                         class="fa-solid fa-location-dot" style="margin-right: 0.5rem;"></i>Delhi, India</span>
@@ -720,7 +720,7 @@
                         exceptionally efficient and scalable.
                     </p>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        Beyond code, I focus on <strong>Mentorship</strong>, accelerating development for a 5-member
+                        Beyond code, I focus on <strong>Mentorship</strong>, accelerating development for a 5-6 member
                         team, and <strong>Discovery</strong>,
                         translating complex business requirements into technical deliverables via Event Modeling.
                     </p>
@@ -784,42 +784,45 @@
 
             <div class="experience-card">
                 <div class="exp-header">
-                    <h3>Senior Full Stack Engineer</h3>
-                    <span class="exp-role">Zenmonk Software (FUNIBER) | June 2023 - Present</span>
+                    <h3>Team Lead, Full Stack Developer</h3>
+                    <span class="exp-role">Zenmonk Software — Edtech subsidiary of FUNIBER | June 2023 - Present</span>
                 </div>
+                <p class="mono" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                    Promoted 3x: Intern → Full Stack Developer → Team Coordinator → Team Lead
+                </p>
                 <ul class="exp-details">
                     <li>
-                        Architected a runtime-configurable RBAC system with SSO and strict tenant isolation for a global
-                        multi-tenant ERP, ensuring enterprise-grade security and zero-leakage between data silos.
+                        <strong>Multi-Tenancy & RBAC:</strong> Architected IBMS's multi-tenancy — multi-schema data
+                        isolation per organization, plus a runtime-configurable RBAC system.
                     </li>
                     <li>
-                        Orchestrated the migration of a legacy Node.js/NestJS monolith to a RabbitMQ-powered
-                        microservices architecture using Docker, Kubernetes, and automated CI/CD pipelines, increasing
-                        system uptime and deployment frequency by 40%.
+                        <strong>Performance:</strong> Rebuilt the Question Management Bank's synchronous processing
+                        route into an async, parallelized chunk-processing pipeline, cutting processing time from
+                        5 minutes to 15 seconds on 10k+ documents; added MongoDB field-level encryption for PII.
                     </li>
                     <li>
-                        Optimized high-throughput scaling by re-engineering an Event-Driven Architecture (EDA) with
-                        Saga & CQRS patterns and Resilient Message Handling (RMHA), reducing system failures during
-                        peak loads by 25%.
+                        <strong>Reliability & Messaging:</strong> Introduced the inbox/outbox pattern as the org-wide
+                        messaging standard; built a database-level Saga-equivalent mechanism to manage Survey
+                        Builder's long-running response workflows without external orchestration.
                     </li>
                     <li>
-                        Boosted database performance by reducing write load by 30% through API refactoring, strategic
-                        ERD denormalization, optimized batch data processing, and Redis caching for frequently
-                        accessed data.
+                        <strong>Domain Modeling:</strong> Ran event storming and event modeling to translate business
+                        requirements into architecture, designing Padmasna as a modular monolith with Socket.IO
+                        real-time collaboration.
                     </li>
                     <li>
-                        Resolved critical document generation bottlenecks for 10k+ concurrent records by implementing
-                        encrypted, chunked processing pipelines, improving speed by 60%.
+                        <strong>Standards & Scale:</strong> Resolved DOM lag in the Attendance Control App via table
+                        virtualization for 1,500+ cells; drove org-wide adoption of DDD/SOLID/CQRS and Feature-Sliced
+                        Design across Kubernetes/Docker/GitLab CI/CD deployments.
                     </li>
                     <li>
-                        Adopted TDD with Jest across core services, catching regressions early and keeping the
-                        event-driven rewrite shippable at speed.
+                        <strong>Testing:</strong> Adopted TDD with Jest across core services to catch regressions
+                        early.
                     </li>
                     <li>
-                        Orchestrated cross-functional workflows between UI/UX, QA, and Product teams to deliver a
-                        multi-tenant ERP; reduced feedback loops by 30% through early-stage technical feasibility
-                        assessments of design prototypes, while owning technical design/RFCs and mentoring engineers
-                        through code reviews and pairing.
+                        <strong>Technical Leadership:</strong> Own end-to-end project delivery and architectural
+                        accountability for a 5-6 engineer team — RFCs, technical design, mentoring via code review
+                        and pairing, and cross-team feasibility checks with UI/UX & QA.
                     </li>
                 </ul>
             </div>
@@ -833,28 +836,28 @@
             <div class="deep-dive-card">
                 <div class="deep-dive-header">
                     <span class="deep-dive-tag">System Optimization</span>
-                    <h3 class="deep-dive-title">The 95% Latency Kill (The "5-Minute Problem")</h3>
+                    <h3 class="deep-dive-title">The 95% Latency Kill (Question Management Bank)</h3>
                 </div>
                 <div class="deep-dive-content">
                     <div class="problem-box">
                         <h4>The Problem</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            A synchronous route was processing 5MB+ payloads and 10k+ records, blocking the Node.js
-                            event loop for 5 minutes (300 seconds).
+                            A synchronous route processing 10k+ exam/assessment question documents was blocking the
+                            Node.js event loop for 5 minutes (300 seconds).
                         </p>
                     </div>
                     <div class="solution-box">
                         <h4>The Solution</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Refactored to an asynchronous chunked processing pipeline with parallelized batches and
-                            integrated field-level encryption.
+                            Refactored to an asynchronous, parallelized chunk-processing pipeline with MongoDB
+                            field-level encryption so direct DB access never exposes readable PII.
                         </p>
                     </div>
                 </div>
                 <div class="deep-dive-result">
                     <span class="result-badge">95% REDUCTION</span>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Latency dropped from 300 seconds to
-                        <strong>15 seconds</strong>.
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Processing time dropped from 300
+                        seconds to <strong>15 seconds</strong>.
                     </p>
                 </div>
             </div>
@@ -863,21 +866,21 @@
             <div class="deep-dive-card">
                 <div class="deep-dive-header">
                     <span class="deep-dive-tag">Frontend Scalability</span>
-                    <h3 class="deep-dive-title">The "1500-Cell Problem"</h3>
+                    <h3 class="deep-dive-title">The "1500-Cell Problem" (Attendance Control App)</h3>
                 </div>
                 <div class="deep-dive-content">
                     <div class="problem-box">
                         <h4>The Problem</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Large data tables were causing DOM lag and memory crashes during interactive popup triggers
-                            for complex datasets.
+                            Data-heavy attendance-tracking screens with 1,500+ clickable/anchor-based cells were
+                            causing DOM lag and interaction latency.
                         </p>
                     </div>
                     <div class="solution-box">
                         <h4>The Solution</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Implemented Table Virtualization in React.js/Next.js, rendering only visible rows while
-                            managing state for 1500+ dynamic cells efficiently.
+                            Implemented table virtualization in React.js/Next.js, rendering only visible rows to cut
+                            DOM overhead.
                         </p>
                     </div>
                 </div>
@@ -889,31 +892,62 @@
             </div>
 
             <!-- Case Study 3 -->
-            <div class="deep-dive-card" style="margin-bottom: 0;">
+            <div class="deep-dive-card">
                 <div class="deep-dive-header">
                     <span class="deep-dive-tag">Architecture</span>
-                    <h3 class="deep-dive-title">Multi-Tenant RBAC & BMS Architecture</h3>
+                    <h3 class="deep-dive-title">Multi-Tenant RBAC (IBMS)</h3>
                 </div>
                 <div class="deep-dive-content">
                     <div class="problem-box">
                         <h4>The Methodology</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Used Event Storming and Event Modeling to map complex Business Management System (BMS)
-                            domains.
+                            Used Event Storming and Event Modeling to map IBMS (Integrated Business Management
+                            System) — an HRM-style workforce/business platform serving FUNIBER's constituent
+                            organizations.
                         </p>
                     </div>
                     <div class="solution-box">
                         <h4>The Solution</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Architected a Runtime-Configurable RBAC system with strict tenant isolation for global ERP
-                            environments.
+                            Architected multi-schema data isolation per organization plus a runtime-configurable RBAC
+                            system.
                         </p>
                     </div>
                 </div>
                 <div class="deep-dive-result">
                     <span class="result-badge">ZERO LEAKAGE</span>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Ensured strict data isolation in a
-                        global, multi-tenant ecosystem.</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Strict data isolation across every
+                        constituent organization on the platform.</p>
+                </div>
+            </div>
+
+            <!-- Case Study 4 -->
+            <div class="deep-dive-card" style="margin-bottom: 0;">
+                <div class="deep-dive-header">
+                    <span class="deep-dive-tag">Domain Modeling</span>
+                    <h3 class="deep-dive-title">Modeling a Jira/Asana/Miro Hybrid (Padmasna)</h3>
+                </div>
+                <div class="deep-dive-content">
+                    <div class="problem-box">
+                        <h4>The Problem</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            The org needed an internal project/task-management and collaboration tool adapted to its
+                            own workflows — functionally comparable to Asana, Miro, and Jira.
+                        </p>
+                    </div>
+                    <div class="solution-box">
+                        <h4>The Solution</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            Ran event modeling and event storming to map the domain, then built Padmasna as a modular
+                            monolith — module separation enforced at the schema level — with Socket.IO-based
+                            real-time collaboration.
+                        </p>
+                    </div>
+                </div>
+                <div class="deep-dive-result">
+                    <span class="result-badge">MODULAR MONOLITH</span>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Clean, layered architecture without
+                        the operational overhead of a microservices split.</p>
                 </div>
             </div>
         </section>
@@ -1415,7 +1449,7 @@
             const bodyLines = [
                 `I am writing to express my strong interest in the ${role} position at ${company}. As a Full Stack & Systems Engineer with a deep focus on High-Performance Distributed Architectures and a track record of driving significant technical improvements, I am confident that my background aligns perfectly with the innovative work being done at ${company}.`,
                 '',
-                `Currently, as a Senior Full Stack Engineer at Zenmonk Software, I have specialized in building scalable, multi-tenant ERP systems and orchestrating transitions from monolithic to microservices-based architectures. My technical expertise includes Rust, TypeScript, and Node.js, alongside infrastructure proficiency in GCP, Kubernetes, and Docker.`,
+                `Currently, as Team Lead (Full Stack Developer) at Zenmonk Software — FUNIBER's Edtech engineering subsidiary — I have specialized in architecting multi-tenant, RBAC-driven platforms and introducing org-wide reliability patterns like inbox/outbox messaging. My technical expertise includes Rust, TypeScript, and Node.js, alongside infrastructure proficiency in GCP, Kubernetes, and Docker.`,
                 '',
                 `Some of my key achievements include reducing system latency by 95% (from 300s to 15s) through asynchronous chunked processing and architecting runtime-configurable RBAC systems with zero data leakage. I thrive on solving complex engineering "saves"—like resolving document generation bottlenecks or implementing table virtualization for massive datasets.`,
                 '',
