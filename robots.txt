@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /builder.html
+
+Sitemap: https://uttamgupta2712.is-a.dev/sitemap.xml
