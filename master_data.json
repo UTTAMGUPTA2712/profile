@@ -1,0 +1,173 @@
+{
+  "basics": {
+    "name": "Uttam Gupta",
+    "label": "Lead Backend & Distributed Systems Engineer",
+    "email": "uttamgupta2712@gmail.com",
+    "phone": "+91 9773706266",
+    "url": "https://uttamgupta2712.is-a.dev",
+    "summary": "Backend Systems Engineer with 3+ years of production experience architecting high-throughput data pipelines, multi-tenant architectures, and resilient event-driven systems. Core expertise in TypeScript, Node.js, and Rust, specializing in asynchronous batch processing, database-level concurrency, and distributed transactions. Proven track record eliminating I/O bottlenecks by 95% and engineering fault-tolerant data migration infrastructure.",
+    "location": {
+      "city": "Delhi",
+      "countryCode": "IN"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "UTTAMGUPTA2712",
+        "url": "https://github.com/UTTAMGUPTA2712"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "uttam-gupta-a185a8239",
+        "url": "https://linkedin.com/in/uttam-gupta-a185a8239"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "name": "Languages",
+      "keywords": [
+        "TypeScript",
+        "JavaScript",
+        "Rust",
+        "Python",
+        "SQL"
+      ]
+    },
+    {
+      "name": "Backend & Architecture",
+      "keywords": [
+        "Node.js",
+        "NestJS",
+        "Express",
+        "Domain-Driven Design (DDD)",
+        "CQRS",
+        "Multi-Tenancy",
+        "Saga Pattern",
+        "Event Modeling",
+        "REST APIs",
+        "WebSockets"
+      ]
+    },
+    {
+      "name": "Systems & Concurrency",
+      "keywords": [
+        "Tokio (Async Rust)",
+        "Layer-4 Load Balancing",
+        "TCP/IP Networking",
+        "Multi-threading",
+        "RESP Protocol Implementation"
+      ]
+    },
+    {
+      "name": "Databases & Storage",
+      "keywords": [
+        "PostgreSQL",
+        "MongoDB (Database-Level Encryption)",
+        "Redis",
+        "Multi-Schema Isolation"
+      ]
+    },
+    {
+      "name": "DevOps & Cloud",
+      "keywords": [
+        "Docker",
+        "Kubernetes",
+        "GitLab CI/CD",
+        "Linux",
+        "Acens"
+      ]
+    }
+  ],
+  "work": [
+    {
+      "name": "Zenmonk Software & Services (Subsidiary of FUNIBER)",
+      "location": "Delhi, India",
+      "position": "Lead Backend Engineer / Full Stack Technical Lead",
+      "startDate": "2023-06-01",
+      "endDate": null,
+      "summary": "Progressed from Full Stack Developer to Technical Lead, owning platform architecture, engineering standards, and distributed data pipelines across multiple enterprise platforms.",
+      "highlights": [
+        "Standardized organization-wide Resilient Message Handling using the Transactional Outbox/Inbox pattern, preventing message drop across microservices.",
+        "Architected a fault-tolerant Python ETL pipeline migrating an entire organization's Asana history to Padmasana, using a dynamic thread pool and runtime token rotation to overcome strict API rate limits.",
+        "Engineered a two-pass recursive dependency ingestion algorithm for nested tasks, resolving parent-child hierarchies in bounded 10,000-record batches without foreign key violations.",
+        "Re-architected a blocking processing route on the Question Management Bank into an asynchronous, chunked pipeline for 10,000+ files, reducing execution latency from 5 minutes to 15 seconds (95% reduction).",
+        "Designed a multi-tenant isolation model with a multi-schema strategy on IBMS and built a dynamic, runtime-configurable RBAC engine.",
+        "Implemented a database-level Saga pattern to orchestrate long-running, multi-step survey operations reliably without external coordinator overhead.",
+        "Integrated client-side field-level encryption at the MongoDB layer to safeguard sensitive examination data independently of application code.",
+        "Authored RFCs and mentored a 5–6 person engineering team on Domain-Driven Design (DDD), CQRS, and strict schema-level bounded contexts."
+      ]
+    },
+    {
+      "name": "Buck",
+      "position": "Lead Platform Engineer (Contract)",
+      "url": "https://buckstreaming.com",
+      "startDate": "2024-01-01",
+      "endDate": "2024-06-01",
+      "summary": "Creator-subscription live-streaming platform.",
+      "highlights": [
+        "Architected core subscription backend integrating Stripe webhooks for automated billing lifecycles and tier access control.",
+        "Built real-time messaging and live-viewer interaction infrastructure via Socket.IO, minimizing latency during concurrent broadcast events."
+      ]
+    },
+    {
+      "name": "Maity",
+      "position": "Backend Systems Engineer (Contract)",
+      "url": "https://maity.pro",
+      "startDate": "2024-07-01",
+      "endDate": "2024-12-01",
+      "summary": "AI video generation and sales personalization platform.",
+      "highlights": [
+        "Constructed an asynchronous rendering pipeline connecting external generative video models with upstream CRM webhooks.",
+        "Designed analytics aggregation endpoints to track distribution and viewer engagement metrics at scale."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Layer-4 Load Balancer",
+      "description": "Asynchronous Layer-4 TCP reverse proxy and load balancer built in Rust using Tokio.",
+      "highlights": [
+        "Implemented Round-Robin and IP-Hash scheduling algorithms for efficient connection distribution under high concurrency.",
+        "Optimized connection pooling and raw TCP stream routing without high-level HTTP overhead."
+      ],
+      "keywords": [
+        "Rust",
+        "Tokio",
+        "TCP/IP",
+        "Networking"
+      ]
+    },
+    {
+      "name": "Redis Lite",
+      "description": "Multi-threaded, in-memory key-value store adhering to the Redis Serialization Protocol (RESP).",
+      "highlights": [
+        "Implemented low-level TCP byte-stream parsing and command evaluation from the ground up.",
+        "Ensured thread-safe concurrent reads and writes with atomic memory primitives."
+      ],
+      "keywords": [
+        "Rust",
+        "Concurrency",
+        "RESP Protocol",
+        "In-Memory Storage"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Lovely Professional University",
+      "area": "Computer Science & Engineering",
+      "studyType": "Bachelor of Technology (B.Tech)",
+      "startDate": "2020-08-01",
+      "endDate": "2024-06-01",
+      "score": "7.86 CGPA"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Google Cloud Skills Boost - Game 7053",
+      "date": "2026-03-01",
+      "issuer": "Google Cloud"
+    }
+  ]
+}

@@ -38,14 +38,14 @@ Same team scope as Team Coordinator — the same 5–6 engineers, not a larger h
 - Owning the project end to end — accountable for its delivery, not just a slice of implementation.
 - Owning technical design and RFCs for the team's work.
 - Driving adoption of engineering practices that went on to become organization-wide standards — the Resilient Message Handling (inbox/outbox) pattern, and the DDD/SOLID/CQRS/FSD conventions.
-- Leading architecture on the team's most complex systems directly — multi-tenancy and dynamic RBAC design on IBMS, and the domain modeling/event storming behind Padmasna.
+- Leading architecture on the team's most complex systems directly — multi-tenancy and dynamic RBAC design on IBMS, and the domain modeling/event storming behind Padmasana.
 - Mentoring the 5–6 person team through code review and pairing.
 - Managing inter-team collaboration between the team and the UI/UX and QA teams.
-- Translating business requirements into technical deliverables via event modeling — the discovery layer upstream of architecture decisions on IBMS and Padmasna.
+- Translating business requirements into technical deliverables via event modeling — the discovery layer upstream of architecture decisions on IBMS and Padmasana.
 
 ### 2.5 Software Architect
 Scope moved from single-team technical authority to organization-wide architecture ownership — no longer tied to one team's delivery, but accountable for how systems are designed and migrated across the organization. Two efforts define this stage so far:
-- Designed and led execution of the full Asana → Padmasna data-migration pipeline (Section 3.5) — end to end, from extraction architecture through phased production rollout.
+- Designed and led execution of a full legacy-data-migration pipeline into Padmasana (Section 3.5) — end to end, from extraction architecture through phased production rollout.
 - Architected a new product line from the ground up — a multi-tenant salon booking platform (Section 3.6) — rather than extending an existing one.
 
 ---
@@ -73,21 +73,20 @@ The products below are a selected, representative set — not the full list of w
 **What it is:** A tool for creating and running academic surveys (e.g. course/student feedback), including handling of long-running survey/response-collection processes.
 - Built an internal, database-level mechanism that replicates Saga-pattern behavior to manage long-running processes reliably, without relying on an external orchestration framework.
 
-### 3.5 Padmasna
+### 3.5 Padmasana
 **What it is:** An internal project/task management and team collaboration tool for the organization — functionally comparable to Asana, Miro, and Jira, adapted to the organization's specific workflows.
 - Ran event modeling and event storming to map the product domain.
 - Reverse-engineered relevant workflows from Asana, Miro, and Jira, then adapted and distributed the resulting features across the product's domains for implementation.
 - Built as a modular monolith, with module separation enforced at the schema level rather than split into separate services.
 - Built real-time collaboration via Socket-based communication, within a clean, layered application architecture.
 
-**Asana → Padmasna data migration (August 2026 onward, as Software Architect):** to seed Padmasna with the organization's existing project history, architected and built a Python-based pipeline that pulls an entire organization's Asana data (projects, teams, tasks, attachments) and migrates it into Padmasna.
-- **Extraction, job-queue style:** first enumerates only the projects and teams the account can see or belongs to, then recursively walks each project's tasks, persisting every task as its own JSON file in a per-task folder — a durable local snapshot rather than a live dependency on Asana. Rather than fetching nested/paginated data inline, discovering more data mid-fetch enqueues a new job of the appropriate type, so extraction is driven entirely by a job queue instead of direct, synchronous downloads.
-- **Multi-threaded job runner with token rotation:** a separate runner drains the queue using a thread pool; to work around Asana's rate limits, it rotates across multiple developer tokens held at runtime rather than blocking on a single token.
-- **Resilience:** built a retry-all mechanism to reprocess failed jobs — covering both rate-limit/permission failures and cases where a file referenced by a task had already been deleted on Asana's side — plus a job-status CLI, since there was otherwise no way to inspect queue/job state.
-- **Deferred, metadata-driven attachment downloads:** attachments are deliberately not downloaded during the initial task pass, to avoid unnecessary load on the cluster. A follow-up script scans the already-persisted task-folder metadata (not a live Asana file reference) and enqueues attachment-download jobs, which the same multi-threaded runner then processes.
-- **Publishing:** once attachments are downloaded, a publish-files command pushes them to the organization's own storage, then writes the resulting metadata back into the same task folder.
-- **Transform:** a formatting pass reshapes the raw Asana data into Padmasna's data model, extracting @mentions and embedded URLs out of free-text fields into structured fields along the way.
-- **Phased, ordered import:** migrated in dependency order — users, then teams, then boards, then tasks — bulk-imported in bounded batches (max 10k records at a time). Since tasks can reference other tasks as parents/children, task data is generated and seeded in a two-pass, recursive setup so parent tasks are always seeded before their children. The full sequence was validated end-to-end against a dummy database before being run against production.
+**Legacy data migration into Padmasana (August 2026 onward, as Software Architect):** to seed Padmasana with the organization's existing project history, architected and built a pipeline that pulls data (projects, teams, tasks, attachments) from a legacy third-party project-management tool and migrates it into Padmasana.
+- **Extraction, job-queue style:** a durable, resumable extraction layer that snapshots source data locally rather than depending on a live connection to the source system throughout the process, with newly-discovered nested data enqueued as follow-up jobs instead of fetched inline.
+- **Multi-threaded job runner:** a separate runner drains the job queue in parallel, with handling in place to work within the source API's rate limits.
+- **Resilience:** a retry mechanism for failed jobs (rate-limit, permission, and missing-reference cases), plus a job-status CLI for visibility into queue state.
+- **Deferred attachment handling:** attachments are downloaded in a separate follow-up pass rather than during the initial extraction, to keep load on shared infrastructure manageable, then published to the organization's own storage.
+- **Transform:** a formatting pass reshapes the raw source data into Padmasana's data model, extracting mentions and embedded links out of free-text fields into structured fields along the way.
+- **Phased, ordered import:** migrated in dependency order — users, then teams, then boards, then tasks — bulk-imported in bounded batches, with parent/child task relationships handled via a two-pass recursive seeding step. The full sequence was validated end-to-end against a staging database before running against production.
 
 ### 3.6 Salon Booking Platform *(new product, architected August 2026 onward)*
 **What it is:** A new multi-tenant SaaS product — separate from the five Edtech products above — where individual salons register, get their own salon website, and let their customers book either a specific service or a specific stylist/professional.
@@ -146,8 +145,8 @@ Both were client engagements with full platform ownership — end-to-end deliver
 
 ## 7. Summary
 
-Five distinct Edtech products, all built for FUNIBER through its subsidiary Zenmonk — IBMS, Question Management Bank, Attendance Control App, Survey Builder, and Padmasna — sit under a single, consistent engineering foundation: DDD/SOLID/CQRS on the backend, FSD on the frontend, inbox/outbox messaging org-wide, and a standardized Kubernetes/Docker/GitLab CI/CD deployment pipeline across all of them.
+Five distinct Edtech products, all built for FUNIBER through its subsidiary Zenmonk — IBMS, Question Management Bank, Attendance Control App, Survey Builder, and Padmasana — sit under a single, consistent engineering foundation: DDD/SOLID/CQRS on the backend, FSD on the frontend, inbox/outbox messaging org-wide, and a standardized Kubernetes/Docker/GitLab CI/CD deployment pipeline across all of them.
 
-The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasna's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — the Asana → Padmasna data-migration pipeline (job-queue-driven extraction, multi-token rate-limit handling, phased production rollout) and a new multi-tenant salon booking platform architected from scratch.
+The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasana's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — a legacy-data-migration pipeline into Padmasana (job-queue-driven extraction, rate-limit-aware parallel processing, phased production rollout) and a new multi-tenant salon booking platform architected from scratch.
 
 Outside the primary employer, two different bodies of work exist side by side: freelance client platforms (Buck, Maity) delivered end-to-end with full ownership, and self-directed personal projects that run on a different axis entirely — systems programming (Rust) and offline/local-first AI. The freelance work is closest in shape to the day job (product ownership, real users, deployment); the personal projects are closer to R&D, relevant when targeting roles with a systems or AI-infrastructure emphasis rather than pure product engineering.
