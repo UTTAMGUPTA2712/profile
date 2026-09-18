@@ -15,10 +15,10 @@
 ## 1. Role Progression
 
 ```
-Intern (June 2023) → Full Stack Developer (Sept 2023) → Team Coordinator (Full Stack Developer) (Sept 2024) → Team Lead (Full Stack Developer) (April 2025)
+Intern (June 2023) → Full Stack Developer (Sept 2023) → Team Coordinator (Full Stack Developer) (Sept 2024) → Team Lead (Full Stack Developer) (April 2025) → Software Architect (August 2026)
 ```
 
-Three promotions occurred within under three years — internally framed as "Career Velocity: Associate → Senior levels."
+Four promotions occurred within just over three years — internally framed as "Career Velocity: Associate → Senior levels."
 
 ---
 
@@ -43,11 +43,16 @@ Same team scope as Team Coordinator — the same 5–6 engineers, not a larger h
 - Managing inter-team collaboration between the team and the UI/UX and QA teams.
 - Translating business requirements into technical deliverables via event modeling — the discovery layer upstream of architecture decisions on IBMS and Padmasna.
 
+### 2.5 Software Architect
+Scope moved from single-team technical authority to organization-wide architecture ownership — no longer tied to one team's delivery, but accountable for how systems are designed and migrated across the organization. Two efforts define this stage so far:
+- Designed and led execution of the full Asana → Padmasna data-migration pipeline (Section 3.5) — end to end, from extraction architecture through phased production rollout.
+- Architected a new product line from the ground up — a multi-tenant salon booking platform (Section 3.6) — rather than extending an existing one.
+
 ---
 
 ## 3. Scope of Work by Project
 
-The five products below are a selected, representative set — not the full list of what has been built. All are Edtech platforms, built by Zenmonk for FUNIBER (the parent organization, an international higher-education group) — serving students, faculty/staff, and academic administration rather than a generic enterprise audience. These five were chosen as the clearest, highest-impact examples of the range of work; the remaining projects follow the same architectural and delivery standards described in Section 4.
+The products below are a selected, representative set — not the full list of what has been built. The first five (3.1–3.5) are Edtech platforms, built by Zenmonk for FUNIBER (the parent organization, an international higher-education group) — serving students, faculty/staff, and academic administration rather than a generic enterprise audience. They were chosen as the clearest, highest-impact examples of the range of work; the remaining projects follow the same architectural and delivery standards described in Section 4. The sixth (3.6) is a new, non-Edtech product line architected at the Software Architect stage.
 
 ### 3.1 IBMS (Integrated Business Management System)
 **What it is:** An HRM-style platform for the education group — multi-tenant workforce/business management across FUNIBER's constituent organizations, each with its own isolated data and access rules.
@@ -74,6 +79,20 @@ The five products below are a selected, representative set — not the full list
 - Reverse-engineered relevant workflows from Asana, Miro, and Jira, then adapted and distributed the resulting features across the product's domains for implementation.
 - Built as a modular monolith, with module separation enforced at the schema level rather than split into separate services.
 - Built real-time collaboration via Socket-based communication, within a clean, layered application architecture.
+
+**Asana → Padmasna data migration (August 2026 onward, as Software Architect):** to seed Padmasna with the organization's existing project history, architected and built a Python-based pipeline that pulls an entire organization's Asana data (projects, teams, tasks, attachments) and migrates it into Padmasna.
+- **Extraction, job-queue style:** first enumerates only the projects and teams the account can see or belongs to, then recursively walks each project's tasks, persisting every task as its own JSON file in a per-task folder — a durable local snapshot rather than a live dependency on Asana. Rather than fetching nested/paginated data inline, discovering more data mid-fetch enqueues a new job of the appropriate type, so extraction is driven entirely by a job queue instead of direct, synchronous downloads.
+- **Multi-threaded job runner with token rotation:** a separate runner drains the queue using a thread pool; to work around Asana's rate limits, it rotates across multiple developer tokens held at runtime rather than blocking on a single token.
+- **Resilience:** built a retry-all mechanism to reprocess failed jobs — covering both rate-limit/permission failures and cases where a file referenced by a task had already been deleted on Asana's side — plus a job-status CLI, since there was otherwise no way to inspect queue/job state.
+- **Deferred, metadata-driven attachment downloads:** attachments are deliberately not downloaded during the initial task pass, to avoid unnecessary load on the cluster. A follow-up script scans the already-persisted task-folder metadata (not a live Asana file reference) and enqueues attachment-download jobs, which the same multi-threaded runner then processes.
+- **Publishing:** once attachments are downloaded, a publish-files command pushes them to the organization's own storage, then writes the resulting metadata back into the same task folder.
+- **Transform:** a formatting pass reshapes the raw Asana data into Padmasna's data model, extracting @mentions and embedded URLs out of free-text fields into structured fields along the way.
+- **Phased, ordered import:** migrated in dependency order — users, then teams, then boards, then tasks — bulk-imported in bounded batches (max 10k records at a time). Since tasks can reference other tasks as parents/children, task data is generated and seeded in a two-pass, recursive setup so parent tasks are always seeded before their children. The full sequence was validated end-to-end against a dummy database before being run against production.
+
+### 3.6 Salon Booking Platform *(new product, architected August 2026 onward)*
+**What it is:** A new multi-tenant SaaS product — separate from the five Edtech products above — where individual salons register, get their own salon website, and let their customers book either a specific service or a specific stylist/professional.
+- Architected the product end to end as a net-new build, not an extension of an existing platform.
+- Integrated Stripe across two distinct billing surfaces: the platform's own subscription revenue (salons paying to use the SaaS) and tenant-level payments for the services a salon's own customers book.
 
 ---
 
@@ -129,6 +148,6 @@ Both were client engagements with full platform ownership — end-to-end deliver
 
 Five distinct Edtech products, all built for FUNIBER through its subsidiary Zenmonk — IBMS, Question Management Bank, Attendance Control App, Survey Builder, and Padmasna — sit under a single, consistent engineering foundation: DDD/SOLID/CQRS on the backend, FSD on the frontend, inbox/outbox messaging org-wide, and a standardized Kubernetes/Docker/GitLab CI/CD deployment pipeline across all of them.
 
-The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasna's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else).
+The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasna's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — the Asana → Padmasna data-migration pipeline (job-queue-driven extraction, multi-token rate-limit handling, phased production rollout) and a new multi-tenant salon booking platform architected from scratch.
 
 Outside the primary employer, two different bodies of work exist side by side: freelance client platforms (Buck, Maity) delivered end-to-end with full ownership, and self-directed personal projects that run on a different axis entirely — systems programming (Rust) and offline/local-first AI. The freelance work is closest in shape to the day job (product ownership, real users, deployment); the personal projects are closer to R&D, relevant when targeting roles with a systems or AI-infrastructure emphasis rather than pure product engineering.
