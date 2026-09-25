@@ -1,284 +1,454 @@
-<title>Uttam Gupta — Senior Full Stack Engineer — CV</title>
-<meta name="robots" content="noindex, nofollow">
-<style>
-  :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #34495e;
-    --accent-color: #3498db;
-    --text-color: #333;
-    --light-text: #666;
-    --border-color: #eee;
-    --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uttam Gupta — Lead Backend & Distributed Systems Engineer — Resume</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --light-text: #666;
+      --border-color: #eee;
+      --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html, body {
-    background: #525659;
-    font-family: var(--font-main);
-  }
+    html, body {
+      background: #525659;
+      font-family: var(--font-main);
+    }
 
-  /* ---------- Screen-only print button ---------- */
-  .print-bar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    padding: 14px;
-    background: #3a3d40;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  .print-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent-color);
-    color: #fff;
-    border: none;
-    padding: 10px 22px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.15s ease;
-  }
-  .print-btn:hover { background: #2d82c4; }
-  .print-hint {
-    color: #cfd2d4;
-    font-size: 12.5px;
-    margin-left: 14px;
-    align-self: center;
-  }
+    /* ---------- Screen-only print button ---------- */
+    .print-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 20px;
+      background: #3a3d40;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      gap: 16px;
+    }
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .print-btn:hover { background: #2d82c4; }
+    .builder-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+    }
+    .builder-btn:hover { background: rgba(255,255,255,0.2); }
+    .print-hint {
+      color: #cfd2d4;
+      font-size: 12px;
+      align-self: center;
+    }
 
-  /* ---------- The sheet (A4 page) ---------- */
-  .sheet {
-    background: #fff;
-    color: var(--text-color);
-    width: 210mm;
-    min-height: 297mm;
-    padding: 17px 22px;
-    line-height: 1.45;
-    text-align: justify;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-    margin: 24px auto 40px;
-    border-radius: 4px;
-  }
-
-  .cv-header {
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 8px;
-    margin-bottom: 9px;
-  }
-
-  .cv-header h1 {
-    font-size: 28px;
-    color: var(--primary-color);
-    margin-bottom: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-  }
-
-  .cv-header .role-title {
-    font-size: 14px;
-    color: var(--accent-color);
-    font-weight: 600;
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
-  }
-
-  .contact-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    line-height: 18px;
-    font-size: 12.5px;
-    color: var(--secondary-color);
-    align-items: center;
-  }
-
-  .contact-info a {
-    color: var(--secondary-color);
-    text-decoration: none;
-  }
-
-  .cv-section { margin-bottom: 9px; }
-
-  .cv-section h2 {
-    font-size: 16px;
-    color: var(--primary-color);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 3px;
-    padding-top: 3px;
-    letter-spacing: 0.5px;
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
-
-  .cv-section p { font-size: 13.5px; line-height: 1.45; }
-
-  .skills-grid { display: grid; gap: 4px; }
-  .skill-category { font-size: 13px; line-height: 1.4; }
-  .skill-category strong { color: var(--secondary-color); font-weight: 600; }
-
-  .experience-item { margin-bottom: 8px; }
-
-  .exp-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    margin-bottom: 2px;
-  }
-
-  .exp-header h3 { font-size: 15px; font-weight: 700; color: var(--text-color); }
-  .company { font-weight: 600; color: var(--secondary-color); font-size: 13px; }
-  .date { font-size: 12.5px; color: var(--light-text); font-weight: 500; }
-  .note { font-size: 12px; color: var(--light-text); font-style: italic; margin-bottom: 4px; }
-
-  .exp-details { list-style-position: outside; margin-left: 18px; font-size: 13px; }
-  .exp-details li { margin-bottom: 2px; text-align: justify; line-height: 1.42; }
-  .exp-details li strong { color: var(--secondary-color); }
-
-  .projects-list { list-style-position: outside; margin-left: 18px; font-size: 13px; }
-  .projects-list li { margin-bottom: 3px; line-height: 1.42; }
-  .projects-list li strong { color: var(--secondary-color); }
-
-  .project-links { margin-left: 6px; display: inline-flex; gap: 8px; }
-  .project-links a { color: var(--accent-color); text-decoration: none; font-size: 11.5px; }
-
-  .education-item { margin-bottom: 3px; }
-  .edu-header { display: flex; justify-content: space-between; font-size: 13px; }
-  .edu-header h3 { font-weight: 600; }
-  .edu-detail { font-size: 12.5px; color: var(--light-text); }
-
-  /* ---------- Print ---------- */
-  @page { size: A4; margin: 10mm 12mm; }
-
-  @media print {
-    html, body { background: #fff; }
-    .print-bar { display: none !important; }
+    /* ---------- The sheet (A4 page — Single Page Constriction) ---------- */
     .sheet {
-      box-shadow: none !important;
-      width: 100% !important;
-      max-width: 210mm !important;
-      min-height: auto !important;
-      padding: 0 !important;
-      margin: 0 auto !important;
-      border-radius: 0 !important;
+      background: #fff;
+      color: var(--text-color);
+      width: 210mm;
+      min-height: 297mm;
+      max-height: 297mm;
+      padding: 15px 22px;
+      line-height: 1.38;
+      text-align: justify;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+      margin: 20px auto 40px;
+      border-radius: 4px;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
     }
-    a { text-decoration: none; color: var(--secondary-color) !important; }
-    .experience-item, .skill-category, .projects-list li, .education-item {
-      page-break-inside: avoid;
-      break-inside: avoid;
+
+    .cv-header {
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 6px;
+      margin-bottom: 7px;
     }
-  }
-</style>
+
+    .cv-header h1 {
+      font-size: 25px;
+      color: var(--primary-color);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .cv-header .role-title {
+      font-size: 13.5px;
+      color: var(--accent-color);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      line-height: 16px;
+      font-size: 12px;
+      color: var(--secondary-color);
+      align-items: center;
+    }
+
+    .contact-info a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .contact-info a:hover {
+      color: var(--accent-color);
+    }
+
+    .contact-info span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cv-section {
+      margin-bottom: 6.5px;
+    }
+
+    .cv-section h2 {
+      font-size: 14.5px;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 2px;
+      padding-top: 2px;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      margin-bottom: 3.5px;
+    }
+
+    .cv-section p {
+      font-size: 12.3px;
+      line-height: 1.38;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      gap: 2.5px;
+    }
+
+    .skill-category {
+      font-size: 11.8px;
+      line-height: 1.35;
+    }
+
+    .skill-category strong {
+      color: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    /* Experience */
+    .experience-item {
+      margin-bottom: 5.5px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 1.5px;
+    }
+
+    .exp-header h3 {
+      font-size: 13.2px;
+      font-weight: 700;
+      color: var(--text-color);
+      display: inline-block;
+    }
+
+    .exp-header .note {
+      font-weight: 400;
+      font-size: 11.5px;
+      color: #666;
+      margin-left: 4px;
+    }
+
+    .company {
+      font-weight: 600;
+      color: var(--secondary-color);
+      font-size: 12.3px;
+    }
+
+    .company a.live-link {
+      font-weight: 500;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-size: 11.5px;
+    }
+
+    .date {
+      font-size: 11.8px;
+      color: var(--light-text);
+      font-weight: 500;
+    }
+
+    .exp-details {
+      list-style-position: outside;
+      margin-left: 16px;
+      font-size: 11.8px;
+    }
+
+    .exp-details li {
+      margin-bottom: 1.8px;
+      text-align: justify;
+      line-height: 1.38;
+    }
+
+    .exp-details li strong {
+      color: var(--secondary-color);
+    }
+
+    /* Projects */
+    .projects-list {
+      list-style-position: outside;
+      margin-left: 16px;
+      font-size: 11.8px;
+    }
+
+    .projects-list li {
+      margin-bottom: 2px;
+      line-height: 1.38;
+    }
+
+    .projects-list li strong {
+      color: var(--secondary-color);
+    }
+
+    .project-links {
+      margin-left: 6px;
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .project-links a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .tech-tag {
+      font-size: 10.8px;
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+
+    /* Education & Certification unified row */
+    .edu-cert-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      font-size: 11.8px;
+      gap: 8px 16px;
+    }
+
+    .edu-cert-item {
+      flex: 1;
+      min-width: 250px;
+    }
+    .edu-cert-item strong {
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+    .edu-meta {
+      color: var(--light-text);
+      font-size: 11.3px;
+    }
+
+    /* ---------- Print ---------- */
+    @page { size: A4 portrait; margin: 8mm 10mm; }
+
+    @media print {
+      html, body { background: #fff !important; height: 100% !important; overflow: hidden !important; }
+      .print-bar { display: none !important; }
+      .sheet {
+        box-shadow: none !important;
+        width: 100% !important;
+        max-width: 190mm !important;
+        height: 280mm !important;
+        max-height: 280mm !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        border-radius: 0 !important;
+        overflow: hidden !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      a { text-decoration: none; color: var(--secondary-color) !important; }
+      .experience-item, .skill-category, .projects-list li, .edu-cert-row {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body>
 
 <div class="print-bar">
-  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
-  <span class="print-hint">In the print dialog, choose "Save as PDF" as the destination.</span>
+  <button class="print-btn" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+  <a href="builder.html" class="builder-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Open in Resume Studio</a>
+  <span class="print-hint">Choose "Save as PDF" &mdash; 1 Page Guaranteed</span>
 </div>
 
 <div class="sheet">
-  <div class="cv-header">
+  <header class="cv-header">
     <h1>Uttam Gupta</h1>
-    <div class="role-title">Senior Full Stack Engineer</div>
+    <div class="role-title">Lead Backend &amp; Distributed Systems Engineer</div>
     <div class="contact-info">
-      <span>📍 Delhi, India</span>
-      <span>📞 +91 9773706266</span>
-      <a href="mailto:uttamgupta2712@gmail.com">✉️ uttamgupta2712@gmail.com</a>
-      <a href="https://uttamgupta2712.is-a.dev" target="_blank">🌐 uttamgupta2712.is-a.dev</a>
-      <a href="https://github.com/UTTAMGUPTA2712" target="_blank">💻 github.com/UTTAMGUPTA2712</a>
-      <a href="https://linkedin.com/in/uttam-gupta-a185a8239" target="_blank">🔗 linkedin.com/in/uttam-gupta-a185a8239</a>
+      <span><i class="fa-solid fa-location-dot"></i> Delhi, India</span> |
+      <span><i class="fa-solid fa-phone"></i> +91 9773706266</span> |
+      <a href="mailto:uttamgupta2712@gmail.com"><i class="fa-solid fa-envelope"></i> uttamgupta2712@gmail.com</a> |
+      <a href="https://uttamgupta2712.is-a.dev" target="_blank"><i class="fa-solid fa-globe"></i> uttamgupta2712.is-a.dev</a> |
+      <a href="https://github.com/UTTAMGUPTA2712" target="_blank"><i class="fa-brands fa-github"></i> github.com/UTTAMGUPTA2712</a> |
+      <a href="https://linkedin.com/in/uttam-gupta-a185a8239" target="_blank"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/uttam-gupta-a185a8239</a>
     </div>
-  </div>
+  </header>
 
-  <div class="cv-section">
-    <h2>Summary</h2>
+  <section class="cv-section">
+    <h2>Professional Summary</h2>
     <p>
-      Senior Full Stack Engineer specializing in event-driven, multi-tenant platforms. Promoted three times
-      in three years — Intern → Full Stack Developer → Team Lead — while owning architecture end-to-end for
-      a 5–6 engineer team. Full-stack depth (TypeScript, React/Next.js, Node.js/NestJS), hands-on DevOps
-      (Kubernetes, Docker, GCP), and applied AI experience across client and personal projects.
+      Backend Systems Engineer with 3+ years of production experience architecting high-throughput data pipelines,
+      multi-tenant architectures, and resilient event-driven systems. Core expertise in TypeScript, Node.js, and Rust,
+      specializing in asynchronous batch processing, database-level concurrency, and distributed transactions. Proven
+      track record eliminating I/O bottlenecks by 95% and engineering fault-tolerant data migration infrastructure.
     </p>
-  </div>
+  </section>
 
-  <div class="cv-section">
-    <h2>Experience</h2>
+  <section class="cv-section">
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-category"><strong>Systems &amp; Concurrency:</strong> Tokio (Async Rust), Layer-4 Load Balancing, TCP/IP Networking, Multi-threading, RESP Protocol Implementation</div>
+      <div class="skill-category"><strong>Backend &amp; Architecture:</strong> Node.js, NestJS, Express, Domain-Driven Design (DDD), CQRS, Multi-Tenancy, Saga Pattern, Event Modeling, REST APIs, WebSockets</div>
+      <div class="skill-category"><strong>Databases &amp; Storage:</strong> PostgreSQL, MongoDB (Database-Level Encryption), Redis, Multi-Schema Isolation</div>
+      <div class="skill-category"><strong>Languages:</strong> TypeScript, JavaScript, Rust, Python, SQL</div>
+      <div class="skill-category"><strong>DevOps &amp; Cloud:</strong> Docker, Kubernetes, GitLab CI/CD, Linux, Acens</div>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>Professional Experience</h2>
+    
     <div class="experience-item">
       <div class="exp-header">
-        <h3>Full Stack Developer → Team Lead</h3>
+        <div>
+          <h3>Lead Backend Engineer / Full Stack Technical Lead <span class="note">(Promoted 3x: Intern &rarr; Full Stack Dev &rarr; Team Lead)</span></h3>
+          <div class="company">Zenmonk Software &amp; Services (Subsidiary of FUNIBER)</div>
+        </div>
         <span class="date">June 2023 – Present</span>
       </div>
-      <div class="exp-header">
-        <span class="company">Zenmonk Software And Services (FUNIBER)</span>
-      </div>
-      <div class="note">Promoted 3x: Intern → Full Stack Developer → Team Coordinator → Team Lead</div>
       <ul class="exp-details">
-        <li><strong>Enterprise Architecture:</strong> Led re-engineering of a complex business-management and
-          project-management platform, breaking business flows into modular, <strong>event-driven services</strong>
-          using <strong>event modeling</strong>, <strong>event storming</strong>, and <strong>Saga & CQRS
-          patterns</strong> for distributed transaction consistency.</li>
-        <li><strong>Performance:</strong> Cut document-processing time from 5 minutes to 15 seconds for 10k+
-          concurrent records by converting synchronous routes into <strong>asynchronous, parallelized
-          chunk-processing pipelines</strong>.</li>
-        <li><strong>Access Control:</strong> Designed a runtime-configurable <strong>RBAC system</strong> with
-          <strong>SSO</strong> and strict <strong>tenant isolation</strong> for a multi-tenant ERP.</li>
-        <li><strong>Cloud &amp; DevOps:</strong> Migrated a legacy <strong>Node.js/NestJS</strong> monolith to
-          <strong>RabbitMQ-powered microservices</strong> on <strong>GCP (GKE)</strong>, using
-          <strong>Docker</strong> and <strong>CI/CD</strong> to boost deployment frequency.</li>
-        <li><strong>Frontend:</strong> Improved <strong>React.js/Next.js</strong> performance on data-heavy
-          screens with <strong>table virtualization</strong> for 1,500+ dynamic cells, reducing DOM overhead
-          and interaction latency.</li>
-        <li><strong>Security:</strong> Implemented <strong>MongoDB field-level encryption</strong> for sensitive
-          PII and resilient <strong>message-handling (inbox/outbox) patterns</strong> — later adopted as the
-          org-wide messaging standard — to reduce failures during peak throughput.</li>
-        <li><strong>Engineering Leadership:</strong> Owned <strong>technical design and RFCs</strong>,
-          <strong>mentored a 5–6 engineer team</strong>, and partnered cross-functionally with UI/UX and QA to
-          speed up delivery feedback loops.</li>
+        <li><strong>Resilient Messaging:</strong> Standardized organization-wide Resilient Message Handling using the <strong>Transactional Outbox/Inbox pattern</strong>, eliminating message drop across microservices.</li>
+        <li><strong>ETL Pipeline Architecture:</strong> Architected a fault-tolerant Python ETL pipeline migrating entire organization's Asana history to Padmasana, using a <strong>dynamic thread pool</strong> and <strong>runtime token rotation</strong> to overcome strict API rate limits.</li>
+        <li><strong>Recursive Ingestion:</strong> Engineered a <strong>two-pass recursive dependency ingestion algorithm</strong> for nested tasks, resolving parent-child hierarchies in bounded 10,000-record batches without foreign key violations.</li>
+        <li><strong>Performance Optimization:</strong> Re-architected a blocking processing route on Question Management Bank into an <strong>asynchronous, chunked pipeline</strong> for 10,000+ files, reducing execution latency from 5 minutes to 15 seconds (<strong>95% reduction</strong>).</li>
+        <li><strong>Multi-Tenancy &amp; Security:</strong> Designed a <strong>multi-tenant isolation model</strong> with a multi-schema strategy on IBMS and built a dynamic, <strong>runtime-configurable RBAC engine</strong>.</li>
+        <li><strong>Distributed Transactions:</strong> Implemented a <strong>database-level Saga pattern</strong> to orchestrate long-running, multi-step survey operations reliably without external coordinator overhead.</li>
+        <li><strong>Data Security:</strong> Integrated <strong>client-side field-level encryption</strong> at the MongoDB layer to safeguard sensitive examination data independently of application code.</li>
       </ul>
     </div>
-  </div>
 
-  <div class="cv-section">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-category"><strong>Architecture:</strong> Event Storming / Modeling, EDA, Saga & CQRS, DDD, RBAC / SSO, TDD, Jest, Testing Library, API Design (REST/GraphQL/OpenAPI), GPT-4o Vision, ONNX Runtime, semantic search</div>
-      <div class="skill-category"><strong>Backend:</strong> Node.js, NestJS, Socket.IO, RabbitMQ, Redis, PostgreSQL, MongoDB, Stripe</div>
-      <div class="skill-category"><strong>Languages:</strong> TypeScript, JavaScript (ES6+), SQL</div>
-      <div class="skill-category"><strong>DevOps & Cloud:</strong> GCP (GKE), Docker, Kubernetes, CI/CD, System Design, WebRTC, HLS</div>
-      <div class="skill-category"><strong>Frontend:</strong> React.js, Next.js, Vite, Redux Toolkit, Tailwind CSS, shadcn/ui, Material UI</div>
-    </div>
-  </div>
-
-  <div class="cv-section">
-    <h2>Selected Projects</h2>
-    <ul class="projects-list">
-      <li><strong>Buck</strong> <span class="project-links"><a href="https://buckstreaming.com" target="_blank">buckstreaming.com</a></span> —
-        <strong>Creator-subscription live-streaming platform</strong> (Next.js) where creators stream live and
-        viewers <strong>subscribe</strong> or watch free with <strong>ads</strong>. Built and scaled end-to-end
-        — <strong>authentication</strong>, <strong>subscription access</strong>, <strong>payments</strong>, and
-        <strong>Socket.IO real-time interaction</strong> — with full platform ownership.</li>
-      <li><strong>Maity</strong> <span class="project-links"><a href="https://maity.pro" target="_blank">maity.pro</a></span> —
-        <strong>AI-powered video-personalization</strong> platform for sales outreach; built
-        <strong>campaign management</strong>, <strong>CRM integrations</strong>, video delivery backend, and
-        <strong>analytics dashboard</strong>.</li>
-      <li><strong>Axon</strong> — Chrome extension using <strong>GPT-4o Vision</strong> to automate web
-        workflows — <strong>form-filling</strong> and <strong>content scraping</strong>.</li>
-    </ul>
-  </div>
-
-  <div class="cv-section">
-    <h2>Education</h2>
-    <div class="education-item">
-      <div class="edu-header">
-        <h3>B.Tech, Computer Science & Engineering — Lovely Professional University</h3>
+    <div class="experience-item">
+      <div class="exp-header">
+        <div>
+          <h3>Lead Platform Engineer (Contract)</h3>
+          <div class="company">Buck &middot; <a href="https://buckstreaming.com" target="_blank" class="live-link">buckstreaming.com</a></div>
+        </div>
+        <span class="date">Jan 2024 – June 2024</span>
       </div>
-      <div class="edu-detail">2020 – 2024 · 7.86 CGPA</div>
+      <ul class="exp-details">
+        <li><strong>Billing &amp; Access:</strong> Architected core subscription backend integrating <strong>Stripe webhooks</strong> for automated billing lifecycles and tier access control.</li>
+        <li><strong>Real-Time Systems:</strong> Built real-time messaging and live-viewer interaction infrastructure via <strong>Socket.IO</strong>, minimizing latency during concurrent broadcast events.</li>
+      </ul>
     </div>
-  </div>
+
+    <div class="experience-item">
+      <div class="exp-header">
+        <div>
+          <h3>Backend Systems Engineer (Contract)</h3>
+          <div class="company">Maity &middot; <a href="https://maity.pro" target="_blank" class="live-link">maity.pro</a></div>
+        </div>
+        <span class="date">July 2024 – Dec 2024</span>
+      </div>
+      <ul class="exp-details">
+        <li><strong>AI Pipeline:</strong> Constructed an <strong>asynchronous rendering pipeline</strong> connecting external generative video models with upstream CRM webhooks.</li>
+        <li><strong>Analytics Scale:</strong> Designed <strong>analytics aggregation endpoints</strong> to track distribution and viewer engagement metrics at scale.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>Selected Systems Projects</h2>
+    <ul class="projects-list">
+      <li><strong>Layer-4 Load Balancer</strong> <span class="tech-tag">[Rust, Tokio, TCP/IP]</span>: Asynchronous <strong>Layer-4 TCP reverse proxy</strong> and load balancer built in <strong>Rust (Tokio)</strong>. Implemented <strong>Round-Robin</strong> and <strong>IP-Hash</strong> scheduling algorithms for high-concurrency stream routing and connection pooling. <span class="project-links"><a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank"><i class="fa-brands fa-github"></i> Source</a></span></li>
+      <li><strong>Redis Lite</strong> <span class="tech-tag">[Rust, RESP, Concurrency]</span>: Multi-threaded, in-memory key-value store adhering to the <strong>Redis Serialization Protocol (RESP)</strong>. Built low-level <strong>TCP byte-stream parsing</strong> with atomic primitives for thread-safe concurrent reads and writes. <span class="project-links"><a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank"><i class="fa-brands fa-github"></i> Source</a></span></li>
+    </ul>
+  </section>
+
+  <section class="cv-section">
+    <h2>Education &amp; Certification</h2>
+    <div class="edu-cert-row">
+      <div class="edu-cert-item">
+        <strong>B.Tech, Computer Science &amp; Engineering</strong> — Lovely Professional University
+        <div class="edu-meta">2020 – 2024 · 7.86 CGPA</div>
+      </div>
+      <div class="edu-cert-item" style="text-align: right;">
+        <strong>Google Cloud Skills Boost - Game 7053</strong> — Google Cloud
+        <div class="edu-meta">March 2026</div>
+      </div>
+    </div>
+  </section>
 </div>
+
+</body>
+</html>

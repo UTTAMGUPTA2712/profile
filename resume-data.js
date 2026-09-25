@@ -1,38 +1,16 @@
 /*
  * resume-data.js — SINGLE SOURCE OF TRUTH for Uttam Gupta's CVs & cover letters.
+ * Synchronized with master_data.json.
  *
- * Edit this file, never the HTML. builder.html reads from here and assembles a
- * tailored, ATS-friendly CV + matching cover letter per preset.
- *
- * HOW TAGGING WORKS
- *   Every experience bullet has a `tag`:  'both' | 'mid' | 'senior'
- *     - 'both'   -> appears in every preset
- *     - 'mid'    -> only the mid-level ("Software Developer") CV
- *     - 'senior' -> only the senior CV
- *   Each preset also defines its own title, summary, and the ORDER bullets lead in.
- *
- * HOW TO KEEP THIS CV CLEAN (learned the hard way — follow these)
- *   - Bold keywords: wrap the 2-4 most important technical terms per bullet/project
- *     in <strong>...</strong> (e.g. <strong>Saga & CQRS patterns</strong>). builder.html
- *     inserts `text` via innerHTML, so embedded HTML renders fine — don't skip this,
- *     unbolded bullets are much harder for a recruiter/ATS to skim.
- *   - One page only: builder.html's print CSS targets a single printed page. Keep
- *     each bullet to ~2 wrapped lines — a bullet that wraps to 3 lines (or leaves a
- *     lone last word orphaned on its own line) should be trimmed, not left as-is.
- *   - Summary length: each preset's `summary` must fit on 3 lines when rendered —
- *     if you add a clause, cut one elsewhere in the same summary.
- *   - Projects capped at 3-4 visible (`show: true`): currently Axon, Buck, Maity.
- *     Flip `show` on the rest only if you also hide/trim something else to compensate.
- *   - No Rust anywhere: Rust was intentionally removed from skills/projects/summary
- *     across every CV surface (this file, cv/index.html, profile/index.html's project
- *     grid is the one exception — that portfolio page keeps Rust projects on purpose
- *     since it's a broader showcase, not a targeted resume).
+ * builder.html reads from here and assembles a tailored, ATS-friendly CV + matching
+ * cover letter per preset, strictly constricted to a single page.
  */
 
 const RESUME = {
-  /* ---- Fixed identity (same on every version) ---- */
+  /* ---- Fixed Identity ---- */
   basics: {
     name: "Uttam Gupta",
+    label: "Lead Backend & Distributed Systems Engineer",
     location: "Delhi, India",
     phone: "+91 9773706266",
     email: "uttamgupta2712@gmail.com",
@@ -41,160 +19,188 @@ const RESUME = {
     linkedin: "linkedin.com/in/uttam-gupta-a185a8239",
   },
 
-  /* ---- The two positioning presets ----
-   * STRATEGY (kept here as a comment so it never renders on the page):
-   *   - "mid"    -> use for established / bigger companies (they won't grant
-   *                 "Senior" on ~3 yrs; a grounded title clears the filter).
-   *   - "senior" -> use for startups / newer firms.
-   * The visible dropdown labels are just the job titles, so nothing about this
-   * strategy is exposed even if someone finds the deployed builder URL.
-   */
+  /* ---- Target Positioning Presets ---- */
   presets: {
-    mid: {
-      label: "Software Developer",
-      title: "Software Developer",
-      // Grounded framing. Big companies won't grant "Senior" on ~3 yrs, so a
-      // solid title gets you PAST the filter instead of auto-rejected.
+    lead_backend: {
+      label: "Lead Backend & Systems Engineer",
+      title: "Lead Backend & Distributed Systems Engineer",
       summary:
-        "Full Stack Engineer with 3+ years shipping production web platforms end to end. " +
-        "Promoted three times for consistent delivery impact. Comfortable across the stack — " +
-        "TypeScript / React on the front, Node.js / NestJS services on the back — with hands-on " +
-        "DevOps (Docker, Kubernetes, GCP) and applied AI experience.",
-      // Bullets lead with delivery + impact.
-      bulletOrder: ["latency", "frontend", "rbac", "cloud", "security", "testing", "arch", "lead"],
+        "Backend Systems Engineer with 3+ years of production experience architecting high-throughput data pipelines, " +
+        "multi-tenant architectures, and resilient event-driven systems. Core expertise in TypeScript, Node.js, and Rust, " +
+        "specializing in asynchronous batch processing, database-level concurrency, and distributed transactions. Proven " +
+        "track record eliminating I/O bottlenecks by 95% and engineering fault-tolerant data migration infrastructure.",
+      // 4-5 focused high-impact bullets to guarantee exact single-page confinement
+      bulletOrder: ["outbox", "etl", "latency", "rbac", "saga"],
     },
 
-    senior: {
-      label: "Senior Full Stack Engineer",
-      title: "Senior Full Stack Engineer",
-      // Ownership / architecture framing.
+    tech_lead: {
+      label: "Full Stack Technical Lead",
+      title: "Full Stack Technical Lead",
       summary:
-        "Senior Full Stack Engineer specializing in event-driven, multi-tenant platforms. Promoted " +
-        "three times while owning architecture end-to-end. Full-stack depth (TypeScript, Node.js), " +
-        "DevOps (Kubernetes, GCP), and applied AI.",
-      // Bullets lead with architecture + ownership.
-      bulletOrder: ["arch", "latency", "rbac", "cloud", "frontend", "security", "testing", "lead"],
+        "Technical Lead and Systems Architect with 3+ years owning platform architecture, engineering standards, " +
+        "and distributed data pipelines across multiple enterprise platforms. Proven track record mentoring engineering teams, " +
+        "authoring RFCs, and delivering complex multi-tenant isolation, asynchronous ingestion, and resilient messaging systems.",
+      bulletOrder: ["lead", "outbox", "latency", "rbac", "etl"],
+    },
+
+    senior_backend: {
+      label: "Senior Backend Engineer",
+      title: "Senior Backend Engineer",
+      summary:
+        "Senior Backend Systems Engineer specializing in event-driven microservices, database-level concurrency, " +
+        "and distributed transaction consistency. Production depth across Node.js/NestJS, TypeScript, PostgreSQL, and Rust, " +
+        "with proven impact cutting processing latency by 95% and building client-side field-level encryption at scale.",
+      bulletOrder: ["latency", "outbox", "encryption", "saga", "ingestion"],
     },
   },
 
-  /* ---- Experience: one entry, bullets tagged & keyed by id ---- */
+  /* ---- Professional Experience ---- */
   experience: [
     {
-      company: "Zenmonk Software And Services (FUNIBER)",
-      role: "Full Stack Developer",
-      note: "Promoted 3x for consistent delivery impact",
+      id: "zenmonk",
+      company: "Zenmonk Software & Services (Subsidiary of FUNIBER)",
+      role: "Lead Backend Engineer / Full Stack Technical Lead",
+      location: "Delhi, India",
       dates: "June 2023 – Present",
+      note: "Promoted 3x: Intern → Full Stack Dev → Team Lead",
+      summary: "Owning platform architecture, engineering standards, and distributed data pipelines across enterprise platforms.",
       bullets: [
         {
-          id: "arch",
-          tag: "both",
-          lead: "Enterprise Architecture",
-          text:
-            "Led re-engineering of a complex business-management and project-management platform, " +
-            "breaking business flows into modular, <strong>event-driven services</strong> using <strong>event " +
-            "modeling</strong>, <strong>event storming</strong>, and <strong>Saga & CQRS patterns</strong> for " +
-            "distributed transaction consistency.",
+          id: "outbox",
+          lead: "Resilient Messaging",
+          text: "Standardized organization-wide Resilient Message Handling using the <strong>Transactional Outbox/Inbox pattern</strong>, eliminating message drop across microservices.",
+        },
+        {
+          id: "etl",
+          lead: "ETL Pipeline Architecture",
+          text: "Architected a fault-tolerant Python ETL pipeline migrating entire organization's Asana history to Padmasana, using a <strong>dynamic thread pool</strong> and <strong>runtime token rotation</strong> to overcome strict API rate limits.",
+        },
+        {
+          id: "ingestion",
+          lead: "Recursive Ingestion",
+          text: "Engineered a <strong>two-pass recursive dependency ingestion algorithm</strong> for nested tasks, resolving parent-child hierarchies in bounded 10,000-record batches without foreign key violations.",
         },
         {
           id: "latency",
-          tag: "both",
-          lead: "Performance",
-          text:
-            "Cut document-processing time from 5 minutes to 15 seconds for 10k+ concurrent records by converting " +
-            "synchronous routes into <strong>asynchronous, parallelized chunk-processing pipelines</strong>.",
+          lead: "Performance Optimization",
+          text: "Re-architected a blocking processing route on Question Management Bank into an <strong>asynchronous, chunked pipeline</strong> for 10,000+ files, reducing execution latency from 5 minutes to 15 seconds (<strong>95% reduction</strong>).",
         },
         {
           id: "rbac",
-          tag: "both",
-          lead: "Access Control",
-          text:
-            "Designed a runtime-configurable <strong>RBAC system</strong> with <strong>SSO</strong> and strict " +
-            "<strong>tenant isolation</strong> for a multi-tenant ERP.",
+          lead: "Multi-Tenancy & Security",
+          text: "Designed a <strong>multi-tenant isolation model</strong> with a multi-schema strategy on IBMS and built a dynamic, <strong>runtime-configurable RBAC engine</strong>.",
         },
         {
-          id: "frontend",
-          tag: "both",
-          lead: "Frontend",
-          text:
-            "Improved <strong>React.js/Next.js</strong> performance on data-heavy screens with <strong>table " +
-            "virtualization</strong> for 1,500+ dynamic cells, reducing DOM overhead and interaction latency.",
+          id: "saga",
+          lead: "Distributed Transactions",
+          text: "Implemented a <strong>database-level Saga pattern</strong> to orchestrate long-running, multi-step survey operations reliably without external coordinator overhead.",
         },
         {
-          id: "cloud",
-          tag: "both",
-          lead: "Cloud & DevOps",
-          text:
-            "Migrated a legacy <strong>Node.js/NestJS</strong> monolith to <strong>RabbitMQ-powered " +
-            "microservices</strong> on <strong>GCP (GKE)</strong>, using <strong>Docker</strong> and " +
-            "<strong>CI/CD</strong> to boost deployment frequency.",
-        },
-        {
-          id: "security",
-          tag: "both",
-          lead: "Security",
-          text:
-            "Implemented <strong>MongoDB field-level encryption</strong> for sensitive PII and resilient " +
-            "<strong>message-handling patterns</strong> to reduce failures during peak throughput.",
-        },
-        {
-          id: "testing",
-          tag: "both",
-          lead: "Testing & Performance",
-          text:
-            "Adopted <strong>TDD with Jest</strong> across core services to catch regressions early.",
+          id: "encryption",
+          lead: "Data Security",
+          text: "Integrated <strong>client-side field-level encryption</strong> at the MongoDB layer to safeguard sensitive examination data independently of application code.",
         },
         {
           id: "lead",
-          tag: "senior",
           lead: "Engineering Leadership",
-          text:
-            "Owned <strong>technical design and RFCs</strong>, <strong>mentored engineers</strong>, and partnered " +
-            "cross-functionally to speed up delivery feedback loops.",
+          text: "Authored <strong>RFCs</strong> and mentored a 5–6 person engineering team on <strong>Domain-Driven Design (DDD)</strong>, <strong>CQRS</strong>, and strict schema-level bounded contexts.",
+        },
+      ],
+    },
+    {
+      id: "buck",
+      company: "Buck",
+      role: "Lead Platform Engineer (Contract)",
+      location: "Remote",
+      url: "https://buckstreaming.com",
+      dates: "Jan 2024 – June 2024",
+      summary: "Creator-subscription live-streaming platform.",
+      bullets: [
+        {
+          id: "buck-stripe",
+          lead: "Billing & Access",
+          text: "Architected core subscription backend integrating <strong>Stripe webhooks</strong> for automated billing lifecycles and tier access control.",
+        },
+        {
+          id: "buck-socket",
+          lead: "Real-Time Systems",
+          text: "Built real-time messaging and live-viewer interaction infrastructure via <strong>Socket.IO</strong>, minimizing latency during concurrent broadcast events.",
+        },
+      ],
+    },
+    {
+      id: "maity",
+      company: "Maity",
+      role: "Backend Systems Engineer (Contract)",
+      location: "Remote",
+      url: "https://maity.pro",
+      dates: "July 2024 – Dec 2024",
+      summary: "AI video generation and sales personalization platform.",
+      bullets: [
+        {
+          id: "maity-pipeline",
+          lead: "AI Pipeline",
+          text: "Constructed an <strong>asynchronous rendering pipeline</strong> connecting external generative video models with upstream CRM webhooks.",
+        },
+        {
+          id: "maity-analytics",
+          lead: "Analytics Scale",
+          text: "Designed <strong>analytics aggregation endpoints</strong> to track distribution and viewer engagement metrics at scale.",
         },
       ],
     },
   ],
 
-  /* ---- Skills: order per preset via skillsOrder; all groups shown in both ---- */
+  /* ---- Technical Skills (5 categories from master_data.json) ---- */
   skills: {
-    Languages: "TypeScript, JavaScript (ES6+), SQL",
-    Frontend: "React.js, Next.js, Vite, Redux Toolkit, Tailwind CSS, shadcn/ui, Material UI",
-    Backend: "Node.js, NestJS, Socket.IO, RabbitMQ, Redis, PostgreSQL, MongoDB, Stripe",
-    "DevOps & Cloud": "GCP (GKE), Docker, Kubernetes, CI/CD, System Design, WebRTC, HLS",
-    Architecture: "Event Storming / Modeling, EDA, Saga & CQRS, DDD, RBAC / SSO, TDD, Jest, Testing Library, API Design (REST/GraphQL/OpenAPI), GPT-4o Vision, ONNX Runtime, semantic search",
-  },
-  // Which skill groups lead, per preset.
-  skillsOrder: {
-    mid: ["Languages", "Frontend", "Backend", "DevOps & Cloud", "Architecture"],
-    senior: ["Architecture", "Backend", "Languages", "DevOps & Cloud", "Frontend"],
+    "Languages": "TypeScript, JavaScript, Rust, Python, SQL",
+    "Backend & Architecture": "Node.js, NestJS, Express, Domain-Driven Design (DDD), CQRS, Multi-Tenancy, Saga Pattern, Event Modeling, REST APIs, WebSockets",
+    "Systems & Concurrency": "Tokio (Async Rust), Layer-4 Load Balancing, TCP/IP Networking, Multi-threading, RESP Protocol Implementation",
+    "Databases & Storage": "PostgreSQL, MongoDB (Database-Level Encryption), Redis, Multi-Schema Isolation",
+    "DevOps & Cloud": "Docker, Kubernetes, GitLab CI/CD, Linux, Acens",
   },
 
-  /* ---- Selected projects (shown on both; tweak `show` to hide any) ----
-   * Kept to 3 visible projects (Axon, Buck, Maity) to match cv/index.html and
-   * the one-page print layout tuned in builder.html. CodeMind, Local Lens,
-   * FileBridge, and the Rust projects are still here — flip `show` to true to
-   * bring one back if you trim something else to make room.
-   */
+  skillsOrder: {
+    lead_backend: ["Systems & Concurrency", "Backend & Architecture", "Databases & Storage", "Languages", "DevOps & Cloud"],
+    tech_lead: ["Backend & Architecture", "Languages", "Databases & Storage", "DevOps & Cloud", "Systems & Concurrency"],
+    senior_backend: ["Backend & Architecture", "Databases & Storage", "Languages", "Systems & Concurrency", "DevOps & Cloud"],
+  },
+
+  /* ---- Selected Projects ---- */
   projects: [
-    { name: "High-Performance Load Balancer (Rust)", show: false,
-      text: "Modular <strong>Layer-4 load balancer</strong> in Rust (Tokio) with <strong>Round Robin</strong> and <strong>IP Hash</strong> for concurrent traffic." },
-    { name: "Redis Lite (Rust)", show: false,
-      text: "Multi-threaded <strong>Redis RESP protocol</strong> implementation focused on low-latency key-value operations." },
-    { name: "CodeMind", show: false,
-      text: "Offline <strong>semantic search</strong> + AI chat over local codebases (Tauri, Next.js, local LLMs)." },
-    { name: "Axon", show: true,
-      text: "Chrome extension using <strong>GPT-4o Vision</strong> to automate web workflows — <strong>form-filling</strong> and <strong>content scraping</strong>." },
-    { name: "Local Lens", show: false,
-      text: "Privacy-first, 100% offline <strong>OCR</strong> and <strong>object detection</strong> (Rust, ONNX, ResNet50)." },
-    { name: "FileBridge", show: false,
-      text: "Turns local folders into file-sharing servers with <strong>QR-code pairing</strong> for cross-device I/O." },
-    { name: "Buck", show: true, live: "https://buckstreaming.com",
-      text: "<strong>Creator-subscription live-streaming platform</strong> (Next.js) where creators stream live and viewers <strong>subscribe</strong> or watch free with <strong>ads</strong>. Built and scaled the platform end-to-end — <strong>authentication</strong>, <strong>subscription access</strong>, <strong>payments</strong>, and <strong>Socket.IO real-time interaction</strong> — with full platform ownership." },
-    { name: "Maity", show: true, live: "https://maity.pro",
-      text: "<strong>AI-powered video-personalization</strong> platform for sales outreach; built <strong>campaign management</strong>, <strong>CRM integrations</strong>, video delivery backend, and <strong>analytics dashboard</strong>." },
+    {
+      name: "Layer-4 Load Balancer",
+      tech: "Rust, Tokio, TCP/IP",
+      github: "https://github.com/UTTAMGUPTA2712/load-balancer",
+      show: true,
+      text: "Asynchronous <strong>Layer-4 TCP reverse proxy</strong> and load balancer built in <strong>Rust (Tokio)</strong>. Implemented <strong>Round-Robin</strong> and <strong>IP-Hash</strong> scheduling algorithms for high-concurrency stream routing and connection pooling.",
+    },
+    {
+      name: "Redis Lite",
+      tech: "Rust, RESP, Concurrency",
+      github: "https://github.com/UTTAMGUPTA2712/redis_lite",
+      show: true,
+      text: "Multi-threaded, in-memory key-value store adhering to the <strong>Redis Serialization Protocol (RESP)</strong>. Built low-level <strong>TCP byte-stream parsing</strong> with atomic primitives for thread-safe concurrent reads and writes.",
+    },
   ],
 
+  /* ---- Education ---- */
   education: [
-    { school: "Lovely Professional University", degree: "B.Tech, Computer Science & Engineering", detail: "2020 – 2024 · 7.86 CGPA" },
+    {
+      institution: "Lovely Professional University",
+      area: "Computer Science & Engineering",
+      studyType: "B.Tech",
+      dates: "2020 – 2024",
+      score: "7.86 CGPA",
+    },
+  ],
+
+  /* ---- Certificates ---- */
+  certificates: [
+    {
+      name: "Google Cloud Skills Boost - Game 7053",
+      issuer: "Google Cloud",
+      date: "March 2026",
+    },
   ],
 };

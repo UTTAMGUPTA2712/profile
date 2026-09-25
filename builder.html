@@ -197,6 +197,130 @@
             margin: 1.75rem 0;
         }
 
+        /* ---------- Single-Page Budget & Customizer Controls ---------- */
+        .fit-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.85rem;
+        }
+        .fit-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+        .fit-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+        }
+        .fit-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            transition: all 0.2s ease;
+        }
+        .fit-badge.warning {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+        .fit-bar-track {
+            width: 100%;
+            height: 6px;
+            background: #27272a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.35rem;
+        }
+        .fit-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #00ff9d);
+            border-radius: 3px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+        }
+        .fit-bar-fill.overflow {
+            background: #ef4444;
+        }
+        .fit-meta {
+            font-size: 0.7rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+        .customizer-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .customizer-toggle {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            border: none;
+            color: var(--text);
+            padding: 0.6rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s ease;
+        }
+        .customizer-toggle:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+        }
+        .customizer-content {
+            padding: 0.75rem 0.8rem;
+            border-top: 1px solid var(--border);
+            max-height: 240px;
+            overflow-y: auto;
+        }
+        .chk-group-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            margin: 0.5rem 0 0.35rem;
+        }
+        .chk-group-title:first-child {
+            margin-top: 0;
+        }
+        .chk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.74rem;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+            cursor: pointer;
+        }
+        .chk-item:hover {
+            color: var(--text);
+        }
+        .chk-item input {
+            width: auto;
+            margin-top: 2px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+        .chk-item span {
+            line-height: 1.35;
+        }
+
         /* ---------- AI Copilot Header ---------- */
         .section-header {
             display: flex;
@@ -280,16 +404,17 @@
             box-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
         }
 
-        /* ---------- CV & Cover Letter Sheet Styling (Matching cv/styles.css) ---------- */
+        /* ---------- CV & Cover Letter Sheet Styling (Strict Single-Page Constriction) ---------- */
         .sheet {
             display: none;
             background: #fff;
             color: var(--text-color);
             width: 210mm;
             min-height: 297mm;
-            padding: 17px 22px;
+            max-height: 297mm; /* Strictly bounded to 1 A4 page visually */
+            padding: 15px 22px;
             font-family: var(--font-main);
-            line-height: 1.45;
+            line-height: 1.38;
             text-align: justify;
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
             margin-bottom: 3rem;
@@ -297,7 +422,29 @@
             animation: sheetFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Density variants */
+        .sheet.density-compact {
+            padding: 12px 18px;
+            line-height: 1.32;
+        }
+        .sheet.density-compact .cv-header { margin-bottom: 4px; padding-bottom: 4px; }
+        .sheet.density-compact .cv-section { margin-bottom: 4.5px; }
+        .sheet.density-compact .cv-section h2 { font-size: 13.5px; margin-bottom: 2.5px; padding-bottom: 1.5px; }
+        .sheet.density-compact .cv-section p { font-size: 11.8px; }
+        .sheet.density-compact .skill-category { font-size: 11.2px; }
+        .sheet.density-compact .exp-details li,
+        .sheet.density-compact .projects-list li { margin-bottom: 1.5px; font-size: 11.5px; line-height: 1.32; }
+
+        .sheet.density-spacious {
+            padding: 18px 24px;
+            line-height: 1.45;
+        }
+        .sheet.density-spacious .cv-section { margin-bottom: 8px; }
 
         .sheet.active {
             display: block;
@@ -311,25 +458,34 @@
         /* Header */
         .cv-header {
             border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
-            margin-bottom: 9px;
+            padding-bottom: 6px;
+            margin-bottom: 7px;
         }
 
         .cv-header h1 {
-            font-size: 28px;
+            font-size: 25px;
             color: var(--primary-color);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .cv-header .role-title {
+            font-size: 13.5px;
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
         }
 
         .contact-info {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            line-height: 18px;
-            font-size: 13px;
+            gap: 6px 12px;
+            line-height: 16px;
+            font-size: 12px;
             color: var(--secondary-color);
             align-items: center;
         }
@@ -340,6 +496,10 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
+            transition: color 0.15s;
+        }
+        .contact-info a:hover {
+            color: var(--accent-color);
         }
 
         .contact-info span {
@@ -350,35 +510,37 @@
 
         /* Section Common */
         .cv-section {
-            margin-bottom: 9px;
+            margin-bottom: 6.5px;
         }
 
         .cv-section h2 {
-            font-size: 17px;
+            font-size: 14.5px;
             color: var(--primary-color);
             text-transform: uppercase;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 3px;
-            padding-top: 3px;
+            padding-bottom: 2px;
+            padding-top: 2px;
             letter-spacing: 0.5px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 3.5px;
         }
 
         .cv-section p {
-            font-size: 14px;
-            line-height: 1.45;
+            font-size: 12.3px;
+            line-height: 1.38;
+            margin: 0;
+            color: var(--text-color);
         }
 
         /* Skills */
         .skills-grid {
             display: grid;
-            gap: 4px;
+            gap: 2.5px;
         }
 
         .skill-category {
-            font-size: 13.5px;
-            line-height: 1.4;
+            font-size: 11.8px;
+            line-height: 1.35;
         }
 
         .skill-category strong {
@@ -388,7 +550,7 @@
 
         /* Experience */
         .experience-item {
-            margin-bottom: 9px;
+            margin-bottom: 5.5px;
         }
 
         .exp-header {
@@ -396,49 +558,72 @@
             justify-content: space-between;
             align-items: baseline;
             flex-wrap: wrap;
-            margin-bottom: 3px;
+            margin-bottom: 1.5px;
         }
 
         .exp-header h3 {
-            font-size: 15px;
+            font-size: 13.2px;
             font-weight: 700;
             color: var(--text-color);
+            display: inline-block;
+        }
+
+        .exp-header .note {
+            font-weight: 400;
+            font-size: 11.5px;
+            color: #666;
+            margin-left: 4px;
         }
 
         .company {
             font-weight: 600;
             color: var(--secondary-color);
-            font-size: 13.5px;
+            font-size: 12.3px;
+        }
+
+        .company a.live-link {
+            font-weight: 500;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 11.5px;
         }
 
         .date {
-            font-size: 13px;
+            font-size: 11.8px;
             color: var(--light-text);
             font-weight: 500;
         }
 
         .exp-details {
             list-style-position: outside;
-            margin-left: 18px;
-            font-size: 13.5px;
+            margin-left: 16px;
+            font-size: 11.8px;
         }
 
         .exp-details li {
-            margin-bottom: 2px;
+            margin-bottom: 1.8px;
             text-align: justify;
-            line-height: 1.42;
+            line-height: 1.38;
+        }
+
+        .exp-details li strong {
+            color: var(--secondary-color);
         }
 
         /* Projects */
         .projects-list {
             list-style-position: outside;
-            margin-left: 18px;
-            font-size: 13.5px;
+            margin-left: 16px;
+            font-size: 11.8px;
         }
 
         .projects-list li {
-            margin-bottom: 3px;
-            line-height: 1.42;
+            margin-bottom: 2px;
+            line-height: 1.38;
+        }
+
+        .projects-list li strong {
+            color: var(--secondary-color);
         }
 
         .project-links {
@@ -450,26 +635,37 @@
         .project-links a {
             color: var(--accent-color);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 500;
         }
 
-        .project-links a:hover {
-            color: var(--primary-color);
+        .tech-tag {
+            font-size: 10.8px;
+            color: var(--secondary-color);
+            font-weight: 500;
         }
 
-        /* Education */
-        .education-item {
-            margin-bottom: 3px;
-        }
-
-        .edu-header {
+        /* Education & Certification unified row */
+        .edu-cert-row {
             display: flex;
             justify-content: space-between;
-            font-size: 13.5px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            font-size: 11.8px;
+            gap: 8px 16px;
         }
 
-        .edu-header h3 {
+        .edu-cert-item {
+            flex: 1;
+            min-width: 250px;
+        }
+        .edu-cert-item strong {
             font-weight: 600;
+            color: var(--secondary-color);
+        }
+        .edu-meta {
+            color: var(--light-text);
+            font-size: 11.3px;
         }
 
         /* ---------- Settings Modal ---------- */
@@ -579,23 +775,29 @@
             color: var(--text);
         }
 
-        /* ---------- Print Settings ---------- */
+        /* ---------- Print Settings (Strict Single Page) ---------- */
         @page {
-            size: A4;
-            margin: 10mm 12mm;
+            size: A4 portrait;
+            margin: 8mm 10mm;
         }
 
         @media print {
-            body { display: block; background: #fff; overflow: visible; }
+            html, body {
+                display: block !important;
+                background: #fff !important;
+                height: 100% !important;
+                overflow: hidden !important;
+            }
             .controls, .tabs-container { display: none !important; }
-            .stage { padding: 0; display: block; overflow: visible; background: none; }
+            .stage { padding: 0 !important; display: block !important; overflow: hidden !important; background: none !important; }
             
             .sheet {
                 display: none !important;
                 box-shadow: none !important;
                 width: 100% !important;
-                max-width: 210mm !important;
-                min-height: auto !important;
+                max-width: 190mm !important;
+                height: 280mm !important;
+                max-height: 280mm !important;
                 padding: 0 !important;
                 margin: 0 auto !important;
                 border-radius: 0 !important;
@@ -603,6 +805,9 @@
                 transform: none !important;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
+                overflow: hidden !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
             }
             .sheet.active {
                 display: block !important;
@@ -612,9 +817,9 @@
             .cv-section h2 { border-color: #eee !important; color: #2c3e50 !important; }
             a { text-decoration: none; color: #34495e !important; }
 
-            .experience-item, .skill-category, .projects-list li, .education-item {
-                page-break-inside: avoid;
-                break-inside: avoid;
+            .experience-item, .skill-category, .projects-list li, .edu-cert-row {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
         }
 
@@ -709,6 +914,40 @@
             <label for="preset">Target Position Preset</label>
             <select id="preset"></select>
             <p class="hint" id="presetHint"></p>
+        </div>
+
+        <!-- Single Page Budget & Fit Indicator -->
+        <div class="fit-card" id="fitCard">
+            <div class="fit-card-header">
+                <span class="fit-title">📄 Page Budget</span>
+                <span class="fit-badge" id="fitBadge">100% Fit (1 Page)</span>
+            </div>
+            <div class="fit-bar-track">
+                <div class="fit-bar-fill" id="fitBarFill" style="width: 85%;"></div>
+            </div>
+            <div class="fit-meta" id="fitMeta"><span>A4 Single Page Target</span><span id="fitPercentText">85% Used</span></div>
+        </div>
+
+        <!-- Density Selector -->
+        <div class="field" style="margin-bottom: 0.85rem;">
+            <label for="density">Spacing Density</label>
+            <select id="density" onchange="changeDensity(this.value)">
+                <option value="optimal">Optimal (Exact 1-Page Fit)</option>
+                <option value="compact">Compact (Higher Density)</option>
+                <option value="spacious">Spacious (Relaxed)</option>
+            </select>
+        </div>
+
+        <!-- Highlight Customizer -->
+        <div class="customizer-box">
+            <button type="button" class="customizer-toggle" onclick="toggleCustomizer()">
+                <span>⚙️ Customize Highlights</span>
+                <span id="customizerChevron">▼</span>
+            </button>
+            <div class="customizer-content" id="customizerContent" style="display: none;">
+                <p class="hint" style="margin-bottom: 0.6rem;">Toggle highlights on/off for this 1-page CV:</p>
+                <div id="bulletsChecklist"></div>
+            </div>
         </div>
 
         <button class="btn" onclick="window.print()">🖨️ Print / Save Active PDF</button>
@@ -829,6 +1068,110 @@
 
         function currentPreset() { return presetSelect.value; }
 
+        // ---- Active bullets set for single-page customization ----
+        let activeBullets = new Set();
+
+        function initPresetBullets(key) {
+            const preset = RESUME.presets[key];
+            activeBullets = new Set(preset.bulletOrder);
+            // Include contract work bullets (Buck and Maity)
+            RESUME.experience.forEach(job => {
+                if (job.id !== 'zenmonk') {
+                    job.bullets.forEach(b => activeBullets.add(b.id));
+                }
+            });
+            renderCustomizerChecklist();
+        }
+
+        // ---- Highlight Customizer Checklist ----
+        function renderCustomizerChecklist() {
+            const container = document.getElementById('bulletsChecklist');
+            if (!container) return;
+            container.innerHTML = '';
+
+            RESUME.experience.forEach(job => {
+                const groupTitle = document.createElement('div');
+                groupTitle.className = 'chk-group-title';
+                groupTitle.textContent = job.company.split('(')[0].trim();
+                container.appendChild(groupTitle);
+
+                job.bullets.forEach(b => {
+                    const label = document.createElement('label');
+                    label.className = 'chk-item';
+                    const chk = document.createElement('input');
+                    chk.type = 'checkbox';
+                    chk.value = b.id;
+                    chk.checked = activeBullets.has(b.id);
+                    chk.addEventListener('change', () => {
+                        if (chk.checked) {
+                            activeBullets.add(b.id);
+                        } else {
+                            activeBullets.delete(b.id);
+                        }
+                        renderCV();
+                    });
+                    const span = document.createElement('span');
+                    span.textContent = b.lead;
+                    label.appendChild(chk);
+                    label.appendChild(span);
+                    container.appendChild(label);
+                });
+            });
+        }
+
+        function toggleCustomizer() {
+            const content = document.getElementById('customizerContent');
+            const chevron = document.getElementById('customizerChevron');
+            const isHidden = content.style.display === 'none';
+            content.style.display = isHidden ? 'block' : 'none';
+            chevron.textContent = isHidden ? '▲' : '▼';
+        }
+
+        // ---- Spacing Density Mode ----
+        function changeDensity(mode) {
+            const cv = document.getElementById('cv');
+            const cl = document.getElementById('cl');
+            [cv, cl].forEach(sheet => {
+                if (!sheet) return;
+                sheet.classList.remove('density-compact', 'density-spacious');
+                if (mode === 'compact') sheet.classList.add('density-compact');
+                if (mode === 'spacious') sheet.classList.add('density-spacious');
+            });
+            updatePageFitMeter();
+        }
+
+        // ---- Live Single-Page Budget Gauge ----
+        function updatePageFitMeter() {
+            const sheet = document.getElementById('cv');
+            if (!sheet) return;
+
+            // Target single-page printable budget in px:
+            // Standard A4 sheet is 297mm ≈ 1123px at 96 DPI.
+            // With padding and safety margin, target ceiling is 1080px.
+            const targetHeightPx = 1080;
+            const actualHeight = sheet.scrollHeight;
+            const percent = Math.round((actualHeight / targetHeightPx) * 100);
+
+            const badge = document.getElementById('fitBadge');
+            const fill = document.getElementById('fitBarFill');
+            const percentText = document.getElementById('fitPercentText');
+
+            if (percentText) percentText.textContent = `${percent}% Used`;
+
+            if (percent <= 100) {
+                badge.textContent = `100% Fit (1 Page)`;
+                badge.className = 'fit-badge';
+                fill.className = 'fit-bar-fill';
+                fill.style.width = `${Math.min(percent, 100)}%`;
+            } else {
+                const overflow = percent - 100;
+                badge.textContent = `+${overflow}% Overflow`;
+                badge.className = 'fit-badge warning';
+                fill.className = 'fit-bar-fill overflow';
+                fill.style.width = '100%';
+            }
+        }
+
         // ---- Render the CV for the active preset ----
         function renderCV() {
             const key = currentPreset();
@@ -840,71 +1183,79 @@
                 <span><i class="fa-solid fa-location-dot"></i> ${b.location}</span> |
                 <span><i class="fa-solid fa-phone"></i> ${b.phone}</span> |
                 <a href="mailto:${b.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${b.email}</a> |
-                <a href="https://${b.portfolio}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> Portfolio: ${b.portfolio}</a> |
-                <a href="https://${b.github}" target="_blank"><i class="fa-brands fa-github"></i> GitHub: ${b.github}</a> |
-                <a href="https://${b.linkedin}" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn: ${b.linkedin}</a>
+                <a href="https://${b.portfolio}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> ${b.portfolio}</a> |
+                <a href="https://${b.github}" target="_blank"><i class="fa-brands fa-github"></i> ${b.github}</a> |
+                <a href="https://${b.linkedin}" target="_blank"><i class="fa-brands fa-linkedin"></i> ${b.linkedin}</a>
             `;
 
-            // Experience (bullets filtered by tag, ordered by preset.bulletOrder)
+            // Experience items (Zenmonk, Buck, Maity)
             const expHtml = RESUME.experience.map(job => {
                 const byId = Object.fromEntries(job.bullets.map(x => [x.id, x]));
-                const ordered = preset.bulletOrder
-                    .map(id => byId[id])
-                    .filter(x => x && (x.tag === 'both' || x.tag === key));
-                const lis = ordered.map(x => `<li><strong>${x.lead}:</strong> ${x.text}</li>`).join('');
+                // Order: if preset defines order, follow it; otherwise keep list order
+                const orderedBullets = (job.id === 'zenmonk')
+                    ? preset.bulletOrder.map(id => byId[id]).filter(Boolean)
+                    : job.bullets;
+
+                // Filter by activeBullets
+                const visibleBullets = orderedBullets.filter(x => activeBullets.has(x.id));
+                if (visibleBullets.length === 0) return '';
+
+                const lis = visibleBullets.map(x => `<li><strong>${x.lead}:</strong> ${x.text}</li>`).join('');
+                
+                const jobTitle = (job.id === 'zenmonk') ? preset.title : job.role;
+                const noteHtml = job.note ? `<span class="note">(${job.note})</span>` : '';
+                const urlHtml = job.url ? ` · <a href="${job.url}" target="_blank" class="live-link">${job.url.replace('https://', '')}</a>` : '';
+
                 return `
                     <div class="experience-item">
                         <div class="exp-header">
-                            <h3>${key === 'senior' ? preset.title : job.role} <span style="font-weight: 400; font-size: 0.85em; color: #666;">(${job.note})</span></h3>
-                            <span class="company">${job.company}</span>
+                            <div>
+                                <h3>${jobTitle} ${noteHtml}</h3>
+                                <div class="company">${job.company}${urlHtml}</div>
+                            </div>
                             <span class="date">${job.dates}</span>
                         </div>
                         <ul class="exp-details">${lis}</ul>
                     </div>`;
-            }).join('');
+            }).filter(Boolean).join('');
 
-            // Skills (ordered per preset)
+            // Skills (ordered per preset from master_data.json)
             const order = RESUME.skillsOrder[key] || Object.keys(RESUME.skills);
             const skillsHtml = order
                 .filter(g => RESUME.skills[g])
                 .map(g => `<div class="skill-category"><strong>${g}:</strong> ${RESUME.skills[g]}</div>`)
                 .join('');
 
-            // Projects
+            // Projects (Layer-4 Load Balancer, Redis Lite)
             const projHtml = RESUME.projects.filter(p => p.show)
                 .map(p => {
-                    let links = '';
-                    if (p.live || p.github) {
-                        links = `<span class="project-links">
-                            ${p.live ? `<a href="${p.live}" target="_blank" title="Live Site"><i class="fa-solid fa-external-link-alt"></i></a>` : ''}
-                            ${p.github ? `<a href="${p.github}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>` : ''}
-                        </span>`;
-                    } else {
-                        const linksMap = {
-                            "FileBridge": `<span class="project-links"><a href="https://uttamgupta2712.github.io/FileBridge/" target="_blank" title="Live Site"><i class="fa-solid fa-external-link-alt"></i></a><a href="https://github.com/uttamgupta2712/FileBridge" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></span>`,
-                            "High-Performance Load Balancer (Rust)": `<span class="project-links"><a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></span>`,
-                            "Axon": `<span class="project-links"><a href="https://uttamgupta2712.github.io/axon/" target="_blank" title="Live Site"><i class="fa-solid fa-external-link-alt"></i></a></span>`,
-                            "Redis Lite (Rust)": `<span class="project-links"><a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></span>`
-                        };
-                        links = linksMap[p.name] || '';
-                    }
-                    return `<li><strong>${p.name}:</strong> ${p.text}${links}</li>`;
+                    const techTag = p.tech ? `<span class="tech-tag">[${p.tech}]</span>` : '';
+                    const link = p.github
+                        ? `<span class="project-links"><a href="${p.github}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i> Source</a></span>`
+                        : '';
+                    return `<li><strong>${p.name}</strong> ${techTag}: ${p.text} ${link}</li>`;
                 }).join('');
 
-            // Education
-            const eduHtml = RESUME.education
-                .map(e => `
-                    <div class="education-item">
-                        <div class="edu-header">
-                            <h3>${e.degree}</h3>
-                            <span>${e.school}</span>
-                            <span>${e.detail}</span>
-                        </div>
-                    </div>`).join('');
+            // Education & Certification unified row
+            const edu = RESUME.education[0];
+            const cert = RESUME.certificates[0];
+            const eduCertHtml = `
+                <div class="edu-cert-row">
+                    <div class="edu-cert-item">
+                        <strong>${edu.studyType}, ${edu.area}</strong> — ${edu.institution}
+                        <div class="edu-meta">${edu.dates} · ${edu.score}</div>
+                    </div>
+                    ${cert ? `
+                    <div class="edu-cert-item" style="text-align: right;">
+                        <strong>${cert.name}</strong> — ${cert.issuer}
+                        <div class="edu-meta">${cert.date}</div>
+                    </div>` : ''}
+                </div>`;
 
             document.getElementById('cv').innerHTML = `
                 <header class="cv-header">
                     <h1>${b.name}</h1>
+                    <div class="role-title">${preset.title}</div>
                     <div class="contact-info">${contact}</div>
                 </header>
 
@@ -924,19 +1275,22 @@
                 </section>
 
                 <section class="cv-section">
-                    <h2>Selected Technical Projects</h2>
+                    <h2>Selected Systems Projects</h2>
                     <ul class="projects-list">${projHtml}</ul>
                 </section>
 
                 <section class="cv-section">
-                    <h2>Education</h2>
-                    ${eduHtml}
+                    <h2>Education & Certification</h2>
+                    ${eduCertHtml}
                 </section>
             `;
 
             // Prefill cover-letter role from preset title if empty
             const roleInput = document.getElementById('role');
             if (!roleInput.value) roleInput.value = preset.title;
+
+            // Recalculate page fit meter
+            setTimeout(updatePageFitMeter, 50);
         }
 
         // ---- Render the Cover Letter ----
@@ -957,12 +1311,13 @@
             document.getElementById('cl').innerHTML = `
                 <header class="cv-header">
                     <h1>${b.name}</h1>
+                    <div class="role-title">${preset.title}</div>
                     <div class="contact-info">${contact}</div>
                 </header>
 
-                <div class="cl-body" style="margin-top: 20px; font-size: 14px; font-family: var(--font-main);">
+                <div class="cl-body" style="margin-top: 20px; font-size: 13.5px; font-family: var(--font-main);">
                     <div style="margin-bottom: 14px; font-weight: 500; color: var(--secondary-color);">${date}</div>
-                    <div style="font-size: 16px; font-weight: 700; color: var(--primary-color); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">${subject}</div>
+                    <div style="font-size: 15px; font-weight: 700; color: var(--primary-color); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">${subject}</div>
                     <div style="margin-bottom: 14px; font-weight: 600;">Dear Hiring Team,</div>
                     <div style="line-height: 1.6; color: var(--text-color);">
                         ${bodyHtml}
@@ -979,6 +1334,7 @@
             if (tab === 'cv') {
                 document.getElementById('tab-cv').classList.add('active');
                 document.getElementById('cv').classList.add('active');
+                setTimeout(updatePageFitMeter, 50);
             } else if (tab === 'cl') {
                 document.getElementById('tab-cl').classList.add('active');
                 document.getElementById('cl').classList.add('active');
@@ -992,11 +1348,13 @@
 
         presetSelect.addEventListener('change', () => {
             document.getElementById('role').value = ''; // let it re-prefill from new preset
+            initPresetBullets(currentPreset());
             renderCV();
             renderCL();
         });
 
-        // Initial render
+        // Initial setup and render
+        initPresetBullets(currentPreset());
         renderCV();
         renderCL();
 
@@ -1011,10 +1369,10 @@
 
             const subject = `Application for ${role} at ${company}`;
             const paras = [
-                `I'm applying for the ${role} role at ${company}. I'm a full-stack engineer with 3+ years shipping production web platforms, and I'd bring end-to-end delivery across TypeScript/React, Node.js/NestJS, plus hands-on DevOps and applied AI.`,
-                `At Zenmonk Software I cut document-processing time from 5 minutes to 15 seconds for 10k+ concurrent records, designed a runtime-configurable multi-tenant RBAC system, and supported a monolith-to-microservices migration on GCP. I was promoted three times for consistent delivery impact.`,
-                hook ? `${hook}` : `[Add one specific reason you want to work at ${company} here — a product, team, or problem. Do not send this letter without it.]`,
-                `I'd welcome the chance to discuss how I can contribute to your team. Thank you for your time.`,
+                `I'm applying for the ${role} role at ${company}. I'm a Lead Backend and Distributed Systems Engineer with 3+ years architecting high-throughput data pipelines, resilient event-driven systems, and multi-tenant architectures across Node.js, TypeScript, and Rust.`,
+                `At Zenmonk Software, I standardized organization-wide resilient messaging using the Transactional Outbox/Inbox pattern, architected a fault-tolerant Python ETL pipeline migrating an entire organization's Asana history to Padmasana with dynamic thread pooling, and reduced document processing latency on Question Management Bank from 5 minutes to 15 seconds (95% reduction). I also engineered a two-pass recursive ingestion algorithm for 10,000-record batches and designed dynamic multi-tenant RBAC with MongoDB field-level encryption.`,
+                hook ? `${hook}` : `[Add one specific reason you want to work at ${company} here — a product, engineering challenge, or mission. Do not send this letter without it.]`,
+                `I'd welcome the chance to discuss how my distributed systems experience and architectural authority can support your engineering goals. Thank you for your time and consideration.`,
                 `Sincerely,`,
                 b.name,
             ];
@@ -1048,11 +1406,12 @@
         function downloadCvPdf() {
             const element = document.getElementById('cv');
             const opt = {
-                margin:       [6, 10, 6, 10],
-                filename:     `Uttam_Gupta_CV_${currentPreset()}.pdf`,
+                margin:       [6, 8, 6, 8],
+                filename:     `Uttam_Gupta_Resume_${currentPreset()}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
             };
             withFullSizeSheet(element, () => html2pdf().set(opt).from(element).save());
         }
