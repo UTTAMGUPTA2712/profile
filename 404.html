@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | Uttam Gupta</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="This page does not exist on uttamgupta2712.is-a.dev.">
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a1a1aa;
+            --accent-color: #00ff9d;
+            --border-color: #2a2a2a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        main { max-width: 620px; }
+
+        .code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin-bottom: 1rem; }
+
+        p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem; }
+
+        .links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+        a.btn {
+            display: inline-block;
+            padding: 0.8rem 1.4rem;
+            border: 1px solid var(--accent-color);
+            border-radius: 6px;
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        a.btn:hover { background: rgba(0, 255, 157, 0.1); }
+
+        a.btn.secondary { border-color: var(--border-color); color: var(--text-secondary); }
+        a.btn.secondary:hover { background: rgba(255, 255, 255, 0.04); }
+    </style>
+</head>
+
+<body>
+    <main>
+        <p class="code">$ curl -I &rarr; HTTP/1.1 404</p>
+        <h1>Route not found.</h1>
+        <p>
+            That path isn&rsquo;t part of this site. The request was resolved, the handler just
+            doesn&rsquo;t exist &mdash; try one of these instead.
+        </p>
+        <div class="links">
+            <a class="btn" href="/">Back to home</a>
+            <a class="btn secondary" href="/#projects">Projects</a>
+            <a class="btn secondary" href="/cv.html">CV</a>
+        </div>
+    </main>
+</body>
+
+</html>
