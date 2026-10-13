@@ -272,6 +272,7 @@
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </noscript>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -364,6 +365,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1.5rem;
+            position: relative;
         }
 
         .logo {
@@ -373,21 +376,59 @@
             border: 1px solid var(--border-color);
             padding: 0.5rem 1rem;
             border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .logo:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
 
         .logo span {
             color: var(--accent-color);
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+
         .nav-links a {
-            margin-left: 2rem;
             font-family: var(--font-mono);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             color: var(--text-secondary);
+            white-space: nowrap;
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
             color: var(--accent-color);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--accent-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            transition: all 0.2s ease;
+        }
+
+        .nav-toggle:hover {
+            border-color: var(--accent-color);
+            background: rgba(0, 255, 157, 0.05);
         }
 
         /* Hero Section */
@@ -667,7 +708,49 @@
             font-size: 1.5rem;
         }
 
+        @media (max-width: 960px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: calc(100% - 0.5rem);
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.25rem 1.5rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 0.95rem;
+                padding: 0.25rem 0;
+                width: 100%;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -942,10 +1025,11 @@
     <div class="container">
         <!-- Navbar -->
         <nav>
-            <div class="logo">
-                &lt;UG /&gt;
-            </div>
-            <div class="nav-links">
+            <a href="#" class="logo">&lt;UG /&gt;</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="#about"><span class="text-accent">01.</span> About</a>
                 <a href="#experience"><span class="text-accent">02.</span> Experience</a>
                 <a href="#deep-dives"><span class="text-accent">03.</span> Saves</a>
@@ -1627,13 +1711,62 @@
     </div>
 
     <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', !isExpanded);
+                navLinks.classList.toggle('active');
+                const icon = navToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-xmark');
+                }
+            });
+
+            // Close mobile menu on link click
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    const icon = navToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-xmark');
+                    }
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    const icon = navToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-xmark');
+                    }
+                }
+            });
+        }
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        targetEl.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
 
