@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="resume-data.js"></script>
+    <script src="resume-render.js"></script>
     <style>
         :root {
             --bg: #09090b;
@@ -575,6 +576,16 @@
             margin-left: 4px;
         }
 
+        .progression {
+            font-size: 11px;
+            color: #666;
+            margin: 2px 0 4px;
+        }
+
+        .progression .prog-date {
+            color: #999;
+        }
+
         .company {
             font-weight: 600;
             color: var(--secondary-color);
@@ -1072,51 +1083,46 @@
         let activeBullets = new Set();
 
         function initPresetBullets(key) {
-            const preset = RESUME.presets[key];
-            activeBullets = new Set(preset.bulletOrder);
-            // Include contract work bullets (Buck and Maity)
-            RESUME.experience.forEach(job => {
-                if (job.id !== 'zenmonk') {
-                    job.bullets.forEach(b => activeBullets.add(b.id));
-                }
-            });
+            activeBullets = ResumeRender.defaultActiveIds(RESUME, key);
             renderCustomizerChecklist();
         }
 
-        // ---- Highlight Customizer Checklist ----
+        // ---- Highlight Customizer Checklist (every bullet + project in the master file) ----
         function renderCustomizerChecklist() {
             const container = document.getElementById('bulletsChecklist');
             if (!container) return;
             container.innerHTML = '';
+            const preset = RESUME.presets[currentPreset()];
 
-            RESUME.experience.forEach(job => {
+            const addGroup = (title, items) => {
                 const groupTitle = document.createElement('div');
                 groupTitle.className = 'chk-group-title';
-                groupTitle.textContent = job.company.split('(')[0].trim();
+                groupTitle.textContent = title;
                 container.appendChild(groupTitle);
-
-                job.bullets.forEach(b => {
+                items.forEach(({ id, label: text }) => {
                     const label = document.createElement('label');
                     label.className = 'chk-item';
                     const chk = document.createElement('input');
                     chk.type = 'checkbox';
-                    chk.value = b.id;
-                    chk.checked = activeBullets.has(b.id);
+                    chk.value = id;
+                    chk.checked = activeBullets.has(id);
                     chk.addEventListener('change', () => {
-                        if (chk.checked) {
-                            activeBullets.add(b.id);
-                        } else {
-                            activeBullets.delete(b.id);
-                        }
+                        if (chk.checked) activeBullets.add(id); else activeBullets.delete(id);
                         renderCV();
                     });
                     const span = document.createElement('span');
-                    span.textContent = b.lead;
+                    span.textContent = text;
                     label.appendChild(chk);
                     label.appendChild(span);
                     container.appendChild(label);
                 });
+            };
+
+            RESUME.experience.forEach(job => {
+                addGroup(job.company.split('(')[0].trim(),
+                    ResumeRender.orderedBullets(job, preset).map(b => ({ id: b.id, label: b.lead })));
             });
+            addGroup('Projects', ResumeRender.orderedProjects(RESUME, preset).map(p => ({ id: p.id, label: p.name })));
         }
 
         function toggleCustomizer() {
@@ -1176,114 +1182,8 @@
         function renderCV() {
             const key = currentPreset();
             const preset = RESUME.presets[key];
-            const b = RESUME.basics;
             document.getElementById('presetHint').textContent = preset.label;
-
-            const contact = `
-                <span><i class="fa-solid fa-location-dot"></i> ${b.location}</span> |
-                <span><i class="fa-solid fa-phone"></i> ${b.phone}</span> |
-                <a href="mailto:${b.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${b.email}</a> |
-                <a href="https://${b.portfolio}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> ${b.portfolio}</a> |
-                <a href="https://${b.github}" target="_blank"><i class="fa-brands fa-github"></i> ${b.github}</a> |
-                <a href="https://${b.linkedin}" target="_blank"><i class="fa-brands fa-linkedin"></i> ${b.linkedin}</a>
-            `;
-
-            // Experience items (Zenmonk, Buck, Maity)
-            const expHtml = RESUME.experience.map(job => {
-                const byId = Object.fromEntries(job.bullets.map(x => [x.id, x]));
-                // Order: if preset defines order, follow it; otherwise keep list order
-                const orderedBullets = (job.id === 'zenmonk')
-                    ? preset.bulletOrder.map(id => byId[id]).filter(Boolean)
-                    : job.bullets;
-
-                // Filter by activeBullets
-                const visibleBullets = orderedBullets.filter(x => activeBullets.has(x.id));
-                if (visibleBullets.length === 0) return '';
-
-                const lis = visibleBullets.map(x => `<li><strong>${x.lead}:</strong> ${x.text}</li>`).join('');
-                
-                const jobTitle = (job.id === 'zenmonk') ? preset.title : job.role;
-                const noteHtml = job.note ? `<span class="note">(${job.note})</span>` : '';
-                const urlHtml = job.url ? ` · <a href="${job.url}" target="_blank" class="live-link">${job.url.replace('https://', '')}</a>` : '';
-
-                return `
-                    <div class="experience-item">
-                        <div class="exp-header">
-                            <div>
-                                <h3>${jobTitle} ${noteHtml}</h3>
-                                <div class="company">${job.company}${urlHtml}</div>
-                            </div>
-                            <span class="date">${job.dates}</span>
-                        </div>
-                        <ul class="exp-details">${lis}</ul>
-                    </div>`;
-            }).filter(Boolean).join('');
-
-            // Skills (ordered per preset from master_data.json)
-            const order = RESUME.skillsOrder[key] || Object.keys(RESUME.skills);
-            const skillsHtml = order
-                .filter(g => RESUME.skills[g])
-                .map(g => `<div class="skill-category"><strong>${g}:</strong> ${RESUME.skills[g]}</div>`)
-                .join('');
-
-            // Projects (Layer-4 Load Balancer, Redis Lite)
-            const projHtml = RESUME.projects.filter(p => p.show)
-                .map(p => {
-                    const techTag = p.tech ? `<span class="tech-tag">[${p.tech}]</span>` : '';
-                    const link = p.github
-                        ? `<span class="project-links"><a href="${p.github}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i> Source</a></span>`
-                        : '';
-                    return `<li><strong>${p.name}</strong> ${techTag}: ${p.text} ${link}</li>`;
-                }).join('');
-
-            // Education & Certification unified row
-            const edu = RESUME.education[0];
-            const cert = RESUME.certificates[0];
-            const eduCertHtml = `
-                <div class="edu-cert-row">
-                    <div class="edu-cert-item">
-                        <strong>${edu.studyType}, ${edu.area}</strong> — ${edu.institution}
-                        <div class="edu-meta">${edu.dates} · ${edu.score}</div>
-                    </div>
-                    ${cert ? `
-                    <div class="edu-cert-item" style="text-align: right;">
-                        <strong>${cert.name}</strong> — ${cert.issuer}
-                        <div class="edu-meta">${cert.date}</div>
-                    </div>` : ''}
-                </div>`;
-
-            document.getElementById('cv').innerHTML = `
-                <header class="cv-header">
-                    <h1>${b.name}</h1>
-                    <div class="role-title">${preset.title}</div>
-                    <div class="contact-info">${contact}</div>
-                </header>
-
-                <section class="cv-section">
-                    <h2>Professional Summary</h2>
-                    <p>${preset.summary}</p>
-                </section>
-
-                <section class="cv-section">
-                    <h2>Technical Skills</h2>
-                    <div class="skills-grid">${skillsHtml}</div>
-                </section>
-
-                <section class="cv-section">
-                    <h2>Professional Experience</h2>
-                    ${expHtml}
-                </section>
-
-                <section class="cv-section">
-                    <h2>Selected Systems Projects</h2>
-                    <ul class="projects-list">${projHtml}</ul>
-                </section>
-
-                <section class="cv-section">
-                    <h2>Education & Certification</h2>
-                    ${eduCertHtml}
-                </section>
-            `;
+            document.getElementById('cv').innerHTML = ResumeRender.cvHtml(RESUME, key, activeBullets);
 
             // Prefill cover-letter role from preset title if empty
             const roleInput = document.getElementById('role');
@@ -1295,29 +1195,15 @@
 
         // ---- Render the Cover Letter ----
         function renderCL() {
-            const { b, date, subject, paras } = coverLetterParts();
-            const contact = `
-                <span><i class="fa-solid fa-location-dot"></i> ${b.location}</span> |
-                <span><i class="fa-solid fa-phone"></i> ${b.phone}</span> |
-                <a href="mailto:${b.email}" target="_blank"><i class="fa-solid fa-envelope"></i> ${b.email}</a> |
-                <a href="https://${b.portfolio}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> ${b.portfolio}</a> |
-                <a href="https://${b.github}" target="_blank"><i class="fa-brands fa-github"></i> ${b.github}</a> |
-                <a href="https://${b.linkedin}" target="_blank"><i class="fa-brands fa-linkedin"></i> ${b.linkedin}</a>
-            `;
-            
-            const preset = RESUME.presets[currentPreset()];
-            const bodyHtml = paras.map(p => `<p style="margin-bottom: 12px; line-height: 1.6;">${p}</p>`).join('');
+            const { date, subject, paras, preset } = coverLetterParts();
+            const bodyHtml = paras.map(p => `<p style="margin-bottom: 12px; line-height: 1.6;">${ResumeRender.esc(p)}</p>`).join('');
 
             document.getElementById('cl').innerHTML = `
-                <header class="cv-header">
-                    <h1>${b.name}</h1>
-                    <div class="role-title">${preset.title}</div>
-                    <div class="contact-info">${contact}</div>
-                </header>
+                ${ResumeRender.headerHtml(RESUME, preset)}
 
                 <div class="cl-body" style="margin-top: 20px; font-size: 13.5px; font-family: var(--font-main);">
                     <div style="margin-bottom: 14px; font-weight: 500; color: var(--secondary-color);">${date}</div>
-                    <div style="font-size: 15px; font-weight: 700; color: var(--primary-color); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">${subject}</div>
+                    <div style="font-size: 15px; font-weight: 700; color: var(--primary-color); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">${ResumeRender.esc(subject)}</div>
                     <div style="margin-bottom: 14px; font-weight: 600;">Dear Hiring Team,</div>
                     <div style="line-height: 1.6; color: var(--text-color);">
                         ${bodyHtml}
@@ -1360,23 +1246,11 @@
 
         // ---- Cover letter: shared content (single source for PDF + copy) ----
         function coverLetterParts() {
-            const b = RESUME.basics;
-            const preset = RESUME.presets[currentPreset()];
-            const role = document.getElementById('role').value.trim() || preset.title;
-            const company = document.getElementById('company').value.trim() || '[Company]';
-            const hook = document.getElementById('hook').value.trim();
-            const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-            const subject = `Application for ${role} at ${company}`;
-            const paras = [
-                `I'm applying for the ${role} role at ${company}. I'm a Lead Backend and Distributed Systems Engineer with 3+ years architecting high-throughput data pipelines, resilient event-driven systems, and multi-tenant architectures across Node.js, TypeScript, and Rust.`,
-                `At Zenmonk Software, I standardized organization-wide resilient messaging using the Transactional Outbox/Inbox pattern, architected a fault-tolerant Python ETL pipeline migrating an entire organization's Asana history to Padmasana with dynamic thread pooling, and reduced document processing latency on Question Management Bank from 5 minutes to 15 seconds (95% reduction). I also engineered a two-pass recursive ingestion algorithm for 10,000-record batches and designed dynamic multi-tenant RBAC with MongoDB field-level encryption.`,
-                hook ? `${hook}` : `[Add one specific reason you want to work at ${company} here — a product, engineering challenge, or mission. Do not send this letter without it.]`,
-                `I'd welcome the chance to discuss how my distributed systems experience and architectural authority can support your engineering goals. Thank you for your time and consideration.`,
-                `Sincerely,`,
-                b.name,
-            ];
-            return { b, role, company, date, subject, paras };
+            return ResumeRender.coverLetterParts(RESUME, currentPreset(), {
+                role: document.getElementById('role').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                hook: document.getElementById('hook').value.trim(),
+            });
         }
 
         // Plain-text version (for clipboard / pasting into email or a form)

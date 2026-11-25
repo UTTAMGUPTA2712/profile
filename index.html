@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uttam Gupta | Lead Backend & Distributed Systems Engineer</title>
+    <title>Uttam Gupta | Senior Backend Engineer</title>
     <meta name="google-site-verification" content="9qnCo2kpqu5bWSm2ncXedVpf4WzrE0Zwl_QIiL0Z7Sw" />
-    <meta name="description" content="Uttam Gupta is a Lead Backend & Distributed Systems Engineer in Delhi, India, building high-throughput data pipelines, multi-tenant architectures and event-driven systems. Portfolio, projects and CV.">
+    <meta name="description" content="Uttam Gupta is a Senior Backend Engineer in Delhi, India, building multi-tenant platforms, reliable messaging and data pipelines in TypeScript, Node.js and Rust. Portfolio, projects and CV.">
     <meta name="author" content="Uttam Gupta">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://uttamgupta2712.is-a.dev/">
@@ -15,8 +15,8 @@
     <meta property="og:type" content="profile">
     <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://uttamgupta2712.is-a.dev/">
-    <meta property="og:title" content="Uttam Gupta | Lead Backend & Distributed Systems Engineer">
-    <meta property="og:description" content="Backend and distributed systems engineer building high-throughput pipelines, multi-tenant platforms and real-time systems.">
+    <meta property="og:title" content="Uttam Gupta | Senior Backend Engineer">
+    <meta property="og:description" content="Senior backend engineer building multi-tenant platforms, reliable messaging, data pipelines and real-time systems.">
     <meta property="profile:first_name" content="Uttam">
     <meta property="profile:last_name" content="Gupta">
     <meta property="profile:username" content="UTTAMGUPTA2712">
@@ -25,14 +25,14 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:image:alt" content="Uttam Gupta - Lead Backend & Distributed Systems Engineer">
+    <meta property="og:image:alt" content="Uttam Gupta - Senior Backend Engineer">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Uttam Gupta | Lead Backend & Distributed Systems Engineer">
-    <meta name="twitter:description" content="Backend and distributed systems engineer building high-throughput pipelines, multi-tenant platforms and real-time systems.">
+    <meta name="twitter:title" content="Uttam Gupta | Senior Backend Engineer">
+    <meta name="twitter:description" content="Senior backend engineer building multi-tenant platforms, reliable messaging, data pipelines and real-time systems.">
     <meta name="twitter:image" content="https://uttamgupta2712.is-a.dev/og-image.png">
-    <meta name="twitter:image:alt" content="Uttam Gupta - Lead Backend & Distributed Systems Engineer">
+    <meta name="twitter:image:alt" content="Uttam Gupta - Senior Backend Engineer">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -50,8 +50,8 @@
                 "@type": "ProfilePage",
                 "@id": "https://uttamgupta2712.is-a.dev/#webpage",
                 "url": "https://uttamgupta2712.is-a.dev/",
-                "name": "Uttam Gupta | Lead Backend & Distributed Systems Engineer",
-                "description": "Uttam Gupta is a Lead Backend & Distributed Systems Engineer in Delhi, India, building high-throughput data pipelines, multi-tenant architectures and event-driven systems.",
+                "name": "Uttam Gupta | Senior Backend Engineer",
+                "description": "Uttam Gupta is a Senior Backend Engineer in Delhi, India, building multi-tenant platforms, reliable messaging and data pipelines in TypeScript, Node.js and Rust.",
                 "isPartOf": { "@id": "https://uttamgupta2712.is-a.dev/#website" },
                 "inLanguage": "en",
                 "mainEntity": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
@@ -63,7 +63,7 @@
                 "url": "https://uttamgupta2712.is-a.dev/og-image.png",
                 "width": 1200,
                 "height": 630,
-                "caption": "Uttam Gupta - Lead Backend & Distributed Systems Engineer"
+                "caption": "Uttam Gupta - Senior Backend Engineer"
             },
             {
                 "@type": "Person",
@@ -73,8 +73,8 @@
                 "familyName": "Gupta",
                 "url": "https://uttamgupta2712.is-a.dev/",
                 "image": { "@id": "https://uttamgupta2712.is-a.dev/#ogimage" },
-                "jobTitle": "Lead Backend & Distributed Systems Engineer",
-                "description": "Backend systems engineer with 3+ years of production experience architecting high-throughput data pipelines, multi-tenant architectures and resilient event-driven systems in TypeScript, Node.js and Rust.",
+                "jobTitle": "Senior Backend Engineer",
+                "description": "Backend engineer with 3+ years building production systems in TypeScript, Node.js and Rust: multi-tenant platforms, reliable messaging and data pipelines.",
                 "email": "mailto:uttamgupta2712@gmail.com",
                 "telephone": "+91-9773706266",
                 "worksFor": {
@@ -262,6 +262,8 @@
     <meta name="theme-color" content="#0a0a0a">
     <!-- jsPDF Library -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script defer src="resume-data.js"></script>
+    <script defer src="resume-render.js"></script>
 
     <style>
         :root {
@@ -610,6 +612,31 @@
         .exp-details li::marker {
             color: var(--accent-color);
             content: "▹  ";
+        }
+
+        .title-history {
+            list-style: none;
+            margin: 0.75rem 0 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .title-history li {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.2rem 0;
+            color: var(--text-secondary);
+        }
+
+        .title-history li:first-child {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .title-history time {
+            white-space: nowrap;
+            opacity: 0.8;
         }
 
         /* Projects */
@@ -1196,11 +1223,11 @@
         <section class="hero">
             <span class="hero-pre mono">Hi, my name is</span>
             <h1>Uttam Gupta.</h1>
-            <h2 style="color: var(--text-secondary);">I build High-Performance Distributed Systems.</h2>
+            <h2 style="color: var(--text-secondary);">I build reliable backend systems.</h2>
             <p>
-                Lead Backend & Distributed Systems Engineer specializing in high-throughput data pipelines, multi-tenant architectures, and resilient event-driven systems.
-                Currently Technical Lead at
-                <span class="text-accent">Zenmonk Software</span> (Subsidiary of FUNIBER).
+                Senior Backend Engineer with 3+ years shipping multi-tenant platforms, reliable messaging and data
+                pipelines in TypeScript, Node.js and Rust. Currently at
+                <span class="text-accent">Zenmonk Software</span> (Subsidiary of FUNIBER), where I lead a 5–6 person team.
                 <br>
                 <span class="mono" style="font-size: 0.9rem; color: var(--text-secondary);"><i
                         class="fa-solid fa-location-dot" style="margin-right: 0.5rem;"></i>Delhi, India</span>
@@ -1217,12 +1244,14 @@
             <div class="about-grid">
                 <div class="about-text">
                     <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-                        Backend Systems Engineer with 3+ years of production experience architecting high-throughput data pipelines,
-                        multi-tenant architectures, and resilient event-driven systems. Core expertise in TypeScript, Node.js, and Rust,
-                        specializing in asynchronous batch processing, database-level concurrency, and distributed transactions. Proven track record eliminating I/O bottlenecks by 95% and engineering fault-tolerant data migration infrastructure.
+                        Backend engineer with 3+ years building production systems in TypeScript, Node.js and PostgreSQL/MongoDB,
+                        with Rust for systems work. I design multi-tenant platforms, reliable messaging and data pipelines: I cut a
+                        document-processing job from 5 minutes to 15 seconds, introduced the inbox/outbox messaging standard now used
+                        across all our services, and migrated an organization's full project history into a new platform.
                     </p>
                     <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                        Beyond core architecture, I focus on <strong>Mentorship</strong>, authoring RFCs and guiding a 5–6 person engineering team on Domain-Driven Design (DDD), CQRS, and strict schema-level bounded contexts, translating complex enterprise workflows into scalable architectures via Event Modeling.
+                        I also lead a 5–6 person team: I own technical design and RFCs, mentor through code review and pairing,
+                        and run event-modeling sessions that turn business requirements into system designs.
                     </p>
 
                     <h3 class="mono" style="font-size: 1rem; margin-bottom: 1rem;">Technical Stack:</h3>
@@ -1298,43 +1327,47 @@
             <div class="velocity-badge">
                 <i class="fa-solid fa-bolt"></i>
                 <span class="mono" style="font-size: 0.9rem; color: var(--text-primary);">
-                    <strong>Career Velocity:</strong> Achieved 3 promotions in &lt; 3 years, moving from Associate to Lead levels.
+                    <strong>Career path:</strong> Promoted 4 times at the same company in just over 3 years.
                 </span>
             </div>
 
             <!-- Zenmonk Experience -->
             <div class="experience-card" style="margin-bottom: 2rem;">
                 <div class="exp-header">
-                    <h3>Lead Backend Engineer / Full Stack Technical Lead</h3>
-                    <span class="exp-role">Zenmonk Software & Services (Subsidiary of FUNIBER) | June 2023 - Present</span>
+                    <h3>Zenmonk Software &amp; Services</h3>
+                    <span class="exp-role">Subsidiary of FUNIBER · Delhi | June 2023 - Present</span>
                 </div>
-                <p class="mono" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                    Promoted 3x: Intern → Full Stack Developer → Team Coordinator → Technical Lead
-                </p>
+                <ol class="title-history">
+                    <li><span>Software Architect</span><time>Aug 2026 – now</time></li>
+                    <li><span>Team Lead</span><time>Apr 2025</time></li>
+                    <li><span>Team Coordinator</span><time>Sep 2024</time></li>
+                    <li><span>Full Stack Developer</span><time>Sep 2023</time></li>
+                    <li><span>Intern</span><time>Jun 2023</time></li>
+                </ol>
                 <ul class="exp-details">
                     <li>
-                        <strong>Resilient Messaging:</strong> Standardized organization-wide Resilient Message Handling using the <strong>Transactional Outbox/Inbox pattern</strong>, eliminating message drop across microservices.
+                        <strong>Performance:</strong> Rebuilt a blocking document-processing route on the Question Management Bank as an <strong>asynchronous, chunked, parallel pipeline</strong> for 10,000+ documents, cutting processing time from <strong>5 minutes to 15 seconds</strong>.
                     </li>
                     <li>
-                        <strong>ETL Pipeline Architecture:</strong> Architected a fault-tolerant Python ETL pipeline migrating an entire organization's Asana history to Padmasana, using a <strong>dynamic thread pool</strong> and <strong>runtime token rotation</strong> to overcome strict API rate limits.
+                        <strong>Reliable Messaging:</strong> Introduced the <strong>transactional inbox/outbox pattern</strong> for reliable message handling; it is now the standard across all of the organization's services.
                     </li>
                     <li>
-                        <strong>Recursive Ingestion:</strong> Engineered a <strong>two-pass recursive dependency ingestion algorithm</strong> for nested tasks, resolving parent-child hierarchies in bounded 10,000-record batches without foreign key violations.
+                        <strong>Data Migration:</strong> Designed and built a <strong>resumable, job-queue-based migration pipeline</strong> that moved an organization's projects, teams, tasks and attachments from a legacy tool into Padmasana, with parallel workers within API rate limits, retries and a dependency-ordered import validated on staging first.
                     </li>
                     <li>
-                        <strong>Performance Optimization:</strong> Re-architected a blocking processing route on Question Management Bank into an <strong>asynchronous, chunked pipeline</strong> for 10,000+ files, reducing execution latency from 5 minutes to 15 seconds (<strong>95% reduction</strong>).
+                        <strong>Multi-Tenancy:</strong> Designed <strong>multi-schema tenant isolation</strong> for IBMS, an HR/business platform serving FUNIBER's member organizations, with a <strong>runtime-configurable RBAC</strong> system.
                     </li>
                     <li>
-                        <strong>Multi-Tenancy & RBAC:</strong> Designed a <strong>multi-tenant isolation model</strong> with a multi-schema strategy on IBMS and built a dynamic, <strong>runtime-configurable RBAC engine</strong>.
+                        <strong>Shared Billing Service:</strong> Architected a <strong>generic subscription service</strong> on Stripe, with webhooks keeping subscription state in sync, so no product re-implements its own payment flow.
                     </li>
                     <li>
-                        <strong>Distributed Transactions:</strong> Implemented a <strong>database-level Saga pattern</strong> to orchestrate long-running, multi-step survey operations reliably without external coordinator overhead.
+                        <strong>New Product:</strong> Architected a <strong>multi-tenant salon booking SaaS</strong> from scratch, with Stripe handling both platform subscriptions and customers' service payments.
                     </li>
                     <li>
-                        <strong>Data Security:</strong> Integrated <strong>client-side field-level encryption</strong> at the MongoDB layer to safeguard sensitive examination data independently of application code.
+                        <strong>Long-Running Workflows:</strong> Built a <strong>database-level saga mechanism</strong> to run long, multi-step survey processes reliably without an external orchestrator.
                     </li>
                     <li>
-                        <strong>Engineering Leadership:</strong> Authored <strong>RFCs</strong> and mentored a 5–6 person engineering team on <strong>Domain-Driven Design (DDD)</strong>, <strong>CQRS</strong>, and strict schema-level bounded contexts.
+                        <strong>Team Leadership:</strong> Lead a <strong>5–6 person team</strong>: own technical design and RFCs, mentor through code review and pairing, and set the team's DDD/CQRS and Feature-Sliced Design conventions.
                     </li>
                 </ul>
             </div>
@@ -1342,18 +1375,18 @@
             <!-- Buck Experience -->
             <div class="experience-card" style="margin-bottom: 2rem;">
                 <div class="exp-header">
-                    <h3>Lead Platform Engineer (Contract)</h3>
-                    <span class="exp-role">Buck &middot; <a href="https://buckstreaming.com" target="_blank" style="color: var(--accent-color);">buckstreaming.com</a> | Jan 2024 - June 2024</span>
+                    <h3>Freelance Full-Stack Engineer</h3>
+                    <span class="exp-role">Buck &middot; <a href="https://buckstreaming.com" target="_blank" rel="noopener" style="color: var(--accent-color);">buckstreaming.com</a> | Jan 2024 - June 2024</span>
                 </div>
                 <p class="mono" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                    Creator-subscription live-streaming platform
+                    Creator-subscription live-streaming platform, built end to end for the client
                 </p>
                 <ul class="exp-details">
                     <li>
-                        <strong>Billing & Subscriptions:</strong> Architected core subscription backend integrating <strong>Stripe webhooks</strong> for automated billing lifecycles and tier access control.
+                        <strong>Billing &amp; Access:</strong> Built the subscription backend on <strong>Stripe webhooks</strong> for billing lifecycles and tier-based access control.
                     </li>
                     <li>
-                        <strong>Real-Time Systems:</strong> Built real-time messaging and live-viewer interaction infrastructure via <strong>Socket.IO</strong>, minimizing latency during concurrent broadcast events.
+                        <strong>Real-Time:</strong> Built live chat and viewer interaction with <strong>Socket.IO</strong> for concurrent broadcasts.
                     </li>
                 </ul>
             </div>
@@ -1361,18 +1394,18 @@
             <!-- Maity Experience -->
             <div class="experience-card">
                 <div class="exp-header">
-                    <h3>Backend Systems Engineer (Contract)</h3>
-                    <span class="exp-role">Maity &middot; <a href="https://maity.pro" target="_blank" style="color: var(--accent-color);">maity.pro</a> | July 2024 - Dec 2024</span>
+                    <h3>Freelance Backend Engineer</h3>
+                    <span class="exp-role">Maity &middot; <a href="https://maity.pro" target="_blank" rel="noopener" style="color: var(--accent-color);">maity.pro</a> | July 2024 - Dec 2024</span>
                 </div>
                 <p class="mono" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                    AI video generation and sales personalization platform
+                    AI video personalization platform for sales outreach
                 </p>
                 <ul class="exp-details">
                     <li>
-                        <strong>AI Video Pipeline:</strong> Constructed an <strong>asynchronous rendering pipeline</strong> connecting external generative video models with upstream CRM webhooks.
+                        <strong>AI Video Pipeline:</strong> Built the <strong>asynchronous video-generation pipeline</strong> that produces personalized sales videos from generative models and delivers them to recipients.
                     </li>
                     <li>
-                        <strong>Analytics Scale:</strong> Designed <strong>analytics aggregation endpoints</strong> to track distribution and viewer engagement metrics at scale.
+                        <strong>CRM &amp; Analytics:</strong> Integrated <strong>CRM webhooks</strong> to trigger campaigns and built engagement-analytics endpoints for sales teams.
                     </li>
                 </ul>
             </div>
@@ -1399,8 +1432,8 @@
                     <div class="solution-box">
                         <h4>The Solution</h4>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                            Refactored to an asynchronous, parallelized chunk-processing pipeline with MongoDB
-                            field-level encryption so direct DB access never exposes readable PII.
+                            Refactored it into an asynchronous pipeline that splits the documents into chunks and
+                            processes them in parallel, so the event loop stays free.
                         </p>
                     </div>
                 </div>
@@ -1720,7 +1753,7 @@
             </h2>
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 1.1rem;">
-                    Currently targeting SDE-1 and Senior roles in India, Germany, USA, and Japan.
+                    Open to Senior Backend and Forward Deployed Engineer roles in India, Germany, the USA and Japan.
                     Whether you have a question or just want to say hi, my inbox is always open!
                 </p>
 
@@ -1767,7 +1800,7 @@
                 <input type="text" id="companyName" placeholder="e.g., Google">
             </div>
             <div class="form-group">
-                <label for="extraDetails">ADDITIONAL MISSION INTEL (OPTIONAL)</label>
+                <label for="extraDetails">WHY THIS COMPANY (1–2 LINES)</label>
                 <textarea id="extraDetails" rows="3" placeholder="e.g., specific team or project info..."></textarea>
             </div>
             <div class="modal-actions">
@@ -2015,22 +2048,9 @@
             doc.text(`Dear Hiring Team at ${company},`, 20, 70);
 
             // Body
-            const bodyLines = [
-                `I am writing to express my strong interest in the ${role} position at ${company}. As a Lead Backend & Distributed Systems Engineer with 3+ years of production experience architecting high-throughput data pipelines, multi-tenant systems, and resilient event-driven architectures, I am confident that my background aligns with your engineering goals.`,
-                '',
-                `Currently, as Technical Lead at Zenmonk Software (Subsidiary of FUNIBER), I lead platform architecture, engineering standards, and distributed data pipelines. My core expertise centers on TypeScript, Node.js, and Rust, specializing in asynchronous batch processing, database-level concurrency, and distributed transactions.`,
-                '',
-                `Key accomplishments include standardizing organization-wide Resilient Message Handling via the Transactional Outbox/Inbox pattern, architecting a fault-tolerant Python ETL pipeline migrating an entire organization's Asana history with dynamic thread pooling, reducing Question Management Bank processing latency from 5 minutes to 15 seconds (95% reduction), and implementing multi-tenant isolation with runtime RBAC and MongoDB field-level encryption.`,
-                '',
-                extra ? `Regarding this specific opportunity, ${extra}\n` : '',
-                `I am drawn to ${company} because of your commitment to engineering excellence and scalability. I am eager to bring my background in distributed systems, Saga & CQRS patterns, and high-throughput infrastructure to your team.`,
-                '',
-                'Thank you for your time and consideration. I look forward to the possibility of discussing how my experience can contribute to the continued success of your engineering team.',
-                '',
-                'Sincerely,',
-                '',
-                'Uttam Gupta'
-            ];
+            // Body text comes from resume-data.js (default preset), same as Resume Studio.
+            const cl = ResumeRender.coverLetterParts(RESUME, RESUME.defaultPreset, { role, company, hook: extra });
+            const bodyLines = cl.paras.slice(0, -2).flatMap(p => [p, '']).concat(['Sincerely,', '', RESUME.basics.name]);
 
             let y = 80;
             bodyLines.forEach(line => {
