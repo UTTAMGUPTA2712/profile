@@ -44,15 +44,16 @@ Same team scope as Team Coordinator — the same 5–6 engineers, not a larger h
 - Translating business requirements into technical deliverables via event modeling — the discovery layer upstream of architecture decisions on IBMS and Padmasana.
 
 ### 2.5 Software Architect
-Scope moved from single-team technical authority to organization-wide architecture ownership — no longer tied to one team's delivery, but accountable for how systems are designed and migrated across the organization. Two efforts define this stage so far:
-- Designed and led execution of a full legacy-data-migration pipeline into Padmasana (Section 3.5) — end to end, from extraction architecture through phased production rollout.
+Scope moved from single-team technical authority to organization-wide architecture ownership — no longer tied to one team's delivery, but accountable for how systems are designed and migrated across the organization. Three efforts define this stage so far:
+- Designed and executed a full legacy-data-migration pipeline into Padmasana (Section 3.5) — end to end, from extraction architecture through phased production rollout.
 - Architected a new product line from the ground up — a multi-tenant salon booking platform (Section 3.6) — rather than extending an existing one.
+- Architected a generic subscription service (Section 3.7) shared across all products, so no product has to re-implement its own payment and plan flow.
 
 ---
 
 ## 3. Scope of Work by Project
 
-The products below are a selected, representative set — not the full list of what has been built. The first five (3.1–3.5) are Edtech platforms, built by Zenmonk for FUNIBER (the parent organization, an international higher-education group) — serving students, faculty/staff, and academic administration rather than a generic enterprise audience. They were chosen as the clearest, highest-impact examples of the range of work; the remaining projects follow the same architectural and delivery standards described in Section 4. The sixth (3.6) is a new, non-Edtech product line architected at the Software Architect stage.
+The products below are a selected, representative set — not the full list of what has been built. The first five (3.1–3.5) are Edtech platforms, built by Zenmonk for FUNIBER (the parent organization, an international higher-education group) — serving students, faculty/staff, and academic administration rather than a generic enterprise audience. They were chosen as the clearest, highest-impact examples of the range of work; the remaining projects follow the same architectural and delivery standards described in Section 4. The sixth (3.6) is a new, non-Edtech product line, and the seventh (3.7) is a shared service used across all products; both were architected at the Software Architect stage.
 
 ### 3.1 IBMS (Integrated Business Management System)
 **What it is:** An HRM-style platform for the education group — multi-tenant workforce/business management across FUNIBER's constituent organizations, each with its own isolated data and access rules.
@@ -79,6 +80,7 @@ The products below are a selected, representative set — not the full list of w
 - Reverse-engineered relevant workflows from Asana, Miro, and Jira, then adapted and distributed the resulting features across the product's domains for implementation.
 - Built as a modular monolith, with module separation enforced at the schema level rather than split into separate services.
 - Built real-time collaboration via Socket-based communication, within a clean, layered application architecture.
+- Implemented fine-grained authorization with **OpenFGA** (relationship-based access control).
 
 **Legacy data migration into Padmasana (August 2026 onward, as Software Architect):** to seed Padmasana with the organization's existing project history, architected and built a pipeline that pulls data (projects, teams, tasks, attachments) from a legacy third-party project-management tool and migrates it into Padmasana.
 - **Extraction, job-queue style:** a durable, resumable extraction layer that snapshots source data locally rather than depending on a live connection to the source system throughout the process, with newly-discovered nested data enqueued as follow-up jobs instead of fetched inline.
@@ -92,6 +94,12 @@ The products below are a selected, representative set — not the full list of w
 **What it is:** A new multi-tenant SaaS product — separate from the five Edtech products above — where individual salons register, get their own salon website, and let their customers book either a specific service or a specific stylist/professional.
 - Architected the product end to end as a net-new build, not an extension of an existing platform.
 - Integrated Stripe across two distinct billing surfaces: the platform's own subscription revenue (salons paying to use the SaaS) and tenant-level payments for the services a salon's own customers book.
+
+### 3.7 Subscription Service *(shared platform service, architected as Software Architect)*
+**What it is:** A generic, reusable subscription and billing service shared by all of the organization's products, so each product doesn't have to build its own payment and plan flow.
+- Designed the service around Stripe for payment processing, with plans and subscriptions managed centrally rather than per product.
+- Implemented Stripe webhooks to confirm payments and keep subscription state in sync.
+- Implemented a retry mechanism for failed payments.
 
 ---
 
@@ -147,6 +155,6 @@ Both were client engagements with full platform ownership — end-to-end deliver
 
 Five distinct Edtech products, all built for FUNIBER through its subsidiary Zenmonk — IBMS, Question Management Bank, Attendance Control App, Survey Builder, and Padmasana — sit under a single, consistent engineering foundation: DDD/SOLID/CQRS on the backend, FSD on the frontend, inbox/outbox messaging org-wide, and a standardized Kubernetes/Docker/GitLab CI/CD deployment pipeline across all of them.
 
-The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasana's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — a legacy-data-migration pipeline into Padmasana (job-queue-driven extraction, rate-limit-aware parallel processing, phased production rollout) and a new multi-tenant salon booking platform architected from scratch.
+The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasana's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — a legacy-data-migration pipeline into Padmasana (job-queue-driven extraction, rate-limit-aware parallel processing, phased production rollout), a new multi-tenant salon booking platform architected from scratch, and a generic Stripe-based subscription service shared across all products.
 
 Outside the primary employer, two different bodies of work exist side by side: freelance client platforms (Buck, Maity) delivered end-to-end with full ownership, and self-directed personal projects that run on a different axis entirely — systems programming (Rust) and offline/local-first AI. The freelance work is closest in shape to the day job (product ownership, real users, deployment); the personal projects are closer to R&D, relevant when targeting roles with a systems or AI-infrastructure emphasis rather than pure product engineering.

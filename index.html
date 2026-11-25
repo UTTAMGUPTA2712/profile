@@ -110,153 +110,133 @@
             {
                 "@type": "ItemList",
                 "@id": "https://uttamgupta2712.is-a.dev/#projects",
-                "name": "Project Ecosystem",
-                "description": "Open-source and production projects built by Uttam Gupta.",
-                "numberOfItems": 11,
-                "itemListOrder": "https://schema.org/ItemListOrderDescending",
+                "name": "Things I Built",
+                "description": "Personal projects built and maintained by Uttam Gupta.",
+                "numberOfItems": 7,
                 "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "item": {
-                        "@type": "WebApplication",
-                        "name": "Buck",
-                        "description": "Creator-subscription live-streaming platform; built auth, payments, and real-time interaction with full platform ownership.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["TypeScript", "Node.js", "WebRTC"],
-                        "url": "https://buckstreaming.com"
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {
+                            "@type": "SoftwareApplication",
+                            "name": "Bookshelf Tutor",
+                            "description": "Desktop app that turns a folder of PDF books into a tutor: quizzes you on each chapter and reviews every answer with the pages to re-read. Runs offline with Ollama or with your own API key.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "Rust",
+                                "TypeScript"
+                            ],
+                            "codeRepository": "https://github.com/UTTAMGUPTA2712/bookshelf-tutor"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {
+                            "@type": "WebApplication",
+                            "name": "ULearn",
+                            "description": "Open learning site for system design and programming, written and maintained by Uttam Gupta. Topics are MDX lesson folders that generate their own routes, sitemap and structured data.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "TypeScript",
+                                "Next.js"
+                            ],
+                            "codeRepository": "https://github.com/UTTAMGUPTA2712/ulearn",
+                            "url": "https://ulearn-it.vercel.app/"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "item": {
+                            "@type": "SoftwareSourceCode",
+                            "name": "Rust Load Balancer",
+                            "description": "Async Layer-4 TCP load balancer on Tokio with Round Robin and IP Hash routing.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "Rust"
+                            ],
+                            "codeRepository": "https://github.com/UTTAMGUPTA2712/load-balancer"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 4,
+                        "item": {
+                            "@type": "SoftwareSourceCode",
+                            "name": "Redis Lite",
+                            "description": "Multi-threaded key-value server implementing the Redis RESP protocol.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "Rust"
+                            ],
+                            "codeRepository": "https://github.com/UTTAMGUPTA2712/redis_lite"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 5,
+                        "item": {
+                            "@type": "SoftwareApplication",
+                            "name": "CodeMind",
+                            "description": "Semantic search and AI chat over a local codebase using local models.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "TypeScript",
+                                "Rust"
+                            ],
+                            "codeRepository": "https://github.com/UTTAMGUPTA2712/codemind",
+                            "url": "https://codemind-web.vercel.app/"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 6,
+                        "item": {
+                            "@type": "SoftwareApplication",
+                            "name": "Axon — Screen Assistant",
+                            "description": "Chrome extension that summarizes the current page, answers questions about what is on screen, and fills forms from a profile the user controls. Bring your own API key.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "JavaScript",
+                                "Chrome Extension"
+                            ],
+                            "url": "https://axon-ai-assistant.vercel.app/",
+                            "sameAs": [
+                                "https://chromewebstore.google.com/detail/axon-screen-assistant/edhnfkobaggakaghcmogeeginaebcifm"
+                            ]
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 7,
+                        "item": {
+                            "@type": "SoftwareSourceCode",
+                            "name": "Socket.IO Connector",
+                            "description": "Browser-based Socket.IO client tester: emit events with JSON payloads, listen to channels, save presets and inspect live logs.",
+                            "author": {
+                                "@id": "https://uttamgupta2712.is-a.dev/#uttam"
+                            },
+                            "programmingLanguage": [
+                                "TypeScript",
+                                "Socket.IO"
+                            ],
+                            "codeRepository": "https://github.com/UTTAMGUPTA2712/Socket.io-Connector",
+                            "url": "https://socket-io-connector.vercel.app/"
+                        }
                     }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "item": {
-                        "@type": "WebApplication",
-                        "name": "Maity",
-                        "description": "AI-powered video personalization platform for sales outreach at scale, with CRM integrations and an engagement analytics dashboard.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["TypeScript", "NestJS", "PostgreSQL"],
-                        "url": "https://maity.pro"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "FileBridge",
-                        "description": "Turns folders into servers with QR-code pairing for cross-device I/O.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["JavaScript", "Node.js"],
-                        "codeRepository": "https://github.com/uttamgupta2712/FileBridge",
-                        "url": "https://uttamgupta2712.github.io/FileBridge/"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 4,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "Socket.IO Connector",
-                        "description": "Free online Socket.IO client tester: emit events with JSON payloads, listen to channels, save presets and inspect real-time logs in the browser.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["TypeScript", "Socket.IO"],
-                        "codeRepository": "https://github.com/UTTAMGUPTA2712/Socket.io-Connector",
-                        "url": "https://socket-io-connector.vercel.app/"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 5,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "Rust Load Balancer",
-                        "description": "Layer-4 load balancing with Round Robin and IP Hash algorithms for high-concurrency traffic.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["Rust", "Tokio", "TCP/IP"],
-                        "codeRepository": "https://github.com/UTTAMGUPTA2712/load-balancer"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 6,
-                    "item": {
-                        "@type": ["WebApplication", "SoftwareApplication"],
-                        "@id": "https://uttamgupta2712.github.io/axon/#app",
-                        "name": "Axon — Screen Assistant",
-                        "description": "Chrome extension that adds an AI layer to the current page: summarizes it, answers questions about what is on screen, and fills forms from a profile the user controls. Bring your own key for Gemini, Groq, OpenAI or any OpenAI-compatible endpoint.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "applicationCategory": "BrowserApplication",
-                        "operatingSystem": "Chrome 114+",
-                        "programmingLanguage": ["JavaScript", "Chrome Extension"],
-                        "isAccessibleForFree": true,
-                        "url": "https://uttamgupta2712.github.io/axon/",
-                        "sameAs": ["https://chromewebstore.google.com/detail/axon-screen-assistant/edhnfkobaggakaghcmogeeginaebcifm"]
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 7,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "Redis Lite",
-                        "description": "Multi-threaded RESP protocol implementation for low-latency key/value operations.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["Rust", "RESP"],
-                        "codeRepository": "https://github.com/UTTAMGUPTA2712/redis_lite"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 8,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "Local Lens",
-                        "description": "Privacy-first local OCR and object detection that runs 100% offline.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["JavaScript", "WebAssembly"],
-                        "codeRepository": "https://github.com/UTTAMGUPTA2712/Local-Lens",
-                        "url": "https://uttamgupta2712.github.io/Local-Lens/"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 9,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "CodeMind",
-                        "description": "Offline semantic search and AI chat for local codebases.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["Python", "TypeScript"],
-                        "codeRepository": "https://github.com/UTTAMGUPTA2712/codemind",
-                        "url": "https://codemind-web.vercel.app/"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 10,
-                    "item": {
-                        "@type": "SoftwareSourceCode",
-                        "name": "Ask AI Web",
-                        "description": "Modern chat interface for LLMs and Custom GPTs with streaming response support and history management.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["TypeScript", "React"],
-                        "codeRepository": "https://github.com/UTTAMGUPTA2712/ask-ai-web",
-                        "url": "https://ask-ai-web.vercel.app/"
-                    }
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 11,
-                    "item": {
-                        "@type": "WebApplication",
-                        "name": "ULearn",
-                        "description": "Online learning platform for system design and programming, built for learning at your own pace.",
-                        "author": { "@id": "https://uttamgupta2712.is-a.dev/#uttam" },
-                        "programmingLanguage": ["TypeScript", "Next.js"],
-                        "url": "https://ulearn-it.vercel.app/"
-                    }
-                }
                 ]
             }
         ]
@@ -310,6 +290,7 @@
             font-family: var(--font-sans);
             line-height: 1.6;
             overflow-x: hidden;
+            overflow-wrap: break-word;
         }
 
         h1,
@@ -471,6 +452,7 @@
 
         .cta-buttons {
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
         }
 
@@ -544,6 +526,8 @@
             content: "";
             display: block;
             width: 200px;
+            max-width: 30vw;
+            flex-shrink: 1;
             height: 1px;
             background: var(--border-color);
             margin-left: 1rem;
@@ -631,8 +615,48 @@
         /* Projects */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
             gap: 2rem;
+        }
+
+        .section-intro {
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: -1.5rem 0 2.5rem;
+        }
+
+        .project-featured {
+            grid-column: 1 / -1;
+            border: 1px solid rgba(0, 255, 157, 0.25);
+        }
+
+        .project-kicker {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            margin-bottom: 0.4rem;
+        }
+
+        .project-sublist {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .project-sublist li + li {
+            margin-top: 0.75rem;
+        }
+
+        .project-sublist a {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .project-sublist a:hover {
+            color: var(--accent-color);
         }
 
         .project-card {
@@ -686,6 +710,7 @@
             font-family: var(--font-mono);
             font-size: 0.8rem;
             color: var(--text-secondary);
+            row-gap: 0.4rem;
         }
 
         /* Contact */
@@ -757,6 +782,133 @@
 
             .about-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* Phones */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            nav {
+                padding: 1.25rem 0;
+            }
+
+            section {
+                padding: 3.5rem 0;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 2.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero h2 {
+                font-size: 1.6rem;
+                line-height: 1.25;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-buttons .btn {
+                flex: 1 1 100%;
+                text-align: center;
+                padding: 0.9rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .section-intro {
+                margin: -0.75rem 0 2rem;
+                font-size: 0.95rem;
+            }
+
+            .project-grid,
+            .edu-grid {
+                gap: 1.25rem;
+            }
+
+            .project-card,
+            .edu-card {
+                padding: 1.5rem;
+            }
+
+            .project-links a {
+                display: inline-block;
+                padding: 0.4rem;
+                margin-left: 0.25rem;
+                font-size: 1.1rem;
+            }
+
+            .experience-card {
+                padding-left: 1.25rem;
+            }
+
+            .exp-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .exp-details {
+                list-style-position: outside;
+                padding-left: 1.1rem;
+            }
+
+            .velocity-badge {
+                display: flex;
+                align-items: flex-start;
+            }
+
+            .deep-dive-card {
+                padding: 1.5rem;
+            }
+
+            .deep-dive-card::before {
+                position: static;
+                display: block;
+                margin-bottom: 0.75rem;
+            }
+
+            .deep-dive-title {
+                font-size: 1.3rem;
+            }
+
+            .problem-box,
+            .solution-box {
+                padding: 1.1rem;
+            }
+
+            .deep-dive-result {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .modal-content {
+                padding: 1.75rem 1.25rem;
+                width: calc(100% - 32px);
+            }
+        }
+
+        @media (hover: none) {
+            .project-card:hover,
+            .deep-dive-card:hover {
+                transform: none;
             }
         }
 
@@ -864,7 +1016,7 @@
         /* Education */
         .edu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
             gap: 2rem;
         }
 
@@ -1033,7 +1185,7 @@
                 <a href="#about"><span class="text-accent">01.</span> About</a>
                 <a href="#experience"><span class="text-accent">02.</span> Experience</a>
                 <a href="#deep-dives"><span class="text-accent">03.</span> Saves</a>
-                <a href="#projects"><span class="text-accent">04.</span> Work</a>
+                <a href="#projects"><span class="text-accent">04.</span> Projects</a>
                 <a href="#education"><span class="text-accent">05.</span> Education</a>
                 <a href="#writing"><span class="text-accent">06.</span> Writing</a>
                 <a href="#contact"><span class="text-accent">07.</span> Contact</a>
@@ -1056,7 +1208,6 @@
             <div class="cta-buttons">
                 <a href="#projects" class="btn btn-primary">Check out my work</a>
                 <a href="cv.html" target="_blank" class="btn btn-secondary">View CV</a>
-                <a href="builder.html" target="_blank" class="btn btn-secondary">Resume Studio</a>
             </div>
         </section>
 
@@ -1133,7 +1284,6 @@
                             <span class="skill-tag">GitLab CI/CD</span>
                             <span class="skill-tag">Linux</span>
                             <span class="skill-tag">Acens</span>
-                            <span class="skill-tag">Google Cloud Certified</span>
                         </div>
                     </div>
                 </div>
@@ -1354,245 +1504,161 @@
 
         <!-- Projects -->
         <section id="projects">
-            <h2 class="section-title"><span>04.</span> Project Ecosystem</h2>
+            <h2 class="section-title"><span>04.</span> Things I Built</h2>
+            <p class="section-intro">
+                Tools I built for my own use and still maintain: local-first AI, systems work in Rust, and a few
+                developer tools. Client work for Buck and Maity is under Experience.
+            </p>
             <div class="project-grid">
 
-                <!-- Project: Buck -->
-                <div class="project-card">
+                <!-- Project: Bookshelf Tutor -->
+                <article class="project-card project-featured">
                     <div class="project-header">
-                        <i class="fa-solid fa-tower-broadcast folder-icon"></i>
+                        <i class="fa-solid fa-book-open-reader folder-icon" aria-hidden="true"></i>
                         <div class="project-links">
-                            <a href="https://buckstreaming.com" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
+                            <a href="https://github.com/UTTAMGUPTA2712/bookshelf-tutor" target="_blank" rel="noopener"
+                                title="GitHub" aria-label="Bookshelf Tutor on GitHub"><i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
-                    <h3 class="project-title">Buck</h3>
+                    <span class="project-kicker">Built for my own study</span>
+                    <h3 class="project-title">Bookshelf Tutor</h3>
                     <p class="project-desc">
-                        Creator-subscription live-streaming platform; built auth, payments, and real-time
-                        interaction with full platform ownership.
-                    </p>
-                    <div class="project-tech">
-                        <span>Next.js</span>
-                        <span>Socket.IO</span>
-                        <span>Stripe</span>
-                    </div>
-                </div>
-
-                <!-- Project: Maity -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-robot folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://maity.pro" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Maity</h3>
-                    <p class="project-desc">
-                        AI-powered video personalization platform for sales outreach at scale, with CRM
-                        integrations and an engagement analytics dashboard.
-                    </p>
-                    <div class="project-tech">
-                        <span>React</span>
-                        <span>AI Video</span>
-                        <span>CRM Integrations</span>
-                    </div>
-                </div>
-
-                <!-- Project: FileBridge -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-network-wired folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://uttamgupta2712.github.io/FileBridge/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="https://github.com/uttamgupta2712/FileBridge" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">FileBridge</h3>
-                    <p class="project-desc">
-                        Turns folders into servers with QR-code pairing for cross-device I/O.
-                    </p>
-                    <div class="project-tech">
-                        <span>Node.js</span>
-                        <span>Networking</span>
-                        <span>QR Pairing</span>
-                    </div>
-                </div>
-
-                <!-- Project: Socket.IO Connector -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-plug folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://socket-io-connector.vercel.app/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="https://github.com/UTTAMGUPTA2712/Socket.io-Connector" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title"><a href="https://socket-io-connector.vercel.app/" target="_blank" style="color: inherit; text-decoration: none;">Socket.IO Connector</a></h3>
-                    <p class="project-desc">
-                        Free online Socket.IO client tester: emit events with JSON payloads, listen to
-                        channels, save presets and inspect real-time logs in the browser.
-                    </p>
-                    <div class="project-tech">
-                        <span>React</span>
-                        <span>Socket.IO</span>
-                        <span>TypeScript</span>
-                    </div>
-                </div>
-
-                <!-- Project: Rust Load Balancer -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-server folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Rust Load Balancer</h3>
-                    <p class="project-desc">
-                        Layer-4 balancing with Round Robin and IP Hash algorithms for high-concurrency traffic.
+                        Desktop app that turns a folder of PDF books into a tutor. Read a chapter, get quizzed on what
+                        the book actually says, and get a review of every answer with the exact pages to re-read.
+                        Runs fully offline on a local model (Ollama) or with your own API key. Progress lives in SQLite
+                        and can be exported and merged across machines.
                     </p>
                     <div class="project-tech">
                         <span>Rust</span>
-                        <span>TCP/IP</span>
-                        <span>Tokio</span>
+                        <span>Tauri</span>
+                        <span>PDFium</span>
+                        <span>Ollama</span>
+                        <span>SQLite</span>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project: Axon -->
-                <div class="project-card">
+                <!-- Project: ULearn -->
+                <article class="project-card">
                     <div class="project-header">
-                        <i class="fa-solid fa-eye folder-icon"></i>
+                        <i class="fa-solid fa-graduation-cap folder-icon" aria-hidden="true"></i>
                         <div class="project-links">
-                            <a href="https://chromewebstore.google.com/detail/axon-screen-assistant/edhnfkobaggakaghcmogeeginaebcifm" target="_blank" rel="noopener"
-                                title="Install from the Chrome Web Store"><i class="fa-brands fa-chrome"></i></a>
-                            <a href="https://uttamgupta2712.github.io/axon/" target="_blank" rel="noopener" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
+                            <a href="https://ulearn-it.vercel.app/" target="_blank" rel="noopener" title="Live Site"
+                                aria-label="ULearn live site"><i class="fa-solid fa-external-link-alt"></i></a>
+                            <a href="https://github.com/UTTAMGUPTA2712/ulearn" target="_blank" rel="noopener"
+                                title="GitHub" aria-label="ULearn on GitHub"><i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
+                    <span class="project-kicker">Updated regularly since July 2026</span>
+                    <h3 class="project-title">ULearn</h3>
+                    <p class="project-desc">
+                        An open learning site I write and maintain. Each topic is a folder of MDX lessons; adding one
+                        automatically produces its routes, navigation, sitemap, social cards and structured data.
+                    </p>
+                    <div class="project-tech">
+                        <span>Next.js</span>
+                        <span>MDX</span>
+                        <span>Static generation</span>
+                        <span>SEO</span>
+                    </div>
+                </article>
+
+                <!-- Project: Systems in Rust -->
+                <article class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-server folder-icon" aria-hidden="true"></i>
+                    </div>
+                    <span class="project-kicker">Systems from first principles</span>
+                    <h3 class="project-title">Systems in Rust</h3>
+                    <ul class="project-sublist">
+                        <li>
+                            <a href="https://github.com/UTTAMGUPTA2712/load-balancer" target="_blank" rel="noopener">Layer-4 Load Balancer <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                            Async TCP proxy on Tokio with Round Robin and IP Hash routing.
+                        </li>
+                        <li>
+                            <a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" rel="noopener">Redis Lite <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                            Multi-threaded key-value server speaking the Redis RESP protocol, parsed from raw bytes.
+                        </li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>Rust</span>
+                        <span>Tokio</span>
+                        <span>TCP/IP</span>
+                        <span>RESP</span>
+                    </div>
+                </article>
+
+                <!-- Project: CodeMind -->
+                <article class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-code folder-icon" aria-hidden="true"></i>
+                        <div class="project-links">
+                            <a href="https://codemind-web.vercel.app/" target="_blank" rel="noopener" title="Live Site"
+                                aria-label="CodeMind live site"><i class="fa-solid fa-external-link-alt"></i></a>
+                            <a href="https://github.com/UTTAMGUPTA2712/codemind" target="_blank" rel="noopener"
+                                title="GitHub" aria-label="CodeMind on GitHub"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <span class="project-kicker">Local-first AI</span>
+                    <h3 class="project-title">CodeMind</h3>
+                    <p class="project-desc">
+                        Semantic search and AI chat over a local codebase, running on local models so source code
+                        never leaves the machine.
+                    </p>
+                    <div class="project-tech">
+                        <span>Tauri</span>
+                        <span>Next.js</span>
+                        <span>Local LLMs</span>
+                    </div>
+                </article>
+
+                <!-- Project: Axon -->
+                <article class="project-card">
+                    <div class="project-header">
+                        <i class="fa-solid fa-eye folder-icon" aria-hidden="true"></i>
+                        <div class="project-links">
+                            <a href="https://chromewebstore.google.com/detail/axon-screen-assistant/edhnfkobaggakaghcmogeeginaebcifm"
+                                target="_blank" rel="noopener" title="Install from the Chrome Web Store"
+                                aria-label="Axon on the Chrome Web Store"><i class="fa-brands fa-chrome"></i></a>
+                            <a href="https://axon-ai-assistant.vercel.app/" target="_blank" rel="noopener" title="Live Site"
+                                aria-label="Axon website"><i class="fa-solid fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <span class="project-kicker">Published on the Chrome Web Store</span>
                     <h3 class="project-title">Axon</h3>
                     <p class="project-desc">
-                        Chrome extension that reads the page you're on — summarizes it, answers questions about
-                        what's on screen, and fills forms from your own profile. Your API key stays in the browser.
+                        Chrome extension that reads the page you're on: summarizes it, answers questions about what's
+                        on screen, and fills forms from your own profile. Your API key stays in the browser.
                     </p>
                     <div class="project-tech">
                         <span>Chrome MV3</span>
                         <span>Vision models</span>
                         <span>BYOK</span>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project: Redis Lite -->
-                <div class="project-card">
+                <!-- Project: Socket.IO Connector -->
+                <article class="project-card">
                     <div class="project-header">
-                        <i class="fa-solid fa-database folder-icon"></i>
+                        <i class="fa-solid fa-plug folder-icon" aria-hidden="true"></i>
                         <div class="project-links">
-                            <a href="https://github.com/UTTAMGUPTA2712/redis_lite" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
+                            <a href="https://socket-io-connector.vercel.app/" target="_blank" rel="noopener" title="Live Site"
+                                aria-label="Socket.IO Connector live site"><i class="fa-solid fa-external-link-alt"></i></a>
+                            <a href="https://github.com/UTTAMGUPTA2712/Socket.io-Connector" target="_blank" rel="noopener"
+                                title="GitHub" aria-label="Socket.IO Connector on GitHub"><i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
-                    <h3 class="project-title">Redis Lite</h3>
+                    <span class="project-kicker">Developer tool</span>
+                    <h3 class="project-title">Socket.IO Connector</h3>
                     <p class="project-desc">
-                        Multi-threaded RESP protocol implementation for low-latency K/V operations.
+                        Browser-based Socket.IO client for testing real-time backends: emit events with JSON payloads,
+                        listen to channels, save presets and inspect live logs.
                     </p>
                     <div class="project-tech">
-                        <span>Rust</span>
-                        <span>Multithreading</span>
-                        <span>RESP</span>
+                        <span>React</span>
+                        <span>TypeScript</span>
+                        <span>Socket.IO</span>
                     </div>
-                </div>
-
-                <!-- Project: Local Lens -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-camera folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://uttamgupta2712.github.io/Local-Lens/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="https://github.com/UTTAMGUPTA2712/Local-Lens" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Local Lens</h3>
-                    <p class="project-desc">
-                        Privacy-first local OCR and object detection (100% offline).
-                    </p>
-                    <div class="project-tech">
-                        <span>Rust</span>
-                        <span>ONNX</span>
-                        <span>ResNet50</span>
-                    </div>
-                </div>
-
-                <!-- Project: CodeMind -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-code folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://codemind-web.vercel.app/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="https://github.com/UTTAMGUPTA2712/codemind" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">CodeMind</h3>
-                    <p class="project-desc">
-                        Offline semantic search and AI chat for local codebases.
-                    </p>
-                    <div class="project-tech">
-                        <span>Tauri</span>
-                        <span>Next.js</span>
-                        <span>LLMs</span>
-                    </div>
-                </div>
-
-                <!-- Project: Ask AI Web -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-regular fa-folder folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://ask-ai-web.vercel.app/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="https://github.com/UTTAMGUPTA2712/ask-ai-web" target="_blank" title="GitHub"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Ask AI Web</h3>
-                    <p class="project-desc">
-                        Modern chat interface for LLMs and Custom GPTs with streaming response support and history
-                        management.
-                    </p>
-                    <div class="project-tech">
-                        <span>Next.js</span>
-                        <span>Vercel AI SDK</span>
-                        <span>Tailwind</span>
-                    </div>
-                </div>
-
-                <!-- Project: ULearn -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <i class="fa-solid fa-graduation-cap folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://ulearn-it.vercel.app/" target="_blank" title="Live Site"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">ULearn</h3>
-                    <p class="project-desc">
-                        Online learning platform for system design and programming, built for learning at your own pace.
-                    </p>
-                    <div class="project-tech">
-                        <span>System Design</span>
-                        <span>Programming</span>
-                        <span>Next.js</span>
-                    </div>
-                </div>
+                </article>
 
             </div>
         </section>
