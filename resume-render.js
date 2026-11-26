@@ -58,7 +58,7 @@
       <a href="mailto:${esc(b.email)}"><i class="fa-solid fa-envelope"></i> ${esc(b.email)}</a> |
       <a href="https://${esc(b.portfolio)}" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> ${esc(b.portfolio)}</a> |
       <a href="https://${esc(b.github)}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> ${esc(b.github)}</a> |
-      <a href="https://${esc(b.linkedin)}" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> ${esc(b.linkedin)}</a>`;
+      <a href="${esc(b.linkedinUrl || 'https://' + b.linkedin)}" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> ${esc(b.linkedin)}</a>`;
   }
 
   function headerHtml(data, preset) {

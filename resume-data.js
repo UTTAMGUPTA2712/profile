@@ -26,10 +26,11 @@ const RESUME = {
     portfolio: "uttamgupta2712.is-a.dev",
     github: "github.com/UTTAMGUPTA2712",
     linkedin: "linkedin.com/in/uttam-gupta-a185a8239",
+    linkedinUrl: "https://www.linkedin.com/in/uttam-gupta-a185a8239/",
   },
 
   /* The preset cv.html shows when no ?preset= is given. */
-  defaultPreset: "senior_backend",
+  defaultPreset: "backend_fullstack",
 
   /* ---- Target roles ----
    * title       headline under your name (positioning, not a job title you held)
@@ -40,32 +41,32 @@ const RESUME = {
    * coverLetter {role} and {company} are filled in automatically
    */
   presets: {
-    senior_backend: {
-      label: "Senior Backend Engineer",
-      title: "Senior Backend Engineer",
+    backend_fullstack: {
+      label: "Backend & Full-Stack Engineer",
+      title: "Backend & Full-Stack Engineer",
       summary:
-        "Backend engineer with 3+ years building production systems in TypeScript, Node.js and PostgreSQL/MongoDB, " +
-        "with Rust for systems work. I design multi-tenant platforms, reliable messaging and data pipelines: cut a " +
-        "document-processing job from 5 minutes to 15 seconds, introduced the inbox/outbox messaging standard now used across all services, and " +
-        "migrated an organization's full project history into a new platform. Lead a 5–6 person team through code review and RFCs.",
+        "Backend-focused full-stack engineer with 3+ years building multi-tenant SaaS and business platforms in TypeScript, Node.js, " +
+        "NestJS, PostgreSQL/MongoDB, RabbitMQ and Next.js on Kubernetes. Cut a document-processing job from 5 minutes to 15 seconds, " +
+        "introduced the inbox/outbox messaging standard now used across all services, and migrated an organization's " +
+        "project history into a new platform. Test-driven; lead a 5–6 person team through code review and RFCs.",
       bullets: {
-        zenmonk: ["latency", "outbox", "migration", "rbac", "subscription", "saga"],
+        zenmonk: ["latency", "outbox", "platform", "migration", "rbac", "subscription", "salon", "virtualization"],
         buck: ["buck-stripe", "buck-socket"],
         maity: ["maity-pipeline"],
       },
-      projects: ["load-balancer", "redis-lite", "bookshelf-tutor"],
-      projectsHeading: "Selected Systems Projects",
-      skills: ["Backend & Architecture", "Databases & Storage", "Languages", "DevOps & Cloud", "Systems & Concurrency"],
+      projects: ["axon", "bookshelf-tutor"],
+      projectsHeading: "Side Projects",
+      skills: ["Backend & Architecture", "Databases & Storage", "Frontend", "DevOps & Delivery", "Testing & Quality", "Languages"],
       coverLetter: {
         intro:
-          "I'm applying for the {role} role at {company}. I'm a backend engineer with 3+ years building production systems " +
-          "in TypeScript, Node.js and Rust: multi-tenant platforms, reliable messaging and data pipelines.",
+          "I'm applying for the {role} role at {company}. I'm a backend-focused full-stack engineer with 3+ years building " +
+          "production systems in TypeScript, Node.js and Next.js: multi-tenant platforms, reliable messaging and data pipelines.",
         body:
           "At Zenmonk Software I cut a document-processing route on our question bank from 5 minutes to 15 seconds by " +
           "moving it to an asynchronous, chunked pipeline; introduced the inbox/outbox pattern that is now our standard " +
           "for reliable messaging; and built a resumable, rate-limit-aware pipeline that migrated an organization's " +
-          "project history into our own platform. I also designed multi-schema tenant isolation with runtime-configurable " +
-          "permissions, and lead a 5–6 person team through code review and RFCs.",
+          "project history into our own platform. Our services run on Kubernetes behind a GitLab CI pipeline with " +
+          "SonarQube, and I write them test-first. I also lead a 5–6 person team through code review and RFCs.",
         close:
           "I'd welcome the chance to talk about how I can help your backend team ship reliable systems. Thank you for your time.",
       },
@@ -86,7 +87,7 @@ const RESUME = {
       },
       projects: ["axon", "bookshelf-tutor", "codemind"],
       projectsHeading: "Selected AI Projects",
-      skills: ["Backend & Architecture", "Integrations & Payments", "Applied AI", "Languages", "DevOps & Cloud"],
+      skills: ["Backend & Architecture", "Integrations & Payments", "Applied AI", "Languages", "DevOps & Delivery"],
       coverLetter: {
         intro:
           "I'm applying for the {role} role at {company}. I'm a full-stack engineer with 3+ years taking business " +
@@ -96,7 +97,7 @@ const RESUME = {
           "interaction), and for Maity an AI video-personalization pipeline with CRM integrations and engagement " +
           "analytics. At Zenmonk Software I run event-modeling sessions to turn stakeholder requirements into system " +
           "designs, built a resumable pipeline that migrated an organization's project history into our platform, and " +
-          "designed a shared Stripe subscription service used across all our products.",
+          "designed a reusable Stripe subscription service for our products.",
         close:
           "I'd welcome the chance to talk about how I can help your customers get to production faster. Thank you for your time.",
       },
@@ -109,7 +110,8 @@ const RESUME = {
   experience: [
     {
       id: "zenmonk",
-      company: "Zenmonk Software & Services (Subsidiary of FUNIBER)",
+      company: "Zenmonk Software & Services (Technology Subsidiary of FUNIBER)",
+      url: "https://zenmonk.tech",
       location: "Delhi, India",
       dates: "June 2023 – Present",
       titles: [
@@ -128,12 +130,22 @@ const RESUME = {
         {
           id: "outbox",
           lead: "Reliable Messaging",
-          text: "Introduced the <strong>transactional inbox/outbox pattern</strong> for reliable message handling; it is now the standard across all of the organization's services.",
+          text: "Introduced the <strong>transactional inbox/outbox pattern</strong> on <strong>RabbitMQ</strong> for reliable message handling; it is now the standard across all of the organization's services, with the outbox dispatcher running as a <strong>Kubernetes CronJob</strong>.",
+        },
+        {
+          id: "platform",
+          lead: "Platform & Delivery",
+          text: "Ship to <strong>Kubernetes on Acens Cloud (Spain)</strong> via <strong>GitLab CI</strong> (build → test → SonarQube → deploy); since 2025 new projects are <strong>modular monoliths</strong>, each module's RabbitMQ consumers running as their own Deployment.",
+        },
+        {
+          id: "tdd",
+          lead: "Testing",
+          text: "Work <strong>test-first (TDD)</strong>: every entity, handler, controller, processor and third-party integration has tests, run in CI alongside <strong>SonarQube</strong>.",
         },
         {
           id: "migration",
           lead: "Data Migration",
-          text: "Designed and built a <strong>resumable, job-queue-based migration pipeline</strong> that moved an organization's projects, teams, tasks and attachments from a legacy tool into Padmasana, with parallel workers within API rate limits, retries and a dependency-ordered import validated on staging first.",
+          text: "Built a <strong>resumable, job-queue-based migration pipeline</strong> moving an organization's projects, teams, tasks and attachments from a legacy tool into Padmasana, with rate-limited workers, retries and ordered import.",
         },
         {
           id: "ingestion",
@@ -143,17 +155,17 @@ const RESUME = {
         {
           id: "rbac",
           lead: "Multi-Tenancy",
-          text: "Designed <strong>multi-schema tenant isolation</strong> for IBMS, an HR/business platform serving FUNIBER's member organizations, with a <strong>runtime-configurable RBAC</strong> system and per-organization customization.",
+          text: "Designed <strong>multi-schema tenant isolation</strong> and <strong>runtime-configurable RBAC</strong> for IBMS (Intelligent Business Management System), a multi-tenant SaaS in development for external customers.",
         },
         {
           id: "subscription",
           lead: "Shared Billing Service",
-          text: "Architected a <strong>generic subscription service</strong> on Stripe, with plans managed centrally and <strong>webhooks</strong> keeping subscription state in sync, so no product re-implements its own payment flow.",
+          text: "Architected a <strong>reusable subscription service</strong> on Stripe: plans managed centrally, <strong>webhooks</strong> keep subscription state in sync and failed payments are retried, so new products don't build their own billing.",
         },
         {
           id: "salon",
           lead: "New Product",
-          text: "Architected a <strong>multi-tenant salon booking SaaS</strong> from scratch: each salon gets its own site, with Stripe handling both platform subscriptions and customers' service payments.",
+          text: "Architected a <strong>multi-tenant salon booking SaaS</strong> from scratch, with Stripe for both platform subscriptions and customer payments.",
         },
         {
           id: "saga",
@@ -168,7 +180,7 @@ const RESUME = {
         {
           id: "padmasana",
           lead: "Modular Monolith",
-          text: "Built Padmasana, an internal Jira/Asana-style collaboration tool, as a <strong>modular monolith</strong> with schema-level module boundaries and Socket.IO real-time collaboration.",
+          text: "Built Padmasana, an internal Jira/Asana-style collaboration tool, as a <strong>modular monolith</strong> with schema-level module boundaries, per-module consumers and Socket.IO real-time collaboration.",
         },
         {
           id: "encryption",
@@ -178,7 +190,7 @@ const RESUME = {
         {
           id: "virtualization",
           lead: "Frontend Performance",
-          text: "Removed interaction lag on attendance screens with 1,500+ interactive cells by adding <strong>row virtualization</strong>.",
+          text: "Removed lag on <strong>React/Next.js</strong> screens with 1,500+ interactive cells via <strong>row virtualization</strong>.",
         },
         {
           id: "requirements",
@@ -188,7 +200,7 @@ const RESUME = {
         {
           id: "lead",
           lead: "Team Leadership",
-          text: "Lead a <strong>5–6 person team</strong>: own technical design and RFCs, mentor through code review and pairing, and set the team's DDD/CQRS and Feature-Sliced Design conventions.",
+          text: "Lead a <strong>5–6 person team</strong>: own technical design and RFCs, mentor through code review and pairing, and set the team's DDD/SOLID/CQRS and Feature-Sliced Design conventions.",
         },
       ],
     },
@@ -220,7 +232,7 @@ const RESUME = {
     {
       id: "maity",
       company: "Maity",
-      role: "Freelance Backend Engineer",
+      role: "Freelance Full-Stack AI Engineer",
       location: "Remote",
       url: "https://maity.pro",
       dates: "July 2024 – Dec 2024",
@@ -242,10 +254,12 @@ const RESUME = {
   /* ---- Skills (groups; each preset picks which ones and in what order) ---- */
   skills: {
     "Languages": "TypeScript, JavaScript, Rust, Python, SQL",
-    "Backend & Architecture": "Node.js, NestJS, Express, DDD, CQRS, Event Modeling, Multi-Tenancy, Saga, Inbox/Outbox, REST, WebSockets",
+    "Backend & Architecture": "Node.js, NestJS, Express, RabbitMQ, DDD, SOLID, CQRS, Event Modeling, Multi-Tenancy, Saga, Inbox/Outbox, REST, WebSockets",
     "Databases & Storage": "PostgreSQL, MongoDB (encryption), Redis, Multi-Schema Isolation",
-    "Systems & Concurrency": "Tokio (async Rust), TCP/IP, Layer-4 Load Balancing, Multi-threading, RESP",
-    "DevOps & Cloud": "Docker, Kubernetes, GitLab CI/CD, Linux",
+    "Frontend": "React, Next.js, TypeScript, Redux Toolkit, Tailwind CSS, list virtualization",
+    "DevOps & Delivery": "Docker, Kubernetes (namespaces, Ingress, TLS, CronJobs), GitLab CI/CD, Linux, Acens Cloud (Spain)",
+    "Testing & Quality": "TDD, Jest, unit and integration tests, SonarQube",
+    "Systems (hobby, Rust)": "Tokio (async Rust), HTTP reverse proxying, RESP protocol",
     "Integrations & Payments": "Stripe (subscriptions, webhooks), CRM integrations, Socket.IO, OpenFGA",
     "Applied AI": "LLM integration (OpenAI, Gemini, Ollama), vision models, Chrome extensions, Tauri desktop apps",
   },
@@ -257,28 +271,28 @@ const RESUME = {
       name: "Bookshelf Tutor",
       tech: "Rust, Tauri, Ollama, SQLite",
       github: "https://github.com/UTTAMGUPTA2712/bookshelf-tutor",
-      text: "Desktop app that turns a folder of PDF books into a tutor: quizzes you on each chapter and reviews every answer with the pages to re-read. Runs <strong>offline on local models</strong> or with your own API key.",
+      text: "Desktop app that turns PDF books into a tutor: quizzes you on each chapter and reviews every answer with the pages to re-read. Runs <strong>offline on local models</strong> or with your own API key.",
     },
     {
       id: "load-balancer",
-      name: "Layer-4 Load Balancer",
-      tech: "Rust, Tokio, TCP/IP",
+      name: "HTTP Load Balancer (hobby)",
+      tech: "Rust, Tokio, hyper",
       github: "https://github.com/UTTAMGUPTA2712/load-balancer",
-      text: "Async <strong>Layer-4 TCP proxy</strong> in Rust (Tokio) with <strong>Round Robin</strong> and <strong>IP Hash</strong> routing.",
+      text: "Async <strong>HTTP (Layer-7) reverse proxy</strong> in Rust with six pluggable strategies: round robin, weighted round robin, least connections, IP hash, URL hash and random.",
     },
     {
       id: "redis-lite",
-      name: "Redis Lite",
-      tech: "Rust, RESP, Concurrency",
+      name: "Redis Lite (hobby)",
+      tech: "Rust, Tokio, RESP",
       github: "https://github.com/UTTAMGUPTA2712/redis_lite",
-      text: "Multi-threaded key-value server speaking the <strong>Redis RESP protocol</strong>, with TCP byte-stream parsing written from scratch.",
+      text: "Async key-value server in Rust that speaks a subset of the <strong>Redis RESP protocol</strong> (GET, SET, DELETE, PING), with key expiry and optional file persistence.",
     },
     {
       id: "axon",
       name: "Axon",
       tech: "Chrome MV3, Vision models",
       url: "https://axon-ai-assistant.vercel.app/",
-      text: "Chrome extension, <strong>published on the Chrome Web Store</strong>, that summarizes the current page, answers questions about it and fills forms from your profile. Bring-your-own API key.",
+      text: "Free Chrome extension with <strong>100+ users</strong> on the Chrome Web Store: summarizes the current page, answers questions about it and fills forms from your profile. Bring-your-own API key.",
     },
     {
       id: "codemind",

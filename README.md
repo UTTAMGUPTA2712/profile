@@ -5,9 +5,11 @@
 **Email:** uttamgupta2712@gmail.com
 **Portfolio:** uttamgupta2712.is-a.dev
 **GitHub:** github.com/UTTAMGUPTA2712
-**LinkedIn:** in/uttam-gupta-a185a8239
+**LinkedIn:** [linkedin.com/in/uttam-gupta-a185a8239](https://www.linkedin.com/in/uttam-gupta-a185a8239/)
 
-**Employer:** Zenmonk Software And Services — a child company of FUNIBER, building Edtech platforms for the parent organization.
+**Target roles:** mid-senior Backend and Full-Stack Engineer (headline: "Backend & Full-Stack Engineer").
+
+**Employer:** Zenmonk Software And Services ([zenmonk.tech](https://zenmonk.tech)) — the technology subsidiary of FUNIBER. It builds products for the parent group (academic tools, project management, residency management) as well as new SaaS products (business management, salon booking). The work is not EdTech only.
 **Tenure:** June 2023 – Present
 
 ---
@@ -47,16 +49,16 @@ Same team scope as Team Coordinator — the same 5–6 engineers, not a larger h
 Scope moved from single-team technical authority to organization-wide architecture ownership — no longer tied to one team's delivery, but accountable for how systems are designed and migrated across the organization. Three efforts define this stage so far:
 - Designed and executed a full legacy-data-migration pipeline into Padmasana (Section 3.5) — end to end, from extraction architecture through phased production rollout.
 - Architected a new product line from the ground up — a multi-tenant salon booking platform (Section 3.6) — rather than extending an existing one.
-- Architected a generic subscription service (Section 3.7) shared across all products, so no product has to re-implement its own payment and plan flow.
+- Architected a generic subscription service (Section 3.7) designed to be shared across products, so no product has to re-implement its own payment and plan flow.
 
 ---
 
 ## 3. Scope of Work by Project
 
-The products below are a selected, representative set — not the full list of what has been built. The first five (3.1–3.5) are Edtech platforms, built by Zenmonk for FUNIBER (the parent organization, an international higher-education group) — serving students, faculty/staff, and academic administration rather than a generic enterprise audience. They were chosen as the clearest, highest-impact examples of the range of work; the remaining projects follow the same architectural and delivery standards described in Section 4. The sixth (3.6) is a new, non-Edtech product line, and the seventh (3.7) is a shared service used across all products; both were architected at the Software Architect stage.
+The products below are a selected, representative set — not the full list of what has been built. The first five (3.1–3.5) were built by Zenmonk for FUNIBER (the parent organization, an international higher-education group). Three of them are academic tools (Question Management Bank, Attendance Control App, Survey Builder). Padmasana (3.5) is a general project-management tool, and IBMS (3.1) is still in development and is being built mainly to sell to outside organizations. They were chosen as the clearest, highest-impact examples of the range of work; the remaining projects follow the same architectural and delivery standards described in Section 4. The sixth (3.6) is a new product line outside the education domain, and the seventh (3.7) is a shared service designed for use across products; both were architected at the Software Architect stage.
 
-### 3.1 IBMS (Integrated Business Management System)
-**What it is:** An HRM-style platform for the education group — multi-tenant workforce/business management across FUNIBER's constituent organizations, each with its own isolated data and access rules.
+### 3.1 IBMS (Intelligent Business Management System) *(in development)*
+**What it is:** A multi-tenant business-management SaaS, being built mainly to be sold to outside organizations, each tenant with its own isolated data and access rules.
 - Architected multi-tenancy across the platform.
 - Built a dynamic RBAC system (runtime-configurable, not hardcoded).
 - Designed organization-level data isolation using a multi-schema approach, with per-organization customization.
@@ -91,12 +93,12 @@ The products below are a selected, representative set — not the full list of w
 - **Phased, ordered import:** migrated in dependency order — users, then teams, then boards, then tasks — bulk-imported in bounded batches, with parent/child task relationships handled via a two-pass recursive seeding step. The full sequence was validated end-to-end against a staging database before running against production.
 
 ### 3.6 Salon Booking Platform *(new product, architected August 2026 onward)*
-**What it is:** A new multi-tenant SaaS product — separate from the five Edtech products above — where individual salons register, get their own salon website, and let their customers book either a specific service or a specific stylist/professional.
+**What it is:** A new multi-tenant SaaS product — separate from the five FUNIBER products above — where individual salons register, get their own salon website, and let their customers book either a specific service or a specific stylist/professional.
 - Architected the product end to end as a net-new build, not an extension of an existing platform.
 - Integrated Stripe across two distinct billing surfaces: the platform's own subscription revenue (salons paying to use the SaaS) and tenant-level payments for the services a salon's own customers book.
 
 ### 3.7 Subscription Service *(shared platform service, architected as Software Architect)*
-**What it is:** A generic, reusable subscription and billing service shared by all of the organization's products, so each product doesn't have to build its own payment and plan flow.
+**What it is:** A generic, reusable subscription and billing service (one service, built once) designed to be shared across the organization's products, so each product doesn't have to build its own payment and plan flow.
 - Designed the service around Stripe for payment processing, with plans and subscriptions managed centrally rather than per product.
 - Implemented Stripe webhooks to confirm payments and keep subscription state in sync.
 - Implemented a retry mechanism for failed payments.
@@ -107,8 +109,10 @@ The products below are a selected, representative set — not the full list of w
 
 Work that isn't scoped to a single product but applies across all of them:
 
-- **Deployment:** every project above is deployed through a standardized pipeline — Acens, GitLab CI/CD, Kubernetes, and Docker.
-- **Resilient Message Handling:** implemented the inbox/outbox pattern as the organization's standard approach to reliable messaging; now used across all services.
+- **Deployment:** every project runs on Kubernetes on Acens Cloud (a Spain-based cloud provider), one namespace per project with its own TLS config. GitLab CI pipeline: build → test → SonarQube → submit test report → deploy. Only the Next.js frontend is exposed through an Ingress; backends are private and reached over internal cluster networking.
+- **Architecture shift:** new projects moved from microservices to a modular monolith in 2025 (existing projects unchanged). Each module keeps its own boundary and runs its message consumers as a separate Kubernetes Deployment; the outbox dispatcher runs as a Kubernetes CronJob.
+- **Testing:** TDD on company projects, with tests for every entity, handler, controller, processor and third-party integration, run in CI alongside SonarQube.
+- **Resilient Message Handling:** implemented the inbox/outbox pattern on RabbitMQ as the organization's standard approach to reliable messaging; now used across all services.
 - **Backend architecture standard:** Domain-Driven Design, SOLID principles, and CQRS applied across backend projects.
 - **Frontend architecture standard:** Feature-Sliced Design (FSD) applied across frontend projects.
 
@@ -131,15 +135,17 @@ Both were client engagements with full platform ownership — end-to-end deliver
 
 | Project | Description | Problem Addressed | Stack |
 |---|---|---|---|
-| **Axon** | Chrome extension, vision-to-action layer | Automates web workflows — form-filling and content scraping — by having GPT-4o Vision interpret the page directly rather than relying on brittle DOM selectors | GPT-4o Vision, Chrome Extension API |
+| **Axon** | Free Chrome extension, vision-to-action layer, 100+ users on the Chrome Web Store | Automates web workflows — form-filling and content scraping — by having GPT-4o Vision interpret the page directly rather than relying on brittle DOM selectors | GPT-4o Vision, Chrome Extension API |
 | **CodeMind** | Offline semantic search and AI chat over local codebases | Enables natural-language queries against a codebase without transmitting source code to the cloud | Tauri, Next.js, local LLMs |
 | **Local Lens** | Privacy-first OCR and object detection, fully offline | Vision inference (OCR, ResNet50 object detection) with no network calls; all processing runs on-device | Rust, ONNX Runtime, ResNet50 |
-| **Redis Lite** | Multi-threaded Redis RESP protocol implementation | Low-latency key-value operations implemented from the protocol level up, as a concurrency exercise | Rust, multithreading, RESP |
-| **Rust Load Balancer** | Layer-4 load balancer (Tokio) | Round Robin and IP Hash routing algorithms for high-concurrency TCP traffic | Rust, Tokio, TCP/IP |
+| **Redis Lite** | Hobby: async key-value server speaking a subset of Redis RESP (GET/SET/DELETE/PING), with key expiry and file persistence | Learning exercise in protocol parsing and async Rust | Rust, Tokio, RESP |
+| **Rust Load Balancer** | Hobby: async HTTP (Layer-7) reverse proxy | Six pluggable strategies: round robin, weighted round robin, least connections, IP hash, URL hash, random | Rust, Tokio, hyper |
 | **FileBridge** | Turns a local folder into a file-sharing server | Cross-device file I/O via QR-code pairing without a cloud intermediary | Node.js, networking |
 | **Ask AI Web** | Chat interface for LLMs and custom GPTs | Streaming responses and conversation-history management over multiple LLM backends | Next.js, Vercel AI SDK, Tailwind |
 
-**Observed pattern:** the personal-project set skews toward offline-first/privacy-first systems work (CodeMind, Local Lens, FileBridge) and low-level performance/concurrency work (Redis Lite, Rust Load Balancer) — self-directed exploration distinct from both the client work in 5.1 and the enterprise product work at the primary employer. Applied AI (Axon, CodeMind) is a recurring thread here, separate from the applied-AI work done for a client (Maity).
+**Note:** personal projects are hobby work, mostly built with AI coding agents (design and review by Uttam).
+
+**Observed pattern:** the personal-project set skews toward offline-first/privacy-first systems work (CodeMind, Local Lens, FileBridge) and Rust learning projects (Redis Lite, Rust Load Balancer) — self-directed exploration distinct from both the client work in 5.1 and the enterprise product work at the primary employer. Applied AI (Axon, CodeMind) is a recurring thread here, separate from the applied-AI work done for a client (Maity).
 
 ---
 
@@ -153,8 +159,8 @@ Both were client engagements with full platform ownership — end-to-end deliver
 
 ## 7. Summary
 
-Five distinct Edtech products, all built for FUNIBER through its subsidiary Zenmonk — IBMS, Question Management Bank, Attendance Control App, Survey Builder, and Padmasana — sit under a single, consistent engineering foundation: DDD/SOLID/CQRS on the backend, FSD on the frontend, inbox/outbox messaging org-wide, and a standardized Kubernetes/Docker/GitLab CI/CD deployment pipeline across all of them.
+Five distinct products, all built for FUNIBER through its technology subsidiary Zenmonk — IBMS, Question Management Bank, Attendance Control App, Survey Builder, and Padmasana — sit under a single, consistent engineering foundation: DDD/SOLID/CQRS on the backend, FSD on the frontend, inbox/outbox messaging org-wide, and a standardized Kubernetes/Docker/GitLab CI/CD deployment pipeline across all of them.
 
-The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasana's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — a legacy-data-migration pipeline into Padmasana (job-queue-driven extraction, rate-limit-aware parallel processing, phased production rollout), a new multi-tenant salon booking platform architected from scratch, and a generic Stripe-based subscription service shared across all products.
+The role progression tracks a shift from single-product execution (Question Management Bank, Attendance Control App) to cross-product architecture ownership (IBMS's multi-tenancy/RBAC design, Padmasana's domain modeling, and setting the org-wide messaging and architecture standards used everywhere else), and now, at the Software Architect stage, to organization-wide scope beyond any single product team — a legacy-data-migration pipeline into Padmasana (job-queue-driven extraction, rate-limit-aware parallel processing, phased production rollout), a new multi-tenant salon booking platform architected from scratch, and a generic Stripe-based subscription service designed to be shared across products.
 
 Outside the primary employer, two different bodies of work exist side by side: freelance client platforms (Buck, Maity) delivered end-to-end with full ownership, and self-directed personal projects that run on a different axis entirely — systems programming (Rust) and offline/local-first AI. The freelance work is closest in shape to the day job (product ownership, real users, deployment); the personal projects are closer to R&D, relevant when targeting roles with a systems or AI-infrastructure emphasis rather than pure product engineering.
